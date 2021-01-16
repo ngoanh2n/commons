@@ -1,0 +1,12 @@
+#
+# @author Ho Huu Ngoan (ngoanh2n@gmail.com)
+#
+language: java
+install: true
+
+os: linux
+dist: trusty
+jdk: oraclejdk8
+
+script:
+  - ./gradlew clean test
