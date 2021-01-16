@@ -8,6 +8,10 @@ description(property("description"))
 
 apply plugin: "java"
 apply plugin: "idea"
+apply plugin: "signing"
+apply plugin: "java-library"
+apply plugin: "maven-publish"
+apply plugin: "com.bmuschko.nexus"
 
 ext {
     ENCODING                        = "UTF-8"
@@ -44,6 +48,10 @@ buildscript {
         mavenCentral()
         maven { url "https://plugins.gradle.org/m2/" }
     }
+    dependencies {
+        classpath "com.bmuschko:gradle-nexus-plugin:2.3.1"
+    }
 }
 
 apply from: rootProject.file("gradle/testing.gradle")
+apply from: rootProject.file("gradle/publishing.gradle")
