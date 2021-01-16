@@ -13,6 +13,7 @@ ext {
     ENCODING                        = "UTF-8"
     GOOGLE_GUAVA_VERSION            = "30.1-jre"
     APACHE_COMMONS_IO_VERSION       = "2.8.0"
+    JUNIVERSAL_CHARDET_VERSION      = "2.4.0"
     JUNIT5_JUPITER_VERSION          = "5.7.0"
 }
 
@@ -30,6 +31,7 @@ repositories {
 dependencies {
     implementation("com.google.guava:guava:${GOOGLE_GUAVA_VERSION}")
     implementation("commons-io:commons-io:${APACHE_COMMONS_IO_VERSION}")
+    implementation("com.github.albfernandez:juniversalchardet:$JUNIVERSAL_CHARDET_VERSION")
     testImplementation("org.junit.jupiter:junit-jupiter-api:${JUNIT5_JUPITER_VERSION}")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:${JUNIT5_JUPITER_VERSION}")
 }
