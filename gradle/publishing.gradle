@@ -1,0 +1,55 @@
+/**
+ * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
+ * @since 2021-01-16
+ */
+tasks.withType(Javadoc) {
+    options.addStringOption("encoding", ENCODING)
+    options.addStringOption("Xdoclint:none", "-quiet")
+}
+
+modifyPom {
+    project {
+        name "commons"
+        inceptionYear "2021"
+        url "https://github.com/ngoanh2n/commons"
+        description "Private Common Utilities for io.github.ngoanh2n's libraries"
+
+        scm {
+            url "http://github.com/ngoanh2n/commons/tree/master"
+            connection "scm:git:git://github.com/ngoanh2n/commons.git"
+            developerConnection "scm:git:ssh://github.com/ngoanh2n/commons.git"
+        }
+
+        licenses {
+            license {
+                name "MIT"
+                url "https://opensource.org/licenses/MIT"
+            }
+        }
+
+        developers {
+            developer {
+                id "ngoanh2n"
+                name "Ho Huu Ngoan"
+                email "ngoanh2n@gmail.com"
+                organizationUrl "https://ngoanh2n.github.io"
+                roles {
+                    role "Owner"
+                    role "Developer"
+                }
+            }
+        }
+    }
+}
+
+extraArchive {
+    tests = true
+    sources = true
+    javadoc = true
+}
+
+nexus {
+    sign = true
+    repositoryUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+    snapshotRepositoryUrl = "https://oss.sonatype.org/content/repositories/snapshots/"
+}
