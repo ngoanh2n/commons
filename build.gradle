@@ -1,19 +1,43 @@
-plugins {
-    id 'java'
+/**
+ * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
+ * @since 2021-01-16
+ */
+group(property("group"))
+version(property("version"))
+description(property("description"))
+
+apply plugin: "java"
+apply plugin: "idea"
+
+ext {
+    ENCODING                        = "UTF-8"
+    GOOGLE_GUAVA_VERSION            = "30.1-jre"
+    APACHE_COMMONS_IO_VERSION       = "2.8.0"
+    JUNIT5_JUPITER_VERSION          = "5.7.0"
 }
 
-group 'io.github.ngoanh2n'
-version '1.0-SNAPSHOT'
+[compileJava, compileTestJava]*.sourceCompatibility = 1.8
+[compileJava, compileTestJava]*.targetCompatibility = 1.8
+[compileJava, compileTestJava]*.options.collect { options -> options.debug = true }
+[compileJava, compileTestJava]*.options.collect { options -> options.encoding = ENCODING }
 
 repositories {
+    jcenter()
     mavenCentral()
+    maven { url "https://plugins.gradle.org/m2/" }
 }
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+    implementation("com.google.guava:guava:${GOOGLE_GUAVA_VERSION}")
+    implementation("commons-io:commons-io:${APACHE_COMMONS_IO_VERSION}")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${JUNIT5_JUPITER_VERSION}")
+    testImplementation("org.junit.jupiter:junit-jupiter-engine:${JUNIT5_JUPITER_VERSION}")
 }
 
-test {
-    useJUnitPlatform()
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
 }
