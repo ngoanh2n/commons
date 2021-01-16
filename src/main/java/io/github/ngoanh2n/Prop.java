@@ -7,7 +7,7 @@ import java.net.URL;
  *
  * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
  * @version 1.0.0
- * @since 2020-01-16
+ * @since 2021-01-16
  */
 public class Prop<T> {
 
