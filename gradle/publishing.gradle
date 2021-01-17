@@ -12,7 +12,7 @@ modifyPom {
         name "commons"
         inceptionYear "2021"
         url "https://github.com/ngoanh2n/commons"
-        description "Internal common utilities for io.github.ngoanh2n's libraries"
+        description "Internal utilities for io.github.ngoanh2n's libraries."
 
         scm {
             url "http://github.com/ngoanh2n/commons/tree/master"
