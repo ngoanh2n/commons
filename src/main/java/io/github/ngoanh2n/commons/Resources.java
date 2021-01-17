@@ -43,7 +43,7 @@ public class Resources {
      * @return {@code true} if and only if the file exists; {@code false} otherwise
      */
     public static boolean exists(@Nonnull final String resourceName) {
-        return url(resourceName) != null;
+        return getUrl(resourceName) != null;
     }
 
     /**
@@ -53,8 +53,8 @@ public class Resources {
      *                     e.g. com/foo/File.properties
      * @return {@linkplain Path} of resource if the file exists; {@linkplain ResourceNotFound } otherwise
      */
-    public static Path path(@Nonnull final String resourceName) {
-        URL resource = url(resourceName);
+    public static Path getPath(@Nonnull final String resourceName) {
+        URL resource = getUrl(resourceName);
         if (resource != null) {
             return Paths.get(resource.getPath());
         } else {
@@ -69,8 +69,8 @@ public class Resources {
      *                     e.g. com/foo/File.properties
      * @return {@linkplain File} of resource if the file exists; {@linkplain ResourceNotFound } otherwise
      */
-    public static File file(@Nonnull final String resourceName) {
-        return path(resourceName).toFile();
+    public static File getFile(@Nonnull final String resourceName) {
+        return getPath(resourceName).toFile();
     }
 
     /**
@@ -80,9 +80,9 @@ public class Resources {
      *                     e.g. com/foo/File.properties
      * @return {@linkplain InputStream} if the file exists; {@linkplain ResourceNotFound } otherwise
      */
-    public static InputStream inputStream(@Nonnull final String resourceName) {
+    public static InputStream getInputStream(@Nonnull final String resourceName) {
         try {
-            return new FileInputStream(file(resourceName));
+            return new FileInputStream(getFile(resourceName));
         } catch (FileNotFoundException e) {
             throw new ResourceNotFound(resourceName);
         }
@@ -95,8 +95,8 @@ public class Resources {
      *                     e.g. com/foo/File.properties
      * @return {@linkplain String} if the file exists; {@linkplain ResourceNotFound } otherwise
      */
-    public static String fileToString(@Nonnull final String resourceName) {
-        return fileToString(resourceName, defaultCharset());
+    public static String getFileToString(@Nonnull final String resourceName) {
+        return getFileToString(resourceName, defaultCharset());
     }
 
     /**
@@ -107,8 +107,8 @@ public class Resources {
      * @param charset      the charset to use, null means platform default
      * @return {@linkplain String} if the file exists; {@linkplain ResourceNotFound } otherwise
      */
-    public static String fileToString(@Nonnull final String resourceName, @Nonnull final Charset charset) {
-        InputStream is = inputStream(resourceName);
+    public static String getFileToString(@Nonnull final String resourceName, @Nonnull final Charset charset) {
+        InputStream is = getInputStream(resourceName);
         try {
             return IOUtils.toString(is, charset);
         } catch (IOException e) {
@@ -116,16 +116,16 @@ public class Resources {
         }
     }
 
-    private static URL url(final String resourceName) {
+    private static URL getUrl(final String resourceName) {
         validResourceName(resourceName);
         if (!findOnClasspath.value()) {
             AtomicReference<URL> referenceUrl = new AtomicReference<>();
-            referenceUrl.set(url(resourceName, "test"));
+            referenceUrl.set(getUrl(resourceName, "test"));
 
             if (referenceUrl.get() != null) {
                 return referenceUrl.get();
             } else {
-                referenceUrl.set(url(resourceName, "main"));
+                referenceUrl.set(getUrl(resourceName, "main"));
                 if (referenceUrl.get() == null) {
                     return null;
                 } else {
@@ -137,7 +137,7 @@ public class Resources {
         }
     }
 
-    private static URL url(String resourceName, String src) {
+    private static URL getUrl(String resourceName, String src) {
         Path resources = Paths.get("src", src, "resources");
         try {
             Path resourcePath = Paths.get("", resourceName.split("/"));
