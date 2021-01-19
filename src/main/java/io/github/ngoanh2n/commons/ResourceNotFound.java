@@ -1,6 +1,6 @@
 package io.github.ngoanh2n.commons;
 
-import io.github.ngoanh2n.H2nException;
+import io.github.ngoanh2n.NgoanException;
 
 /**
  * Throws when could not find Java Resources
@@ -9,7 +9,7 @@ import io.github.ngoanh2n.H2nException;
  * @version 1.0.0
  * @since 2021-01-16
  */
-public class ResourceNotFound extends H2nException {
+public class ResourceNotFound extends NgoanException {
 
     public ResourceNotFound(String resourceName) {
         super("Resource not found: " + resourceName);
