@@ -7,19 +7,19 @@ package io.github.ngoanh2n;
  * @version 1.0.0
  * @since 2021-01-06
  */
-public class H2nException extends RuntimeException {
+public class NgoanException extends RuntimeException {
 
     private static final long serialVersionUID = 635198548542132913L;
 
-    public H2nException(String message) {
+    public NgoanException(String message) {
         super(message);
     }
 
-    public H2nException(Throwable cause) {
+    public NgoanException(Throwable cause) {
         super(cause);
     }
 
-    public H2nException(String message, Throwable cause) {
+    public NgoanException(String message, Throwable cause) {
         super(message, cause);
     }
 }

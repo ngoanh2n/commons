@@ -58,10 +58,10 @@ public class Prop<T> {
                 try {
                     result = (T) new URL(fromSystem);
                 } catch (Exception e) {
-                    throw new H2nException(e);
+                    throw new NgoanException(e);
                 }
             } else {
-                throw new H2nException("Type " + type.getTypeName() + " cannot be parsed");
+                throw new NgoanException("Type " + type.getTypeName() + " cannot be parsed");
             }
             return result;
         }
