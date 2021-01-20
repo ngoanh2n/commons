@@ -12,20 +12,25 @@ apply plugin: "signing"
 apply plugin: "java-library"
 apply plugin: "maven-publish"
 apply plugin: "com.bmuschko.nexus"
+apply plugin: "io.freefair.lombok"
 
-ext {
-    ENCODING                        = "UTF-8"
-    GOOGLE_GUAVA_VERSION            = "30.1-jre"
-    APACHE_COMMONS_IO_VERSION       = "2.8.0"
-    CSV_PARSER_VERSION              = "2.9.0"
-    JUNIVERSAL_CHARDET_VERSION      = "2.4.0"
-    JUNIT5_JUPITER_VERSION          = "5.7.0"
+buildscript {
+    apply from: "gradle/version.gradle"
+
+    repositories {
+        jcenter()
+        mavenCentral()
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+
+    dependencies {
+        classpath "com.bmuschko:gradle-nexus-plugin:${NEXUS_PLUGIN_VERSION}"
+        classpath "io.freefair.gradle:lombok-plugin:${LOMBOK_PLUGIN_VERSION}"
+    }
 }
 
-[compileJava, compileTestJava]*.sourceCompatibility = 1.8
-[compileJava, compileTestJava]*.targetCompatibility = 1.8
-[compileJava, compileTestJava]*.options.collect { options -> options.debug = true }
-[compileJava, compileTestJava]*.options.collect { options -> options.encoding = ENCODING }
+apply from: "gradle/testing.gradle"
+apply from: "gradle/publishing.gradle"
 
 repositories {
     jcenter()
@@ -42,16 +47,7 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-engine:${JUNIT5_JUPITER_VERSION}")
 }
 
-buildscript {
-    repositories {
-        jcenter()
-        mavenCentral()
-        maven { url "https://plugins.gradle.org/m2/" }
-    }
-    dependencies {
-        classpath "com.bmuschko:gradle-nexus-plugin:2.3.1"
-    }
-}
-
-apply from: rootProject.file("gradle/testing.gradle")
-apply from: rootProject.file("gradle/publishing.gradle")
+[compileJava, compileTestJava]*.sourceCompatibility = 1.8
+[compileJava, compileTestJava]*.targetCompatibility = 1.8
+[compileJava, compileTestJava]*.options.collect { options -> options.debug = true }
+[compileJava, compileTestJava]*.options.collect { options -> options.encoding = ENCODING }
