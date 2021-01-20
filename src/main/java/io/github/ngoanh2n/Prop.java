@@ -30,22 +30,22 @@ public class Prop<T> {
         this.defaultValue = defaultValue;
     }
 
-    public String name() {
-        return name;
-    }
-
-    public Class<T> type() {
-        return type;
-    }
-
     public void reset() {
         value = defaultValue;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public Class<T> getType() {
+        return type;
+    }
+
     @SuppressWarnings("unchecked")
-    public T value() {
-        String fromSystem = System.getProperty(this.name);
-        if (fromSystem == null) return this.value;
+    public T getValue() {
+        String fromSystem = System.getProperty(name);
+        if (fromSystem == null) return value;
         else {
             T result;
             if (type.equals(String.class)) {
@@ -58,18 +58,17 @@ public class Prop<T> {
                 try {
                     result = (T) new URL(fromSystem);
                 } catch (Exception e) {
-                    throw new NgoanException(e);
+                    throw new RuntimeError(e);
                 }
             } else {
-                throw new NgoanException("Type " + type.getTypeName() + " cannot be parsed");
+                throw new RuntimeError("Type " + type.getTypeName() + " cannot be parsed");
             }
             return result;
         }
     }
 
-
-    public void value(Object newValue) {
-        //noinspection unchecked
+    @SuppressWarnings("unchecked")
+    public void setValue(Object newValue) {
         this.value = (T) newValue;
     }
 }

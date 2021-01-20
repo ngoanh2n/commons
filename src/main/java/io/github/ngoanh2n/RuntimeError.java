@@ -7,19 +7,19 @@ package io.github.ngoanh2n;
  * @version 1.0.0
  * @since 2021-01-06
  */
-public class NgoanException extends RuntimeException {
+public class NgRuntimeException extends RuntimeException {
 
     private static final long serialVersionUID = 635198548542132913L;
 
-    public NgoanException(String message) {
+    public NgRuntimeException(String message) {
         super(message);
     }
 
-    public NgoanException(Throwable cause) {
+    public NgRuntimeException(Throwable cause) {
         super(cause);
     }
 
-    public NgoanException(String message, Throwable cause) {
+    public NgRuntimeException(String message, Throwable cause) {
         super(message, cause);
     }
 }
