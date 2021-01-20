@@ -5,8 +5,6 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
-import java.nio.charset.StandardCharsets;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -17,47 +15,41 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ResourcesTest {
 
-    private final String resourceName = "io/github/ngoanh2n/commons/file01.yml";
+    private final String validResource = "io/github/ngoanh2n/commons/file01.yml";
+    private final String invalidResource = "io/github/ngoanh2n/commons/file02.yml";
 
     @Test
     @Order(1)
     void existsTest() {
         assertThrows(NullPointerException.class, () -> Resources.exists(null));
         assertThrows(IllegalArgumentException.class, () -> Resources.exists(""));
-        assertTrue(Resources.exists(resourceName));
+        assertTrue(Resources.exists(validResource));
     }
 
     @Test
     @Order(2)
-    void getPathTest() {
-        assertNotNull(Resources.getPath(resourceName));
-        assertThrows(ResourceNotFound.class, () -> Resources.getPath("NotFoundFile.yml"));
+    void pathTest() {
+        assertNotNull(Resources.path(validResource));
+        assertThrows(ResourceNotFound.class, () -> Resources.path(invalidResource));
     }
 
     @Test
     @Order(3)
-    void getFileTest() {
-        assertNotNull(Resources.getFile(resourceName));
+    void fileTest() {
+        assertNotNull(Resources.file(validResource));
     }
 
     @Test
     @Order(4)
-    void getInputStreamTest() {
-        assertThrows(ResourceNotFound.class, () -> Resources.getInputStream("NotFoundFile.yml"));
-        assertNotNull(Resources.getInputStream(resourceName));
+    void inputStreamTest() {
+        assertThrows(ResourceNotFound.class, () -> Resources.inputStream(invalidResource));
+        assertNotNull(Resources.inputStream(validResource));
     }
 
     @Test
     @Order(5)
-    void getFileToStringTest1() {
-        assertThrows(ResourceNotFound.class, () -> Resources.getFileToString("NotFoundFile.yml", StandardCharsets.UTF_8));
-        assertNotNull(Resources.getFileToString(resourceName, StandardCharsets.UTF_8));
-    }
-
-    @Test
-    @Order(6)
-    void getFileToStringTest2() {
-        assertThrows(ResourceNotFound.class, () -> Resources.getFileToString("NotFoundFile.yml"));
-        assertNotNull(Resources.getFileToString(resourceName));
+    void fileToStringTest() {
+        assertThrows(ResourceNotFound.class, () -> Resources.fileToString(invalidResource));
+        assertNotNull(Resources.fileToString(validResource));
     }
 }
