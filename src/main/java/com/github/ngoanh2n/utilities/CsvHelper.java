@@ -1,4 +1,4 @@
-package io.github.ngoanh2n.commons;
+package com.github.ngoanh2n.utilities;
 
 import com.univocity.parsers.csv.CsvParser;
 import com.univocity.parsers.csv.CsvParserSettings;

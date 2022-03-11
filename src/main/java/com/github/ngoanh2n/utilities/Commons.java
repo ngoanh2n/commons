@@ -1,4 +1,4 @@
-package io.github.ngoanh2n.commons;
+package com.github.ngoanh2n.utilities;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

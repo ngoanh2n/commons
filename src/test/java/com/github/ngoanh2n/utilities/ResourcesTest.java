@@ -1,4 +1,4 @@
-package io.github.ngoanh2n.commons;
+package com.github.ngoanh2n.utilities;
 
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ResourcesTest {
 
-    private final String validResource = "io/github/ngoanh2n/commons/file01.yml";
+    private final String validResource = "com/github/ngoanh2n/commons/file01.yml";
     private final String invalidResource = "io/github/ngoanh2n/commons/file02.yml";
 
     @Test

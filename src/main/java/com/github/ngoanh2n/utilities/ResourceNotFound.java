@@ -1,6 +1,6 @@
-package io.github.ngoanh2n.commons;
+package com.github.ngoanh2n.utilities;
 
-import io.github.ngoanh2n.RuntimeError;
+import com.github.ngoanh2n.RuntimeError;
 
 /**
  * Throws when could not find Java Resources

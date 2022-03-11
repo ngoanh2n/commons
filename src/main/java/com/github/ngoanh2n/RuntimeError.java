@@ -1,4 +1,4 @@
-package io.github.ngoanh2n;
+package com.github.ngoanh2n;
 
 /**
  * Base runtime exception for io.github.ngoanh2n

@@ -1,7 +1,7 @@
-package io.github.ngoanh2n.commons;
+package com.github.ngoanh2n.utilities;
 
+import com.github.ngoanh2n.Prop;
 import com.google.common.base.Preconditions;
-import io.github.ngoanh2n.Prop;
 import org.apache.commons.io.IOUtils;
 
 import javax.annotation.Nonnull;
