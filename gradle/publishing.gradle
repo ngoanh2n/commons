@@ -12,12 +12,12 @@ modifyPom {
         name "utilities"
         inceptionYear "2021"
         url "https://github.com/ngoanh2n/utilities"
-        description "Internal utilities for com.github.ngoanh2n's libraries"
+        description "Utilities of com.github.ngoanh2n"
 
         scm {
-            url "http://github.com/ngoanh2n/commons/tree/master"
-            connection "scm:git:git://github.com/ngoanh2n/commons.git"
-            developerConnection "scm:git:ssh://github.com/ngoanh2n/commons.git"
+            url "http://github.com/ngoanh2n/utilities/tree/master"
+            connection "scm:git:git://github.com/ngoanh2n/utilities.git"
+            developerConnection "scm:git:ssh://github.com/ngoanh2n/utilities.git"
         }
 
         licenses {
