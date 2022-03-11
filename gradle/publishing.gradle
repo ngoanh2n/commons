@@ -3,7 +3,7 @@
  * @since 2021-01-16
  */
 tasks.withType(Javadoc) {
-    options.addStringOption("encoding", ENCODING)
+    options.addStringOption("encoding", "UTF-8")
     options.addStringOption("Xdoclint:none", "-quiet")
 }
 

@@ -3,7 +3,6 @@
  * @since 2021-01-16
  */
 ext {
-    ENCODING                        =   "UTF-8"
     GOOGLE_GUAVA_VERSION            =   "30.1-jre"
     APACHE_COMMONS_IO_VERSION       =   "2.8.0"
     CSV_PARSER_VERSION              =   "2.9.0"

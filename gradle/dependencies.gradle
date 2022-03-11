@@ -1,0 +1,13 @@
+/**
+ * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
+ * @since 2021-01-16
+ */
+dependencies {
+    implementation("com.google.guava:guava:${GOOGLE_GUAVA_VERSION}")
+    implementation("commons-io:commons-io:${APACHE_COMMONS_IO_VERSION}")
+    implementation("com.univocity:univocity-parsers:${CSV_PARSER_VERSION}")
+    implementation("com.github.albfernandez:juniversalchardet:$JUNIVERSAL_CHARDET_VERSION")
+
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${JUNIT5_JUPITER_VERSION}")
+    testImplementation("org.junit.jupiter:junit-jupiter-engine:${JUNIT5_JUPITER_VERSION}")
+}

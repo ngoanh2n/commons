@@ -14,8 +14,18 @@ apply plugin: "maven-publish"
 apply plugin: "com.bmuschko.nexus"
 apply plugin: "io.freefair.lombok"
 
+apply from: "gradle/testing.gradle"
+apply from: "gradle/publishing.gradle"
+apply from: "gradle/dependencies.gradle"
+
+repositories {
+    jcenter()
+    mavenCentral()
+    maven { url "https://plugins.gradle.org/m2/" }
+}
+
 buildscript {
-    apply from: "gradle/version.gradle"
+    apply from: "gradle/versions.gradle"
 
     repositories {
         jcenter()
@@ -29,25 +39,7 @@ buildscript {
     }
 }
 
-apply from: "gradle/testing.gradle"
-apply from: "gradle/publishing.gradle"
-
-repositories {
-    jcenter()
-    mavenCentral()
-    maven { url "https://plugins.gradle.org/m2/" }
-}
-
-dependencies {
-    implementation("com.google.guava:guava:${GOOGLE_GUAVA_VERSION}")
-    implementation("commons-io:commons-io:${APACHE_COMMONS_IO_VERSION}")
-    implementation("com.univocity:univocity-parsers:${CSV_PARSER_VERSION}")
-    implementation("com.github.albfernandez:juniversalchardet:$JUNIVERSAL_CHARDET_VERSION")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:${JUNIT5_JUPITER_VERSION}")
-    testImplementation("org.junit.jupiter:junit-jupiter-engine:${JUNIT5_JUPITER_VERSION}")
-}
-
 [compileJava, compileTestJava]*.sourceCompatibility = 1.8
 [compileJava, compileTestJava]*.targetCompatibility = 1.8
 [compileJava, compileTestJava]*.options.collect { options -> options.debug = true }
-[compileJava, compileTestJava]*.options.collect { options -> options.encoding = ENCODING }
+[compileJava, compileTestJava]*.options.collect { options -> options.encoding = "UTF-8" }

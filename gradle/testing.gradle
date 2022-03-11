@@ -12,7 +12,7 @@ tasks.withType(Test) {
         events "passed", "skipped", "failed"
     }
 
-    systemProperty("file.encoding", ENCODING)
+    systemProperty("file.encoding", "UTF-8")
     systemProperty("junit.jupiter.extensions.autodetection.enabled", "true")
 
     ignoreFailures = true
