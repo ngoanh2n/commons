@@ -1,7 +1,5 @@
-package com.github.ngoanh2n.utilities;
+package com.github.ngoanh2n;
 
-import com.github.ngoanh2n.ResourceNotFound;
-import com.github.ngoanh2n.Resources;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -18,8 +16,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ResourcesTest {
 
-    private final String validResource = "com/github/ngoanh2n/utilities/file01.yml";
-    private final String invalidResource = "io/github/ngoanh2n/utilities/file02.yml";
+    private final String validResource = "com/github/ngoanh2n/file01.yml";
+    private final String invalidResource = "com/github/ngoanh2n/file02.yml";
 
     @Test
     @Order(1)
