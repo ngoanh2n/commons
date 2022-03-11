@@ -1,4 +1,4 @@
-package com.github.ngoanh2n.utilities;
+package com.github.ngoanh2n;
 
 import com.github.ngoanh2n.RuntimeError;
 

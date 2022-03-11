@@ -1,12 +1,10 @@
-package com.github.ngoanh2n.utilities;
+package com.github.ngoanh2n;
 
-import com.github.ngoanh2n.Prop;
 import com.google.common.base.Preconditions;
 import org.apache.commons.io.IOUtils;
 
 import javax.annotation.Nonnull;
 import java.io.*;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
@@ -32,14 +30,14 @@ public class Resources {
     public static final Prop<Boolean> findOnClasspath = new Prop<>("ngoanh2n.findOnClasspath", Boolean.class, true);
 
     /**
-     * Check whether the resource exists
+     * Get the resource file
      *
      * @param resourceName is the name of resource <br>
      *                     e.g. com/foo/File.properties
-     * @return {@code true} if and only if the file exists; {@code false} otherwise
+     * @return {@linkplain File} of resource if the file exists; {@linkplain ResourceNotFound } otherwise
      */
-    public static boolean exists(@Nonnull final String resourceName) {
-        return url(resourceName) != null;
+    public static File getFile(@Nonnull final String resourceName) {
+        return file(resourceName);
     }
 
     /**
@@ -49,24 +47,8 @@ public class Resources {
      *                     e.g. com/foo/File.properties
      * @return {@linkplain Path} of resource if the file exists; {@linkplain ResourceNotFound } otherwise
      */
-    public static Path path(@Nonnull final String resourceName) {
-        URL resource = url(resourceName);
-        if (resource != null) {
-            return Paths.get(resource.getPath());
-        } else {
-            throw new ResourceNotFound(resourceName);
-        }
-    }
-
-    /**
-     * Get the resource file
-     *
-     * @param resourceName is the name of resource <br>
-     *                     e.g. com/foo/File.properties
-     * @return {@linkplain File} of resource if the file exists; {@linkplain ResourceNotFound } otherwise
-     */
-    public static File file(@Nonnull final String resourceName) {
-        return path(resourceName).toFile();
+    public static Path getPath(@Nonnull final String resourceName) {
+        return getFile(resourceName).toPath();
     }
 
     /**
@@ -76,8 +58,8 @@ public class Resources {
      *                     e.g. com/foo/File.properties
      * @return {@linkplain String} if the file exists; {@linkplain ResourceNotFound } otherwise
      */
-    public static String fileToString(@Nonnull final String resourceName) {
-        return fileToString(resourceName, Charset.defaultCharset());
+    public static String getContent(@Nonnull final String resourceName) {
+        return getContent(resourceName, Charset.defaultCharset());
     }
 
     /**
@@ -88,9 +70,9 @@ public class Resources {
      * @param charset      the charset to use, null means platform default
      * @return {@linkplain String} if the file exists; {@linkplain ResourceNotFound } otherwise
      */
-    public static String fileToString(@Nonnull final String resourceName, @Nonnull final Charset charset) {
-        InputStream is = inputStream(resourceName);
+    public static String getContent(@Nonnull final String resourceName, @Nonnull final Charset charset) {
         try {
+            InputStream is = getInputStream(resourceName);
             return IOUtils.toString(is, charset);
         } catch (IOException e) {
             throw new ResourceNotFound(e);
@@ -104,48 +86,57 @@ public class Resources {
      *                     e.g. com/foo/File.properties
      * @return {@linkplain InputStream} if the file exists; {@linkplain ResourceNotFound } otherwise
      */
-    public static InputStream inputStream(@Nonnull final String resourceName) {
+    public static InputStream getInputStream(@Nonnull final String resourceName) {
         try {
-            return new FileInputStream(file(resourceName));
+            return new FileInputStream(getFile(resourceName));
         } catch (FileNotFoundException e) {
             throw new ResourceNotFound(resourceName);
         }
     }
 
-    private static URL url(final String resourceName) {
-        validResourceName(resourceName);
-        if (!findOnClasspath.getValue()) {
-            AtomicReference<URL> referenceUrl = new AtomicReference<>();
-            referenceUrl.set(url(resourceName, "test"));
+    private static File file(final String resourceName) {
+        File file;
+        validateResourceName(resourceName);
 
-            if (referenceUrl.get() != null) {
-                return referenceUrl.get();
+        if (findOnClasspath.getValue()) {
+            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+            URL url = classLoader.getResource(resourceName);
+            file = (url == null) ? null : new File(url.getFile());
+        } else {
+            AtomicReference<File> refFile = new AtomicReference<>();
+            refFile.set(file(resourceName, "test"));
+
+            if (refFile.get() != null) {
+                file = refFile.get();
             } else {
-                referenceUrl.set(url(resourceName, "main"));
-                if (referenceUrl.get() == null) {
-                    return null;
+                refFile.set(file(resourceName, "main"));
+                if (refFile.get() == null) {
+                    file = null;
                 } else {
-                    return referenceUrl.get();
+                    file = refFile.get();
                 }
             }
+        }
+
+        if (file == null) {
+            throw new ResourceNotFound(resourceName);
         } else {
-            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-            return classLoader.getResource(resourceName);
+            File resourceFile = new File(file.getPath());
+            if (resourceFile.exists()) {
+                return resourceFile;
+            } else {
+                throw new ResourceNotFound(resourceName);
+            }
         }
     }
 
-    private static URL url(String resourceName, String src) {
-        Path resources = Paths.get("src", src, "resources");
-        try {
-            Path resourcePath = Paths.get("", resourceName.split("/"));
-            return resources.resolve(resourcePath).toFile().toURI().toURL();
-        } catch (MalformedURLException e) {
-            // Can't happen
-            throw new ResourceNotFound(e);
-        }
+    private static File file(String resourceName, String src) {
+        Path resourcesPath = Paths.get("src", src, "resources");
+        Path resourcePath = Paths.get("", resourceName.split("/"));
+        return resourcesPath.resolve(resourcePath).toFile();
     }
 
-    private static void validResourceName(final String resourceName) {
+    private static void validateResourceName(final String resourceName) {
         Preconditions.checkNotNull(resourceName, "Resource name cannot be null");
         Preconditions.checkArgument(resourceName.length() > 0, "Resource name cannot be empty");
     }

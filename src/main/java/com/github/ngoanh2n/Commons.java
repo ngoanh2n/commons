@@ -1,23 +1,27 @@
-package com.github.ngoanh2n.utilities;
+package com.github.ngoanh2n;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
-import org.mozilla.universalchardet.UniversalDetector;
 
 import javax.annotation.Nonnull;
-import java.io.File;
-import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Iterator;
 
 /**
- * Utilities relate to {@linkplain File}, {@linkplain Path}
+ * Common helpers and utilities
  *
  * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
  * @version 1.0.0
  * @since 2021-01-16
  */
-public class FileHelper {
+public class Commons {
+
+    public static String timeStamp() {
+        //noinspection SpellCheckingInspection
+        return new SimpleDateFormat("yyyyMMdd.HHmmss.SSS").format(new Date());
+    }
 
     @CanIgnoreReturnValue
     public static Path createDirectory(@Nonnull Path location) {
@@ -30,9 +34,5 @@ public class FileHelper {
             parentElement.toFile().mkdirs();
         }
         return location;
-    }
-
-    public static String charsetOf(@Nonnull File file) throws IOException {
-        return UniversalDetector.detectCharset(file);
     }
 }
