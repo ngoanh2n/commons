@@ -94,22 +94,22 @@ public class Resources {
         }
     }
 
-    private static File file(final String resourceName) {
+    private static File file(final String name) {
         File file;
-        validateResourceName(resourceName);
+        validate(name);
 
         if (findOnClasspath.getValue()) {
             ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-            URL url = classLoader.getResource(resourceName);
+            URL url = classLoader.getResource(name);
             file = (url == null) ? null : new File(url.getFile());
         } else {
             AtomicReference<File> refFile = new AtomicReference<>();
-            refFile.set(file(resourceName, "test"));
+            refFile.set(file(name, "test"));
 
             if (refFile.get() != null) {
                 file = refFile.get();
             } else {
-                refFile.set(file(resourceName, "main"));
+                refFile.set(file(name, "main"));
                 if (refFile.get() == null) {
                     file = null;
                 } else {
@@ -118,26 +118,21 @@ public class Resources {
             }
         }
 
-        if (file == null) {
-            throw new ResourceNotFound(resourceName);
-        } else {
+        if (file != null) {
             File resourceFile = new File(file.getPath());
-            if (resourceFile.exists()) {
-                return resourceFile;
-            } else {
-                throw new ResourceNotFound(resourceName);
-            }
+            if (resourceFile.exists()) return resourceFile;
         }
+        throw new ResourceNotFound(name);
     }
 
-    private static File file(String resourceName, String src) {
+    private static File file(String name, String src) {
         Path resourcesPath = Paths.get("src", src, "resources");
-        Path resourcePath = Paths.get("", resourceName.split("/"));
+        Path resourcePath = Paths.get("", name.split("/"));
         return resourcesPath.resolve(resourcePath).toFile();
     }
 
-    private static void validateResourceName(final String resourceName) {
-        Preconditions.checkNotNull(resourceName, "Resource name cannot be null");
-        Preconditions.checkArgument(resourceName.length() > 0, "Resource name cannot be empty");
+    private static void validate(String name) {
+        Preconditions.checkNotNull(name, "Resource name cannot be null");
+        Preconditions.checkArgument(name.length() > 0, "Resource name cannot be empty");
     }
 }
