@@ -2,9 +2,9 @@
  * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
  * @since 2021-01-16
  */
-group(property("group"))
-version(property("version"))
-description(property("description") as String)
+group(property("prj.groupId"))
+version(property("prj.version"))
+description(property("prj.description") as String)
 
 apply plugin: "java"
 apply plugin: "idea"
