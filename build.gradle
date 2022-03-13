@@ -11,8 +11,6 @@ apply plugin: "idea"
 apply plugin: "signing"
 apply plugin: "java-library"
 apply plugin: "maven-publish"
-apply plugin: "com.bmuschko.nexus"
-apply plugin: "io.freefair.lombok"
 
 apply from: "gradle/testing.gradle"
 apply from: "gradle/publishing.gradle"
@@ -34,8 +32,6 @@ buildscript {
     }
 
     dependencies {
-        classpath "com.bmuschko:gradle-nexus-plugin:${NEXUS_PLUGIN_VERSION}"
-        classpath "io.freefair.gradle:lombok-plugin:${LOMBOK_PLUGIN_VERSION}"
     }
 }
 
