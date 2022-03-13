@@ -10,6 +10,7 @@ apply plugin: "java"
 apply plugin: "idea"
 
 apply from: "gradle/testing.gradle"
+apply from: "gradle/compiling.gradle"
 apply from: "gradle/publishing.gradle"
 apply from: "gradle/dependencies.gradle"
 
@@ -28,11 +29,5 @@ buildscript {
         maven { url "https://plugins.gradle.org/m2/" }
     }
 
-    dependencies {
-    }
+    dependencies {}
 }
-
-[compileJava, compileTestJava]*.sourceCompatibility = 1.8
-[compileJava, compileTestJava]*.targetCompatibility = 1.8
-[compileJava, compileTestJava]*.options.collect { options -> options.debug = true }
-[compileJava, compileTestJava]*.options.collect { options -> options.encoding = "UTF-8" }
