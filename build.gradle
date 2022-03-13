@@ -8,9 +8,6 @@ description(property("prj.description") as String)
 
 apply plugin: "java"
 apply plugin: "idea"
-apply plugin: "signing"
-apply plugin: "java-library"
-apply plugin: "maven-publish"
 
 apply from: "gradle/testing.gradle"
 apply from: "gradle/publishing.gradle"

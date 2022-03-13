@@ -1,55 +1,74 @@
-/**
- * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
- * @since 2021-01-16
- */
-tasks.withType(Javadoc) {
-    options.addStringOption("encoding", "UTF-8")
-    options.addStringOption("Xdoclint:none", "-quiet")
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allJava
+    archiveClassifier = "sources"
 }
 
-modifyPom {
-    project {
-        name "utilities"
-        inceptionYear "2021"
-        url "https://github.com/ngoanh2n/utilities"
-        description "Utilities of com.github.ngoanh2n"
+task javadocJar(type: Jar) {
+    from javadoc
+    archiveClassifier = "javadoc"
+}
 
-        scm {
-            url "http://github.com/ngoanh2n/utilities/tree/master"
-            connection "scm:git:git://github.com/ngoanh2n/utilities.git"
-            developerConnection "scm:git:ssh://github.com/ngoanh2n/utilities.git"
-        }
+if (project.hasProperty("signing.keyId")) {
+    apply plugin: "signing"
+    apply plugin: "java-library"
+    apply plugin: "maven-publish"
 
-        licenses {
-            license {
-                name "MIT"
-                url "https://opensource.org/licenses/MIT"
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                artifactId = project.name
+                from components.java
+                artifact sourcesJar
+                artifact javadocJar
+
+                pom {
+                    name = project.name
+                    description = project.description
+                    url = "https://github.com/ngoanh2n/utilities"
+                    licenses {
+                        license {
+                            name = "MIT"
+                            url = "https://opensource.org/licenses/MIT"
+                        }
+                    }
+                    developers {
+                        developer {
+                            id = "ngoanh2n"
+                            name = "Ho Huu Ngoan"
+                            email = "ngoanh2n@gmail.com"
+                            organizationUrl = "https://github.com/ngoanh2n"
+                        }
+                    }
+                    scm {
+                        url = "https://github.com/ngoanh2n/utilities"
+                        connection = "scm:git:git://github.com/ngoanh2n/utilities.git"
+                        developerConnection = "scm:git:ssh://github.com/ngoanh2n/utilities.git"
+                    }
+                }
             }
         }
+        repositories {
+            maven {
+                def snapshotsRepoUrl = "https://oss.sonatype.org/content/repositories/snapshots/"
+                def releasesRepoUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+                url project.version.endsWith("SNAPSHOT") ? snapshotsRepoUrl : releasesRepoUrl
 
-        developers {
-            developer {
-                id "ngoanh2n"
-                name "Ho Huu Ngoan"
-                email "ngoanh2n@gmail.com"
-                organizationUrl "https://github.com/ngoanh2n"
-                roles {
-                    role "Owner"
-                    role "Developer"
+                credentials {
+                    username = "${sonatypeUsername}"
+                    password = "${sonatypePassword}"
                 }
             }
         }
     }
-}
 
-extraArchive {
-    tests = true
-    sources = true
-    javadoc = true
-}
+    signing {
+        sign publishing.publications.mavenJava
+    }
 
-nexus {
-    sign = true
-    repositoryUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
-    snapshotRepositoryUrl = "https://oss.sonatype.org/content/repositories/snapshots/"
+
+    javadoc {
+        if (JavaVersion.current().isJava9Compatible()) {
+            options.addBooleanOption("html5", true)
+        }
+    }
 }
