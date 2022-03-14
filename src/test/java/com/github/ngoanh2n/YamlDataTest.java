@@ -44,4 +44,17 @@ public class YamlDataTest {
         Assertions.assertEquals("v3", result.getF6().getF3());
         Assertions.assertEquals(2, result.getF6().getF4().size());
     }
+
+    @Test
+    void toModelUsingAnnotation() {
+        Data.Data4 result = new Data.Data4().toModel();
+        Assertions.assertEquals("v1", result.getF1());
+        Assertions.assertEquals("v2", result.getF2());
+    }
+
+    @Test
+    void noneResource() {
+        Assertions.assertThrows(ResourceNotFound.class, () -> new Data.Data2().toModel());
+        Assertions.assertThrows(ResourceNotFound.class, () -> new Data.Data3().toModels());
+    }
 }
