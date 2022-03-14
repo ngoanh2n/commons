@@ -1,12 +1,6 @@
 package com.github.ngoanh2n;
 
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
-
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.*;
 
 /**
  * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
@@ -16,33 +10,31 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ResourcesTest {
 
-    private final String validResource = "com/github/ngoanh2n/file01.yml";
-    private final String invalidResource = "com/github/ngoanh2n/file02.yml";
+    private final String valid = "com/github/ngoanh2n/Data1.yml";
+    private final String invalid = "com/github/ngoanh2n/Data.yml";
 
     @Test
     @Order(1)
-    void getPath() {
-        assertNotNull(Resources.getPath(validResource));
-        assertThrows(ResourceNotFound.class, () -> Resources.getPath(invalidResource));
+    void getFile() {
+        Assertions.assertNotNull(Resources.getFile(valid));
+        Assertions.assertThrows(ResourceNotFound.class, () -> Resources.getPath(invalid));
     }
 
     @Test
     @Order(2)
-    void getFile() {
-        assertNotNull(Resources.getFile(validResource));
+    void getPath() {
+        Assertions.assertNotNull(Resources.getPath(valid));
     }
 
     @Test
     @Order(3)
     void getInputStream() {
-        assertThrows(ResourceNotFound.class, () -> Resources.getInputStream(invalidResource));
-        assertNotNull(Resources.getInputStream(validResource));
+        Assertions.assertNotNull(Resources.getInputStream(valid));
     }
 
     @Test
     @Order(4)
     void getContent() {
-        assertThrows(ResourceNotFound.class, () -> Resources.getContent(invalidResource));
-        assertNotNull(Resources.getContent(validResource));
+        Assertions.assertNotNull(Resources.getContent(valid));
     }
 }
