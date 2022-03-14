@@ -1,7 +1,5 @@
 package com.github.ngoanh2n;
 
-import com.github.ngoanh2n.RuntimeError;
-
 /**
  * Throws when could not find Java Resources
  *
@@ -11,8 +9,8 @@ import com.github.ngoanh2n.RuntimeError;
  */
 public class ResourceNotFound extends RuntimeError {
 
-    public ResourceNotFound(String resourceName) {
-        super("Resource not found: " + resourceName);
+    public ResourceNotFound(String message) {
+        super(message);
     }
 
     public ResourceNotFound(Throwable cause) {

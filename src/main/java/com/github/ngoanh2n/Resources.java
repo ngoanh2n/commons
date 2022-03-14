@@ -133,6 +133,6 @@ public class Resources {
 
     private static void validate(String name) {
         Preconditions.checkNotNull(name, "Resource name cannot be null");
-        Preconditions.checkArgument(name.length() > 0, "Resource name cannot be empty");
+        Preconditions.checkArgument(name.trim().length() > 0, "Resource name cannot be empty");
     }
 }
