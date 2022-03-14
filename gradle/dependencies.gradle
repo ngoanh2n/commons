@@ -4,7 +4,9 @@
  */
 dependencies {
     implementation("com.google.guava:guava:${GUAVA_VER}")
+    implementation("org.yaml:snakeyaml:${SNAKE_YAML_VER}")
     implementation("commons-io:commons-io:${COMMONS_IO_VER}")
+    implementation("org.junit.jupiter:junit-jupiter:${JUPITER_VER}")
     implementation("com.univocity:univocity-parsers:${CSV_PARSER_VER}")
-    testImplementation("org.junit.jupiter:junit-jupiter:${JUPITER_VER}")
+    implementation("com.fasterxml.jackson.core:jackson-databind:${JACKSON_VER}")
 }
