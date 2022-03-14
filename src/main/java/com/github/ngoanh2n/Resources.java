@@ -36,7 +36,7 @@ public class Resources {
      *                     e.g. com/foo/File.properties
      * @return {@linkplain File} of resource if the file exists; {@linkplain ResourceNotFound } otherwise
      */
-    public static File getFile(@Nonnull final String resourceName) {
+    public static File getFile(@Nonnull String resourceName) {
         return file(resourceName);
     }
 
@@ -47,8 +47,23 @@ public class Resources {
      *                     e.g. com/foo/File.properties
      * @return {@linkplain Path} of resource if the file exists; {@linkplain ResourceNotFound } otherwise
      */
-    public static Path getPath(@Nonnull final String resourceName) {
+    public static Path getPath(@Nonnull String resourceName) {
         return getFile(resourceName).toPath();
+    }
+
+    /**
+     * Get the resource file as {@linkplain InputStream}
+     *
+     * @param resourceName is the name of resource <br>
+     *                     e.g. com/foo/File.properties
+     * @return {@linkplain InputStream} if the file exists; {@linkplain ResourceNotFound } otherwise
+     */
+    public static InputStream getInputStream(@Nonnull String resourceName) {
+        try {
+            return new FileInputStream(getFile(resourceName));
+        } catch (FileNotFoundException e) {
+            throw new ResourceNotFound(resourceName);
+        }
     }
 
     /**
@@ -58,7 +73,7 @@ public class Resources {
      *                     e.g. com/foo/File.properties
      * @return {@linkplain String} if the file exists; {@linkplain ResourceNotFound } otherwise
      */
-    public static String getContent(@Nonnull final String resourceName) {
+    public static String getContent(@Nonnull String resourceName) {
         return getContent(resourceName, Charset.defaultCharset());
     }
 
@@ -70,27 +85,12 @@ public class Resources {
      * @param charset      the charset to use, null means platform default
      * @return {@linkplain String} if the file exists; {@linkplain ResourceNotFound } otherwise
      */
-    public static String getContent(@Nonnull final String resourceName, @Nonnull final Charset charset) {
+    public static String getContent(@Nonnull String resourceName, @Nonnull Charset charset) {
         try {
             InputStream is = getInputStream(resourceName);
             return IOUtils.toString(is, charset);
         } catch (IOException e) {
             throw new ResourceNotFound(e);
-        }
-    }
-
-    /**
-     * Get the resource file as {@linkplain InputStream}
-     *
-     * @param resourceName is the name of resource <br>
-     *                     e.g. com/foo/File.properties
-     * @return {@linkplain InputStream} if the file exists; {@linkplain ResourceNotFound } otherwise
-     */
-    public static InputStream getInputStream(@Nonnull final String resourceName) {
-        try {
-            return new FileInputStream(getFile(resourceName));
-        } catch (FileNotFoundException e) {
-            throw new ResourceNotFound(resourceName);
         }
     }
 
