@@ -7,5 +7,5 @@ ext {
     COMMONS_IO_VER              =   "2.11.0"
     SNAKE_YAML_VER              =   "1.30"
     JACKSON_VER                 =   "2.13.2"
-    JUPITER_VER                 =   "5.7.0"
+    JUPITER_VER                 =   "5.8.2"
 }
