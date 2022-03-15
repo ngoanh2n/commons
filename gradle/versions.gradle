@@ -5,7 +5,6 @@
 ext {
     GUAVA_VER                   =   "30.1-jre"
     COMMONS_IO_VER              =   "2.11.0"
-    CSV_PARSER_VER              =   "2.9.0"
     JACKSON_VER                 =   "2.13.2"
     JUPITER_VER                 =   "5.7.0"
     SNAKE_YAML_VER              =   "1.30"
