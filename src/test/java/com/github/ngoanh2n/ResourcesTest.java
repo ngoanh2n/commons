@@ -16,25 +16,25 @@ public class ResourcesTest {
     @Test
     @Order(1)
     void getFile() {
-        Assertions.assertNotNull(Resources.getFile(valid));
-        Assertions.assertThrows(ResourceNotFound.class, () -> Resources.getPath(invalid));
+        Assertions.assertNotNull(Resource.getFile(valid));
+        Assertions.assertThrows(ResourceNotFound.class, () -> Resource.getPath(invalid));
     }
 
     @Test
     @Order(2)
     void getPath() {
-        Assertions.assertNotNull(Resources.getPath(valid));
+        Assertions.assertNotNull(Resource.getPath(valid));
     }
 
     @Test
     @Order(3)
     void getInputStream() {
-        Assertions.assertNotNull(Resources.getInputStream(valid));
+        Assertions.assertNotNull(Resource.getInputStream(valid));
     }
 
     @Test
     @Order(4)
     void getContent() {
-        Assertions.assertNotNull(Resources.getContent(valid));
+        Assertions.assertNotNull(Resource.getContent(valid));
     }
 }

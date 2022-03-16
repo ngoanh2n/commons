@@ -37,7 +37,7 @@ public class YamlData<Model> {
      * @return {@linkplain Map} if the file exists; {@linkplain ResourceNotFound } otherwise
      */
     public static Map<String, Object> toMap(String fromResource) {
-        InputStream is = Resources.getInputStream(fromResource);
+        InputStream is = Resource.getInputStream(fromResource);
         return new Yaml().loadAs(is, Map.class);
     }
 
@@ -82,7 +82,7 @@ public class YamlData<Model> {
             resourceName = getResourceFromAnnotation();
         }
         if (resourceName != null) {
-            return Resources.getInputStream(resourceName);
+            return Resource.getInputStream(resourceName);
         } else {
             throw new ResourceNotFound("Use @FromResource or call fromResource()");
         }
