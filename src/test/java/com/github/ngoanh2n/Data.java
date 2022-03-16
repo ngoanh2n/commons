@@ -6,90 +6,90 @@ public final class Data {
 
     public static final class Data1 extends YamlData<Data1> {
 
-        private String f1;
-        private String f2;
+        private String k1;
+        private String k2;
 
-        public String getF1() {
-            return f1;
+        public String getK1() {
+            return k1;
         }
 
-        public void setF1(String f1) {
-            this.f1 = f1;
+        public void setK1(String k1) {
+            this.k1 = k1;
         }
 
-        public String getF2() {
-            return f2;
+        public String getK2() {
+            return k2;
         }
 
-        public void setF2(String f2) {
-            this.f2 = f2;
+        public void setK2(String k2) {
+            this.k2 = k2;
         }
     }
 
     public static final class Data2 extends YamlData<Data2> {
 
-        private String f3;
-        private List<Data1> f4;
+        private String k3;
+        private List<Data1> k4;
 
-        public String getF3() {
-            return f3;
+        public String getK3() {
+            return k3;
         }
 
-        public void setF3(String f3) {
-            this.f3 = f3;
+        public void setK3(String k3) {
+            this.k3 = k3;
         }
 
-        public List<Data1> getF4() {
-            return f4;
+        public List<Data1> getK4() {
+            return k4;
         }
 
-        public void setF4(List<Data1> f4) {
-            this.f4 = f4;
+        public void setK4(List<Data1> k4) {
+            this.k4 = k4;
         }
     }
 
     public static final class Data3 extends YamlData<Data3> {
 
-        private String f5;
-        private Data2 f6;
+        private String k5;
+        private Data2 k6;
 
-        public String getF5() {
-            return f5;
+        public String getK5() {
+            return k5;
         }
 
-        public void setF5(String f5) {
-            this.f5 = f5;
+        public void setK5(String k5) {
+            this.k5 = k5;
         }
 
-        public Data2 getF6() {
-            return f6;
+        public Data2 getK6() {
+            return k6;
         }
 
-        public void setF6(Data2 f6) {
-            this.f6 = f6;
+        public void setK6(Data2 k6) {
+            this.k6 = k6;
         }
     }
 
     @FromResource("com/github/ngoanh2n/Data1.yml")
     public static final class Data4 extends YamlData<Data4> {
 
-        private String f1;
-        private String f2;
+        private String k1;
+        private String k2;
 
-        public String getF1() {
-            return f1;
+        public String getK1() {
+            return k1;
         }
 
-        public void setF1(String f1) {
-            this.f1 = f1;
+        public void setK1(String k1) {
+            this.k1 = k1;
         }
 
-        public String getF2() {
-            return f2;
+        public String getK2() {
+            return k2;
         }
 
-        public void setF2(String f2) {
-            this.f2 = f2;
+        public void setK2(String k2) {
+            this.k2 = k2;
         }
     }
 }

@@ -7,9 +7,7 @@ import java.io.InputStream;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Yaml file to Map, Model, List of Models.<br>
@@ -20,7 +18,7 @@ import java.util.Map;
  * @since 2021-01-16
  */
 @SuppressWarnings("unchecked")
-public class YamlData<Model> {
+public abstract class YamlData<Model> {
 
     private String resourceName;
     private Class<Model> modelClazz;
@@ -34,11 +32,42 @@ public class YamlData<Model> {
      *
      * @param fromResource is the name of resource <br>
      *                     e.g. com/foo/File.yml
-     * @return {@linkplain Map} if the file exists; {@linkplain ResourceNotFound } otherwise
+     * @return {@linkplain Map} if the file exists; <br>
+     * {@linkplain ResourceNotFound } otherwise; <br>
+     * Throws {@linkplain RuntimeError} when trying to read multiple object as single object
      */
     public static Map<String, Object> toMap(String fromResource) {
+        Object result = toObject(fromResource);
+        if (result instanceof LinkedHashMap) {
+            return (Map<String, Object>) result;
+        } else {
+            throw new RuntimeError("It's list, use toMaps() instead");
+        }
+    }
+
+    /**
+     * Read Yaml file as {@linkplain List} of {@linkplain Map}
+     *
+     * @param fromResource is the name of resource <br>
+     *                     e.g. com/foo/File.yml
+     * @return {@linkplain List} of {@linkplain Map} if the file exists;<br>
+     * {@linkplain ResourceNotFound } otherwise; <br>
+     * {@linkplain List} of {@linkplain Map} with one element when trying to single object as multiple object
+     */
+    public static List<Map<String, Object>> toMaps(String fromResource) {
+        Object result = toObject(fromResource);
+        if (result instanceof ArrayList) {
+            return (List<Map<String, Object>>) result;
+        } else {
+            return Collections.singletonList((Map<String, Object>) result);
+        }
+    }
+
+    private static Object toObject(String fromResource) {
         InputStream is = Resource.getInputStream(fromResource);
-        return new Yaml().loadAs(is, Map.class);
+        Iterator<Object> iterator = new Yaml().loadAll(is).iterator();
+        if (iterator.hasNext()) return iterator.next();
+        throw new RuntimeError("Yaml content is empty");
     }
 
     /**
@@ -66,7 +95,7 @@ public class YamlData<Model> {
     /**
      * Read Yaml file as a list of {@linkplain Model}s
      *
-     * @return the current instance of {@linkplain Model}
+     * @return list of instances for {@linkplain Model}
      */
     public List<Model> toModels() {
         InputStream is = getResource();
@@ -79,18 +108,14 @@ public class YamlData<Model> {
 
     private InputStream getResource() {
         if (resourceName == null) {
-            resourceName = getResourceFromAnnotation();
+            FromResource resourceAnn = getClass().getAnnotation(FromResource.class);
+            resourceName = resourceAnn == null ? null : resourceAnn.value();
         }
         if (resourceName != null) {
             return Resource.getInputStream(resourceName);
         } else {
             throw new ResourceNotFound("Use @FromResource or call fromResource()");
         }
-    }
-
-    private String getResourceFromAnnotation() {
-        FromResource resourceAnn = getClass().getAnnotation(FromResource.class);
-        return resourceAnn == null ? null : resourceAnn.value();
     }
 
     private Class<Model> getModelClazz() {

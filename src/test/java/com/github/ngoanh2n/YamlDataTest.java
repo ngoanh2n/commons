@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
@@ -13,43 +12,50 @@ import java.util.Map;
  */
 public class YamlDataTest {
 
-    private final String r1 = "com/github/ngoanh2n/Data1.yml";
-    private final String r2 = "com/github/ngoanh2n/Data2.yml";
-    private final String r3 = "com/github/ngoanh2n/Data3.yml";
+    private final String resource0 = "com/github/ngoanh2n/Data0.yml";
+    private final String resource1 = "com/github/ngoanh2n/Data1.yml";
+    private final String resource2 = "com/github/ngoanh2n/Data2.yml";
+    private final String resource3 = "com/github/ngoanh2n/Data3.yml";
 
     @Test
     void toMap() {
-        Map<String, Object> result = YamlData.toMap(r1);
-        Assertions.assertEquals("v1", result.get("f1"));
-        Assertions.assertEquals("v2", result.get("f2"));
+        Assertions.assertThrows(RuntimeError.class, () -> YamlData.toMap(resource0));
+        Assertions.assertEquals(2, YamlData.toMap(resource1).size());
+        Assertions.assertThrows(RuntimeError.class, () -> YamlData.toMap(resource2));
+    }
+
+    @Test
+    void toMaps() {
+        Assertions.assertEquals(1, YamlData.toMaps(resource1).size());
+        Assertions.assertEquals(2, YamlData.toMaps(resource2).size());
     }
 
     @Test
     void toModel() {
-        Data.Data1 result = new Data.Data1().fromResource(r1).toModel();
-        Assertions.assertEquals("v1", result.getF1());
-        Assertions.assertEquals("v2", result.getF2());
+        Data.Data1 result = new Data.Data1().fromResource(resource1).toModel();
+        Assertions.assertEquals("v1", result.getK1());
+        Assertions.assertEquals("v2", result.getK2());
     }
 
     @Test
-    void toStream() {
-        List<Data.Data1> results = new Data.Data1().fromResource(r2).toModels();
+    void toModels() {
+        List<Data.Data1> results = new Data.Data1().fromResource(resource2).toModels();
         Assertions.assertEquals(2, results.size());
     }
 
     @Test
     void toModelWrapper() {
-        Data.Data3 result = new Data.Data3().fromResource(r3).toModel();
-        Assertions.assertEquals("v5", result.getF5());
-        Assertions.assertEquals("v3", result.getF6().getF3());
-        Assertions.assertEquals(2, result.getF6().getF4().size());
+        Data.Data3 data3 = new Data.Data3().fromResource(resource3).toModel();
+        Assertions.assertEquals("v5", data3.getK5());
+        Assertions.assertEquals("v3", data3.getK6().getK3());
+        Assertions.assertEquals(2, data3.getK6().getK4().size());
     }
 
     @Test
     void toModelUsingAnnotation() {
-        Data.Data4 result = new Data.Data4().toModel();
-        Assertions.assertEquals("v1", result.getF1());
-        Assertions.assertEquals("v2", result.getF2());
+        Data.Data4 data4 = new Data.Data4().toModel();
+        Assertions.assertEquals("v1", data4.getK1());
+        Assertions.assertEquals("v2", data4.getK2());
     }
 
     @Test
