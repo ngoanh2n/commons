@@ -63,11 +63,18 @@ public abstract class YamlData<Model> {
         }
     }
 
-    private static Object toObject(String fromResource) {
-        InputStream is = Resource.getInputStream(fromResource);
-        Iterator<Object> iterator = new Yaml().loadAll(is).iterator();
+    private static Object toObject(String resourceName) {
+        return toObject(Resource.getInputStream(resourceName));
+    }
+
+    private static Object toObject(InputStream inputStream) {
+        Iterator<Object> iterator = new Yaml().loadAll(inputStream).iterator();
         if (iterator.hasNext()) return iterator.next();
         throw new RuntimeError("Yaml content is empty");
+    }
+
+    private void setResourceName(String value) {
+        resourceName = value;
     }
 
     /**
@@ -83,27 +90,47 @@ public abstract class YamlData<Model> {
     }
 
     /**
-     * Read Yaml file as a {@linkplain Model}
+     * Read Yaml file as {@linkplain Model}
      *
-     * @return the current instance of {@linkplain Model}
+     * @return {@linkplain Model} if the file exists; <br>
+     * {@linkplain ResourceNotFound } otherwise; <br>
+     * Throws {@linkplain RuntimeError} when trying to read multiple object as single object
      */
     public Model toModel() {
         InputStream is = getResource();
-        return new Yaml().loadAs(is, modelClazz);
+        Object result = toObject(is);
+
+        if (result instanceof LinkedHashMap) {
+            return mapToModel((Map<String, Object>) result);
+        } else {
+            throw new RuntimeError("It's list, use toModels() instead");
+        }
     }
 
     /**
-     * Read Yaml file as a list of {@linkplain Model}s
+     * Read Yaml file as {@linkplain List} of {@linkplain Model}
      *
-     * @return list of instances for {@linkplain Model}
+     * @return {@linkplain List} of {@linkplain Model} if the file exists;<br>
+     * {@linkplain ResourceNotFound } otherwise; <br>
+     * {@linkplain List} of {@linkplain Model} with one element when trying to single object as multiple object
      */
     public List<Model> toModels() {
         InputStream is = getResource();
-        ObjectMapper om = new ObjectMapper();
+        Object result = toObject(is);
         List<Model> models = new ArrayList<>();
-        Iterable<Object> objects = new Yaml().loadAs(is, List.class);
-        objects.forEach(object -> models.add(om.convertValue(object, modelClazz)));
+
+        if (result instanceof ArrayList) {
+            List<Map<String, Object>> maps = (List<Map<String, Object>>) result;
+            maps.forEach(map -> models.add(mapToModel(map)));
+        } else {
+            models.add(mapToModel((Map<String, Object>) result));
+        }
         return models;
+    }
+
+    private Model mapToModel(Map<String, Object> map) {
+        map.put("resourceName", resourceName);
+        return new ObjectMapper().convertValue(map, modelClazz);
     }
 
     private InputStream getResource() {
