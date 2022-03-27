@@ -70,8 +70,31 @@ public final class Data {
         }
     }
 
-    @FromResource("com/github/ngoanh2n/Data1.yml")
+    @YamlFrom(resource = "com/github/ngoanh2n/Data1.yml")
     public static final class Data4 extends YamlData<Data4> {
+
+        private String k1;
+        private String k2;
+
+        public String getK1() {
+            return k1;
+        }
+
+        public void setK1(String k1) {
+            this.k1 = k1;
+        }
+
+        public String getK2() {
+            return k2;
+        }
+
+        public void setK2(String k2) {
+            this.k2 = k2;
+        }
+    }
+
+    @YamlFrom(file = "src/test/resources/com/github/ngoanh2n/Data1.yml")
+    public static final class Data5 extends YamlData<Data5> {
 
         private String k1;
         private String k2;
