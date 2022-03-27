@@ -11,7 +11,6 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 /**
@@ -38,10 +37,10 @@ public abstract class YamlData<Model> {
      * @param name is the name of file <br>
      *             e.g. src/test/resources/com/foo/File.yml
      * @return {@linkplain Map} if the file exists; <br>
-     * {@linkplain RuntimeError } file doesn't exist or read multiple object as single object
+     * {@linkplain RuntimeError } if the file doesn't exist or read multiple object as single object
      */
     public static Map<String, Object> toMapFromFile(String name) {
-        return toMapFromFile(name, StandardCharsets.UTF_8);
+        return toMapFromFile(name, Charset.defaultCharset());
     }
 
     /**
@@ -51,7 +50,7 @@ public abstract class YamlData<Model> {
      *             e.g. src/test/resources/com/foo/File.yml
      * @param cs   is a Charset
      * @return {@linkplain Map} if the file exists; <br>
-     * {@linkplain RuntimeError } file doesn't exist or read multiple object as single object
+     * {@linkplain RuntimeError } if the file doesn't exist or read multiple object as single object
      */
     public static Map<String, Object> toMapFromFile(String name, Charset cs) {
         InputStream is = getInputStream(name);
@@ -64,10 +63,10 @@ public abstract class YamlData<Model> {
      * @param name is the name of resource <br>
      *             e.g. com/foo/File.yml
      * @return {@linkplain Map} if the file exists; <br>
-     * {@linkplain RuntimeError } file doesn't exist or read multiple object as single object
+     * {@linkplain RuntimeError } if the file doesn't exist or read multiple object as single object
      */
     public static Map<String, Object> toMapFromResource(String name) {
-        return toMapFromResource(name, StandardCharsets.UTF_8);
+        return toMapFromResource(name, Charset.defaultCharset());
     }
 
     /**
@@ -77,7 +76,7 @@ public abstract class YamlData<Model> {
      *             e.g. com/foo/File.yml
      * @param cs   is a Charset
      * @return {@linkplain Map} if the file exists; <br>
-     * {@linkplain RuntimeError } file doesn't exist or read multiple object as single object
+     * {@linkplain RuntimeError } if the file doesn't exist or read multiple object as single object
      */
     public static Map<String, Object> toMapFromResource(String name, Charset cs) {
         InputStream is = Resource.getInputStream(name);
@@ -102,7 +101,7 @@ public abstract class YamlData<Model> {
      * {@linkplain RuntimeError } otherwise
      */
     public static List<Map<String, Object>> toMapsFromFile(String name) {
-        return toMapsFromFile(name, StandardCharsets.UTF_8);
+        return toMapsFromFile(name, Charset.defaultCharset());
     }
 
     /**
@@ -128,7 +127,7 @@ public abstract class YamlData<Model> {
      * {@linkplain RuntimeError } otherwise
      */
     public static List<Map<String, Object>> toMapsFromResource(String name) {
-        return toMapsFromResource(name, StandardCharsets.UTF_8);
+        return toMapsFromResource(name, Charset.defaultCharset());
     }
 
     /**
@@ -192,11 +191,10 @@ public abstract class YamlData<Model> {
      * Read Yaml file as {@linkplain Model}
      *
      * @return {@linkplain Model} if the file exists; <br>
-     * {@linkplain ResourceNotFound } otherwise; <br>
-     * Throws {@linkplain RuntimeError} when trying to read multiple object as single object
+     * Throws {@linkplain RuntimeError} if the file doesn't exist or read multiple object as single object
      */
     public Model toModel() {
-        return toModel(StandardCharsets.UTF_8);
+        return toModel(Charset.defaultCharset());
     }
 
     /**
@@ -204,8 +202,7 @@ public abstract class YamlData<Model> {
      *
      * @param cs is a Charset
      * @return {@linkplain Model} if the file exists; <br>
-     * {@linkplain ResourceNotFound } otherwise; <br>
-     * Throws {@linkplain RuntimeError} when trying to read multiple object as single object
+     * Throws {@linkplain RuntimeError} if the file doesn't exist or read multiple object as single object
      */
     public Model toModel(Charset cs) {
         InputStream is = getInputStream();
@@ -222,11 +219,11 @@ public abstract class YamlData<Model> {
      * Read Yaml file as {@linkplain List} of {@linkplain Model}
      *
      * @return {@linkplain List} of {@linkplain Model} if the file exists;<br>
-     * {@linkplain ResourceNotFound } otherwise; <br>
      * {@linkplain List} of {@linkplain Model} with one element when trying to single object as multiple object
+     * Throws {@linkplain RuntimeError} if the file doesn't exist
      */
     public List<Model> toModels() {
-        return toModels(StandardCharsets.UTF_8);
+        return toModels(Charset.defaultCharset());
     }
 
     /**
@@ -234,8 +231,8 @@ public abstract class YamlData<Model> {
      *
      * @param cs is a Charset
      * @return {@linkplain List} of {@linkplain Model} if the file exists;<br>
-     * {@linkplain ResourceNotFound } otherwise; <br>
      * {@linkplain List} of {@linkplain Model} with one element when trying to single object as multiple object
+     * Throws {@linkplain RuntimeError} if the file doesn't exist
      */
     public List<Model> toModels(Charset cs) {
         InputStream is = getInputStream();
