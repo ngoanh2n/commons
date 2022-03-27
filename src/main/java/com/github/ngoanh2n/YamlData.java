@@ -162,8 +162,8 @@ public abstract class YamlData<Model> {
         }
     }
 
-    private static Object inputStreamToObject(InputStream is, Charset charset) {
-        InputStreamReader isr = new InputStreamReader(is, charset);
+    private static Object inputStreamToObject(InputStream is, Charset cs) {
+        InputStreamReader isr = new InputStreamReader(is, cs);
         Iterator<Object> iterator = new Yaml().loadAll(isr).iterator();
         if (iterator.hasNext()) return iterator.next();
         throw new RuntimeError("Yaml content is empty");
