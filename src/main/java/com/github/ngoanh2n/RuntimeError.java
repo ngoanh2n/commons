@@ -1,7 +1,7 @@
 package com.github.ngoanh2n;
 
 /**
- * Base runtime exception for io.github.ngoanh2n
+ * Base runtime exception for com.github.ngoanh2n
  *
  * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
  * @version 1.0.0
