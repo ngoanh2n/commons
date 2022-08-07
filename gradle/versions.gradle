@@ -3,9 +3,9 @@
  * @since 2021-01-16
  */
 ext {
-    GUAVA_VER                   =   "31.1-jre"
-    COMMONS_IO_VER              =   "2.11.0"
-    SNAKE_YAML_VER              =   "1.30"
-    JACKSON_VER                 =   "2.13.2"
-    JUPITER_VER                 =   "5.8.2"
+    VERSION_GUAVA                   =   "31.1-jre"
+    VERSION_COMMONS_IO              =   "2.11.0"
+    VERSION_SNAKE_YAML              =   "1.30"
+    VERSION_JACKSON                 =   "2.13.2"
+    VERSION_JUPITER                 =   "5.8.2"
 }
