@@ -5,7 +5,6 @@ import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import javax.annotation.Nonnull;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.text.DateFormat;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
