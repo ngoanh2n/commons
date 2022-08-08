@@ -4,9 +4,9 @@
 version: 2.1
 
 parameters:
-  platform_windows: { type: string, default: windows }
-  platform_macos: { type: string, default: macos }
-  platform_linux: { type: string, default: linux }
+  os_windows: { type: string, default: windows }
+  os_macos: { type: string, default: macos }
+  os_linux: { type: string, default: linux }
 
 executors:
   executor_windows:
@@ -15,21 +15,21 @@ executors:
     shell: bash.exe
     resource_class: windows.medium
     environment:
-      OS: <<pipeline.parameters.platform_windows>>
+      OS: <<pipeline.parameters.os_windows>>
   executor_macos:
     macos:
       xcode: 13.4.1
     shell: /bin/bash
     resource_class: medium
     environment:
-      OS: <<pipeline.parameters.platform_macos>>
+      OS: <<pipeline.parameters.os_macos>>
   executor_linux:
     machine:
       image: ubuntu-2004:2022.07.1
     shell: /bin/bash
     resource_class: medium
     environment:
-      OS: <<pipeline.parameters.platform_linux>>
+      OS: <<pipeline.parameters.os_linux>>
 
 commands:
   env_prepare:
@@ -41,15 +41,15 @@ commands:
             chmod +x gradlew
 
             case $OS in
-              <<pipeline.parameters.platform_windows>>)
+              <<pipeline.parameters.os_windows>>)
                 choco feature enable -n allowGlobalConfirmation
                 choco install zip
               ;;
-              <<pipeline.parameters.platform_macos>>)
+              <<pipeline.parameters.os_macos>>)
                 brew update
                 brew install zip
               ;;
-              <<pipeline.parameters.platform_linux>>)
+              <<pipeline.parameters.os_linux>>)
                 sudo apt update
                 sudo apt install zip
               ;;
@@ -89,8 +89,8 @@ commands:
 jobs:
   build_and_test:
     parameters:
-      platform: { type: executor }
-    executor: <<parameters.platform>>
+      os: { type: executor }
+    executor: <<parameters.os>>
     steps:
       - env_prepare
       - cache_restore
@@ -103,13 +103,13 @@ workflows:
   test_execution:
     jobs:
       - build_and_test:
-          name: <<matrix.platform>>
+          name: <<matrix.os>>
           filters:
             branches:
               only: master
           matrix:
             parameters:
-              platform:
+              os:
                 - executor_windows
                 - executor_macos
                 - executor_linux
