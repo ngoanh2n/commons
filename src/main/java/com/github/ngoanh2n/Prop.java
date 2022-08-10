@@ -9,8 +9,8 @@ import java.net.URL;
  * @version 1.0.0
  * @since 2021-01-16
  */
+@SuppressWarnings("unchecked")
 public class Prop<T> {
-
     private T value;
     private final String name;
     private final Class<T> type;
@@ -30,10 +30,6 @@ public class Prop<T> {
         this.defaultValue = defaultValue;
     }
 
-    public void reset() {
-        value = defaultValue;
-    }
-
     public String getName() {
         return name;
     }
@@ -42,33 +38,39 @@ public class Prop<T> {
         return type;
     }
 
-    @SuppressWarnings("unchecked")
+    public void resetValue() {
+        value = defaultValue;
+    }
+
     public T getValue() {
-        String fromSystem = System.getProperty(name);
-        if (fromSystem == null) return value;
-        else {
-            T result;
-            if (type.equals(String.class)) {
-                result = (T) fromSystem;
-            } else if (type.equals(Integer.class)) {
-                result = (T) Integer.valueOf(fromSystem);
-            } else if (type.equals(Boolean.class)) {
-                result = (T) Boolean.valueOf(fromSystem);
-            } else if (type.equals(URL.class)) {
+        String sValue = System.getProperty(name);
+        if (sValue == null) {
+            return value;
+        } else {
+            if (type == URL.class) {
                 try {
-                    result = (T) new URL(fromSystem);
+                    return (T) new URL(sValue);
                 } catch (Exception e) {
                     throw new RuntimeError(e);
                 }
-            } else {
-                throw new RuntimeError("Type " + type.getTypeName() + " cannot be parsed");
             }
-            return result;
+            if (type == Byte.class) return (T) Byte.valueOf(sValue);
+            if (type == Long.class) return (T) Long.valueOf(sValue);
+            if (type == Short.class) return (T) Short.valueOf(sValue);
+            if (type == Float.class) return (T) Float.valueOf(sValue);
+            if (type == Double.class) return (T) Double.valueOf(sValue);
+            if (type == Integer.class) return (T) Integer.valueOf(sValue);
+            if (type == Boolean.class) return (T) Boolean.valueOf(sValue);
+            throw new RuntimeError("Type " + type.getTypeName() + " cannot be parsed");
         }
     }
 
-    @SuppressWarnings("unchecked")
     public void setValue(Object newValue) {
+        setValue(newValue, false);
+    }
+
+    public void setValue(Object newValue, boolean systemAlso) {
         this.value = (T) newValue;
+        if (systemAlso) System.setProperty(name, String.valueOf(newValue));
     }
 }
