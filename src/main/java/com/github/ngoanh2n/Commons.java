@@ -22,14 +22,13 @@ import java.util.Iterator;
         "ResultOfMethodCallIgnored",
 })
 public class Commons {
-
     public static String timeStamp() {
-        Format format = new SimpleDateFormat("yyyyMMdd.HHmmss.SSS");
-        return format.format(new Date());
+        Format dateFormat = new SimpleDateFormat("yyyyMMdd.HHmmss.SSS");
+        return dateFormat.format(new Date());
     }
 
     @CanIgnoreReturnValue
-    public static Path createDirectory(@Nonnull Path location) {
+    public static Path createDir(@Nonnull Path location) {
         Iterator<Path> elements = location.iterator();
         Path parentElement = Paths.get("");
 
