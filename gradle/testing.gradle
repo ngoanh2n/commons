@@ -2,7 +2,7 @@
  * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
  * @since 2021-01-16
  */
-tasks.withType(Test) {
+test {
     useJUnitPlatform() {
         includeEngines("junit-jupiter")
     }
