@@ -3,6 +3,7 @@ package com.github.ngoanh2n;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 
 import javax.annotation.Nonnull;
+import java.lang.reflect.Field;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.Format;
@@ -37,5 +38,16 @@ public class Commons {
             parentElement.toFile().mkdirs();
         }
         return location;
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T> T getPrivateField(Class<?> clazz, String name, Object instance) {
+        try {
+            Field field = clazz.getDeclaredField(name);
+            field.setAccessible(true);
+            return (T) field.get(instance);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            throw new RuntimeError(String.format("Error of private value [%s, %s]", clazz.getSimpleName(), name));
+        }
     }
 }

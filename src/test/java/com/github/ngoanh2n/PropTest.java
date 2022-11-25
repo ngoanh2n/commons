@@ -10,33 +10,32 @@ import org.junit.jupiter.api.Test;
  * @since 2022-04-11
  */
 public class PropTest {
-
     @BeforeEach
     void setValue() {
-        System.setProperty("prop", "passedValue");
+        System.setProperty("prop", "passed");
     }
 
     @Test
     void twoArgs() {
         Prop<String> prop = new Prop<>("prop", String.class);
 
-        Assertions.assertEquals("passedValue", prop.getValue());
-        Assertions.assertEquals("passedValue", prop.getDefaultValue());
+        Assertions.assertEquals("passed", prop.getValue());
+        Assertions.assertEquals("passed", prop.getDefaultValue());
 
-        prop.setValue("assignedValue");
-        Assertions.assertEquals("assignedValue", prop.getValue());
-        Assertions.assertEquals("passedValue", prop.getDefaultValue());
+        prop.setValue("assigned");
+        Assertions.assertEquals("assigned", prop.getValue());
+        Assertions.assertEquals("passed", prop.getDefaultValue());
     }
 
     @Test
     void threeArgs() {
-        Prop<String> prop = new Prop<>("prop", String.class, "defaultValue");
+        Prop<String> prop = new Prop<>("prop", String.class, "default");
 
-        Assertions.assertEquals("passedValue", prop.getValue());
-        Assertions.assertEquals("defaultValue", prop.getDefaultValue());
+        Assertions.assertEquals("passed", prop.getValue());
+        Assertions.assertEquals("default", prop.getDefaultValue());
 
-        prop.setValue("assignedValue");
-        Assertions.assertEquals("assignedValue", prop.getValue());
-        Assertions.assertEquals("defaultValue", prop.getDefaultValue());
+        prop.setValue("assigned");
+        Assertions.assertEquals("assigned", prop.getValue());
+        Assertions.assertEquals("default", prop.getDefaultValue());
     }
 }

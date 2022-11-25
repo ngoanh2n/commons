@@ -9,7 +9,6 @@ import org.junit.jupiter.api.*;
  */
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ResourceTest {
-
     private final String valid = "com/github/ngoanh2n/Data1.yml";
     private final String invalid = "com/github/ngoanh2n/Data.yml";
 

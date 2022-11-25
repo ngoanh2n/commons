@@ -17,7 +17,6 @@ import static org.junit.platform.commons.util.AnnotationUtils.findAnnotation;
  * @since 2021-04-10
  */
 public class ExecuteOnTargetCondition implements ExecutionCondition {
-
     @Override
     public ConditionEvaluationResult evaluateExecutionCondition(ExtensionContext context) {
         Optional<ExecuteOnTarget> annotationOpt = findAnnotation(context.getElement(), ExecuteOnTarget.class);

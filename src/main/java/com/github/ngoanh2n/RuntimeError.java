@@ -8,9 +8,6 @@ package com.github.ngoanh2n;
  * @since 2021-01-06
  */
 public class RuntimeError extends RuntimeException {
-
-    private static final long serialVersionUID = 635198548542132913L;
-
     public RuntimeError(String message) {
         super(message);
     }

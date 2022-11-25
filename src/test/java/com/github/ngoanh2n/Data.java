@@ -3,9 +3,7 @@ package com.github.ngoanh2n;
 import java.util.List;
 
 public final class Data {
-
     public static final class Data1 extends YamlData<Data1> {
-
         private String k1;
         private String k2;
 
@@ -27,7 +25,6 @@ public final class Data {
     }
 
     public static final class Data2 extends YamlData<Data2> {
-
         private String k3;
         private List<Data1> k4;
 
@@ -49,7 +46,6 @@ public final class Data {
     }
 
     public static final class Data3 extends YamlData<Data3> {
-
         private String k5;
         private Data2 k6;
 
@@ -72,7 +68,6 @@ public final class Data {
 
     @YamlFrom(resource = "com/github/ngoanh2n/Data1.yml")
     public static final class Data4 extends YamlData<Data4> {
-
         private String k1;
         private String k2;
 
@@ -95,7 +90,6 @@ public final class Data {
 
     @YamlFrom(file = "src/test/resources/com/github/ngoanh2n/Data1.yml")
     public static final class Data5 extends YamlData<Data5> {
-
         private String k1;
         private String k2;
 

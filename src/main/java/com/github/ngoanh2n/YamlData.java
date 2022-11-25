@@ -23,7 +23,6 @@ import java.util.*;
  */
 @SuppressWarnings("unchecked")
 public abstract class YamlData<Model> {
-
     private InputStream _inputStream;
     private Class<Model> _modelClazz;
 

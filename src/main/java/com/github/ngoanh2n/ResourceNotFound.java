@@ -8,7 +8,6 @@ package com.github.ngoanh2n;
  * @since 2021-01-16
  */
 public class ResourceNotFound extends RuntimeError {
-
     public ResourceNotFound(String message) {
         super(message);
     }

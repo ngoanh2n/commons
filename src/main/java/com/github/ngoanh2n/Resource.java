@@ -19,7 +19,6 @@ import java.util.concurrent.atomic.AtomicReference;
  * @since 2021-01-16
  */
 public class Resource {
-
     /**
      * {@code true}:  Look for the resources on the classpath:
      * [PROJECT]/out/test/resources/ or [PROJECT]/out/production/resources/

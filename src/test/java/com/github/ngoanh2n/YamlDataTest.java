@@ -11,7 +11,6 @@ import java.util.List;
  * @since 2021-01-16
  */
 public class YamlDataTest {
-
     private final String resource0 = "com/github/ngoanh2n/Data0.yml";
     private final String resource1 = "com/github/ngoanh2n/Data1.yml";
     private final String resource2 = "com/github/ngoanh2n/Data2.yml";

@@ -18,6 +18,5 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target({TYPE, METHOD})
 @ExtendWith(ExecuteOnTargetCondition.class)
 public @interface ExecuteOnTarget {
-
     String[] value();
 }
