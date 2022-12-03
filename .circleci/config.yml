@@ -21,6 +21,13 @@ executors:
     resource_class: windows.medium
       
 commands:
+  env_prepare:
+    steps:
+      - checkout
+      - run:
+          name: Prepare environment
+          command: |
+            chmod +x gradlew
   cache_store:
     steps:
       - save_cache:
@@ -38,7 +45,6 @@ commands:
       - run:
           name: Execute the test
           command: |
-            chmod +x gradlew
             ./gradlew clean test
           when: always
 
@@ -48,6 +54,7 @@ jobs:
       os: { type: executor }
     executor: <<parameters.os>>
     steps:
+      - env_prepare
       #- cache_restore
       - test_execute
       #- cache_store
