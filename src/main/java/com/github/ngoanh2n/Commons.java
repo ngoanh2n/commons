@@ -3,6 +3,7 @@ package com.github.ngoanh2n;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 
 import javax.annotation.Nonnull;
+import java.io.File;
 import java.lang.reflect.Field;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -19,10 +20,10 @@ import java.util.Iterator;
  * @since 2021-01-16
  */
 @SuppressWarnings({
-        "SpellCheckingInspection",
-        "ResultOfMethodCallIgnored",
+        "unchecked",
+        "ResultOfMethodCallIgnored"
 })
-public class Commons {
+public final class Commons {
     public static String timeStamp() {
         Format dateFormat = new SimpleDateFormat("yyyyMMdd.HHmmss.SSS");
         return dateFormat.format(new Date());
@@ -40,7 +41,16 @@ public class Commons {
         return location;
     }
 
-    @SuppressWarnings("unchecked")
+    public static Path getRelative(@Nonnull File file) {
+        return getRelative(file.toPath());
+    }
+
+    public static Path getRelative(@Nonnull Path path) {
+        String userDir = System.getProperty("user.dir");
+        Path userPath = Paths.get(userDir);
+        return userPath.relativize(path);
+    }
+
     public static <T> T getPrivateField(Class<?> clazz, String name, Object instance) {
         try {
             Field field = clazz.getDeclaredField(name);
