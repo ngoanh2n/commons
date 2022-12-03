@@ -5,7 +5,7 @@
 ext {
     VERSION_GUAVA                   =   "31.1-jre"
     VERSION_COMMONS_IO              =   "2.11.0"
-    VERSION_SNAKE_YAML              =   "1.30"
+    VERSION_SNAKE_YAML              =   "1.33"
     VERSION_JACKSON                 =   "2.13.2"
     VERSION_JUPITER                 =   "5.8.2"
 }
