@@ -48,9 +48,9 @@ jobs:
       os: { type: executor }
     executor: <<parameters.os>>
     steps:
-      - cache_restore
+      #- cache_restore
       - test_execute
-      - cache_store
+      #- cache_store
 
 workflows:
   test_execution:
