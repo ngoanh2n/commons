@@ -3,9 +3,9 @@
  * @since 2021-01-16
  */
 dependencies {
-    implementation("com.google.guava:guava:${VERSION_GUAVA}")
-    implementation("commons-io:commons-io:${VERSION_COMMONS_IO}")
-    implementation("org.yaml:snakeyaml:${VERSION_SNAKE_YAML}")
-    implementation("com.fasterxml.jackson.core:jackson-databind:${VERSION_JACKSON}")
-    implementation("org.junit.jupiter:junit-jupiter:${VERSION_JUPITER}")
+    implementation("com.google.guava:guava:31.1-jre")
+    implementation("commons-io:commons-io:2.11.0")
+    implementation("org.yaml:snakeyaml:1.33")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.14.1")
+    implementation("org.junit.jupiter:junit-jupiter:5.8.2")
 }
