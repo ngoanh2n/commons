@@ -41,15 +41,20 @@ public final class Commons {
         return location;
     }
 
-    public static Path getRelative(@Nonnull File file) {
-        return getRelative(file.toPath());
+    public static Path getRelative(@Nonnull Path path) {
+        return getRelative(path.toFile());
     }
 
-    public static Path getRelative(@Nonnull Path path) {
+    public static Path getRelative(@Nonnull File file) {
         String userDir = System.getProperty("user.dir");
         Path userPath = Paths.get(userDir);
-        return userPath.relativize(path);
+        try {
+            return userPath.relativize(file.toPath());
+        } catch (IllegalArgumentException ignored) {
+            return file.toPath();
+        }
     }
+
 
     public static <T> T getPrivateValue(Class<?> clazz, Object clazzInstance, String fieldName) {
         try {
