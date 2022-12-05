@@ -51,13 +51,13 @@ public final class Commons {
         return userPath.relativize(path);
     }
 
-    public static <T> T getPrivateField(Class<?> clazz, String name, Object instance) {
+    public static <T> T getPrivateValue(Class<?> clazz, Object clazzInstance, String fieldName) {
         try {
-            Field field = clazz.getDeclaredField(name);
+            Field field = clazz.getDeclaredField(fieldName);
             field.setAccessible(true);
-            return (T) field.get(instance);
+            return (T) field.get(clazzInstance);
         } catch (NoSuchFieldException | IllegalAccessException e) {
-            throw new RuntimeError(String.format("Error of private value [%s, %s]", clazz.getSimpleName(), name));
+            throw new RuntimeError(String.format("Error of private value [%s, %s]", clazz.getSimpleName(), fieldName));
         }
     }
 }
