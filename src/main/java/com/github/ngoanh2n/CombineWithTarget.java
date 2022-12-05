@@ -13,7 +13,10 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  */
 @Retention(RUNTIME)
 @Target({PARAMETER})
-public @interface CombineWith {
-    String target() default "withTarget";
+public @interface CombineWithTarget {
+    String name() default "withTarget";
+
     String[] values() default {};
+
+    String defaultValue() default "";
 }

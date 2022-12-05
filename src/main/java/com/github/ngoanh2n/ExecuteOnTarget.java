@@ -17,8 +17,10 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 @Target({TYPE, METHOD})
 @ExtendWith(ExecuteOnCondition.class)
-public @interface ExecuteOn {
-    String target() default "onTarget";
+public @interface ExecuteOnTarget {
+    String name() default "onTarget";
+
     String[] values() default {};
-    CombineWith and() default @CombineWith;
+
+    CombineWithTarget and() default @CombineWithTarget;
 }
