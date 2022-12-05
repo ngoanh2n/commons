@@ -13,8 +13,8 @@ import java.net.URL;
 public class Prop<T> {
     private final String name;
     private final Class<T> type;
-    private T value;
     private final T defaultValue;
+    private T value;
 
     public Prop(String name, Class<T> type) {
         this.name = name;
@@ -28,6 +28,18 @@ public class Prop<T> {
         this.type = type;
         this.value = getValue();
         this.defaultValue = defaultValue;
+    }
+
+    public static Prop<String> string(String name) {
+        return new Prop<>(name, String.class);
+    }
+
+    public static Prop<Boolean> bool(String name) {
+        return new Prop<>(name, Boolean.class);
+    }
+
+    public static Prop<Integer> integer(String name) {
+        return new Prop<>(name, Integer.class);
     }
 
     public String getName() {
@@ -64,12 +76,12 @@ public class Prop<T> {
         return defaultValue;
     }
 
-    public T getDefaultValue() {
-        return defaultValue;
-    }
-
     public void setValue(T newValue) {
         value = newValue;
         System.setProperty(name, String.valueOf(newValue));
+    }
+
+    public T getDefaultValue() {
+        return defaultValue;
     }
 }
