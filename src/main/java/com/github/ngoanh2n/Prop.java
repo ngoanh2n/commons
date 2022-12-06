@@ -93,6 +93,10 @@ public class Prop<T> {
         System.setProperty(name, String.valueOf(newValue));
     }
 
+    public void clearValue() {
+        System.clearProperty(name);
+    }
+
     public T getDefaultValue() {
         return defaultValue;
     }
