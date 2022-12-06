@@ -1,4 +1,4 @@
-package com.github.ngoanh2n;
+package com.github.ngoanh2n.junit5;
 
 import org.junit.jupiter.api.extension.ExtendWith;
 

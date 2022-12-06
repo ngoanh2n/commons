@@ -1,5 +1,6 @@
-package com.github.ngoanh2n;
+package com.github.ngoanh2n.junit5;
 
+import com.github.ngoanh2n.Prop;
 import org.junit.jupiter.api.extension.ConditionEvaluationResult;
 import org.junit.jupiter.api.extension.ExecutionCondition;
 import org.junit.jupiter.api.extension.ExtensionContext;
