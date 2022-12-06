@@ -17,7 +17,7 @@ public class PropTest {
 
     @Test
     void twoArgs() {
-        Prop<String> prop = new Prop<>("prop", String.class);
+        Prop<String> prop = Prop.string("prop");
 
         Assertions.assertEquals("passed", prop.getValue());
         Assertions.assertEquals("passed", prop.getDefaultValue());
@@ -29,7 +29,7 @@ public class PropTest {
 
     @Test
     void threeArgs() {
-        Prop<String> prop = new Prop<>("prop", String.class, "default");
+        Prop<String> prop = Prop.string("prop", "default");
 
         Assertions.assertEquals("passed", prop.getValue());
         Assertions.assertEquals("default", prop.getDefaultValue());
