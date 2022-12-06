@@ -33,7 +33,7 @@ public class Resource {
      *
      * @param resourceName is the name of resource <br>
      *                     e.g. com/foo/File.properties
-     * @return {@linkplain File} of resource if the file exists; {@linkplain ResourceNotFound } otherwise
+     * @return {@linkplain File} of resource if the file exists; {@linkplain RuntimeError} otherwise
      */
     public static File getFile(@Nonnull String resourceName) {
         return file(resourceName);
@@ -44,7 +44,7 @@ public class Resource {
      *
      * @param resourceName is the name of resource <br>
      *                     e.g. com/foo/File.properties
-     * @return {@linkplain Path} of resource if the file exists; {@linkplain ResourceNotFound } otherwise
+     * @return {@linkplain Path} of resource if the file exists; {@linkplain RuntimeError} otherwise
      */
     public static Path getPath(@Nonnull String resourceName) {
         return getFile(resourceName).toPath();
@@ -55,13 +55,13 @@ public class Resource {
      *
      * @param resourceName is the name of resource <br>
      *                     e.g. com/foo/File.properties
-     * @return {@linkplain InputStream} if the file exists; {@linkplain ResourceNotFound } otherwise
+     * @return {@linkplain InputStream} if the file exists; {@linkplain RuntimeError} otherwise
      */
     public static InputStream getInputStream(@Nonnull String resourceName) {
         try {
             return new FileInputStream(getFile(resourceName));
         } catch (FileNotFoundException e) {
-            throw new ResourceNotFound(resourceName);
+            throw new RuntimeError(String.format("Resource [%s] not found", resourceName));
         }
     }
 
@@ -70,7 +70,7 @@ public class Resource {
      *
      * @param resourceName is the name of resource <br>
      *                     e.g. com/foo/File.properties
-     * @return {@linkplain String} if the file exists; {@linkplain ResourceNotFound } otherwise
+     * @return {@linkplain String} if the file exists; {@linkplain RuntimeError} otherwise
      */
     public static String getContent(@Nonnull String resourceName) {
         return getContent(resourceName, Charset.defaultCharset());
@@ -82,14 +82,14 @@ public class Resource {
      * @param resourceName is the name of resource <br>
      *                     e.g. com/foo/File.properties
      * @param charset      the charset to use, null means platform default
-     * @return {@linkplain String} if the file exists; {@linkplain ResourceNotFound } otherwise
+     * @return {@linkplain String} if the file exists; {@linkplain RuntimeError} otherwise
      */
     public static String getContent(@Nonnull String resourceName, @Nonnull Charset charset) {
         try {
             InputStream is = getInputStream(resourceName);
             return IOUtils.toString(is, charset);
         } catch (IOException e) {
-            throw new ResourceNotFound(e);
+            throw new RuntimeError(e);
         }
     }
 
@@ -121,7 +121,7 @@ public class Resource {
             File resourceFile = new File(file.getPath());
             if (resourceFile.exists()) return resourceFile;
         }
-        throw new ResourceNotFound(name);
+        throw new RuntimeError(String.format("Resource [%s] not found", name));
     }
 
     private static File file(String name, String src) {
