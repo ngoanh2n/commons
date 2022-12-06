@@ -34,12 +34,24 @@ public class Prop<T> {
         return new Prop<>(name, String.class);
     }
 
+    public static Prop<String> string(String name, String defaultValue) {
+        return new Prop<>(name, String.class, defaultValue);
+    }
+
     public static Prop<Boolean> bool(String name) {
         return new Prop<>(name, Boolean.class);
     }
 
+    public static Prop<Boolean> bool(String name, Boolean defaultValue) {
+        return new Prop<>(name, Boolean.class, defaultValue);
+    }
+
     public static Prop<Integer> integer(String name) {
         return new Prop<>(name, Integer.class);
+    }
+
+    public static Prop<Integer> integer(String name, int defaultValue) {
+        return new Prop<>(name, Integer.class, defaultValue);
     }
 
     public String getName() {
