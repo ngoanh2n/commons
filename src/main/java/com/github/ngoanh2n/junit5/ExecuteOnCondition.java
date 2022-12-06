@@ -33,27 +33,27 @@ public class ExecuteOnCondition implements ExecutionCondition {
                 return disabled(annToString(exe, exeProp));
             } else {
                 if (Arrays.asList(exeValues).contains(exeProp.getValue())) {
-                    CombineWithTarget com = exe.and();
-                    String[] comValues = com.values();
-                    Prop<String> comProp = Prop.string(com.name());
-                    String defaultValue = com.defaultValue();
+                    WithTarget with = exe.combine();
+                    String[] withValues = with.values();
+                    Prop<String> withProp = Prop.string(with.name());
+                    String defaultValue = with.defaultValue();
 
-                    if (comValues.length == 0) {
+                    if (withValues.length == 0) {
                         if (defaultValue.isEmpty()) {
                             return enabled(annToString(exe, exeProp));
                         } else {
-                            comProp.setValue(defaultValue);
-                            return enabled(annToString(exe, exeProp, com, comProp));
+                            withProp.setValue(defaultValue);
+                            return enabled(annToString(exe, exeProp, with, withProp));
                         }
                     } else {
-                        if (comProp.getValue() == null) {
-                            comProp.setValue(defaultValue);
-                            return enabled(annToString(exe, exeProp, com, comProp));
+                        if (withProp.getValue() == null) {
+                            withProp.setValue(defaultValue);
+                            return enabled(annToString(exe, exeProp, with, withProp));
                         } else {
-                            if (Arrays.asList(comValues).contains(comProp.getValue())) {
-                                return enabled(annToString(exe, exeProp, com, comProp));
+                            if (Arrays.asList(withValues).contains(withProp.getValue())) {
+                                return enabled(annToString(exe, exeProp, with, withProp));
                             } else {
-                                return disabled(annToString(exe, exeProp, com, comProp));
+                                return disabled(annToString(exe, exeProp, with, withProp));
                             }
                         }
                     }
@@ -67,7 +67,7 @@ public class ExecuteOnCondition implements ExecutionCondition {
         return String.format("@ExecuteOnTarget(name=%s), passed=%s, values=%s)", e.name(), ep.getValue(), Arrays.asList(e.values()));
     }
 
-    private String annToString(ExecuteOnTarget e, Prop<String> ep, CombineWithTarget c, Prop<String> cp) {
+    private String annToString(ExecuteOnTarget e, Prop<String> ep, WithTarget c, Prop<String> cp) {
         return String.format("@ExecuteOnTarget(name=%s, passed=%s, values=%s, and=@CombineWithTarget(name=%s, passed=%s, values=%s, defaultValue=%s))",
                 e.name(), ep.getValue(), Arrays.asList(e.values()), c.name(), cp.getValue(), Arrays.asList(c.values()), c.defaultValue());
     }

@@ -22,5 +22,5 @@ public @interface ExecuteOnTarget {
 
     String[] values() default {};
 
-    CombineWithTarget and() default @CombineWithTarget;
+    WithTarget combine() default @WithTarget;
 }
