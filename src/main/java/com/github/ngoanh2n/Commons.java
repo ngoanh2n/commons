@@ -55,14 +55,14 @@ public final class Commons {
         }
     }
 
-
     public static <T> T getPrivateValue(Class<?> clazz, Object clazzInstance, String fieldName) {
         try {
             Field field = clazz.getDeclaredField(fieldName);
             field.setAccessible(true);
             return (T) field.get(clazzInstance);
         } catch (NoSuchFieldException | IllegalAccessException e) {
-            throw new RuntimeError(String.format("Error of private value [%s, %s]", clazz.getSimpleName(), fieldName));
+            String msg = "Error of private value [%s, %s]";
+            throw new RuntimeError(String.format(msg, clazz.getSimpleName(), fieldName));
         }
     }
 }
