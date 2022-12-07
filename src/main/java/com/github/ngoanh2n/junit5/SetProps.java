@@ -1,7 +1,5 @@
 package com.github.ngoanh2n.junit5;
 
-import org.junit.jupiter.api.extension.ExtendWith;
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
@@ -16,11 +14,6 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  */
 @Retention(RUNTIME)
 @Target({TYPE, METHOD})
-@ExtendWith(ExecuteOnCondition.class)
-public @interface ExecuteOnTarget {
-    String name() default "onTarget";
-
-    String[] values() default {};
-
-    WithTarget combine() default @WithTarget;
+public @interface SetProps {
+    SetProp[] value();
 }

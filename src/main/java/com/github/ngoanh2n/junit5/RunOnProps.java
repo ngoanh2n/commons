@@ -3,7 +3,8 @@ package com.github.ngoanh2n.junit5;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import static java.lang.annotation.ElementType.PARAMETER;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
@@ -12,11 +13,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * @since 2021-04-10
  */
 @Retention(RUNTIME)
-@Target({PARAMETER})
-public @interface WithTarget {
-    String name() default "withTarget";
-
-    String[] values() default {};
-
-    String defaultValue() default "";
+@Target({TYPE, METHOD})
+public @interface RunOnProps {
+    RunOnProp[] value();
 }

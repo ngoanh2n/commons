@@ -1,5 +1,8 @@
 package com.github.ngoanh2n.junit5;
 
+import org.junit.jupiter.api.extension.ExtendWith;
+
+import java.lang.annotation.Repeatable;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
@@ -14,6 +17,10 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  */
 @Retention(RUNTIME)
 @Target({TYPE, METHOD})
-public @interface PropSetters {
-    PropSetter[] value();
+@Repeatable(RunOnProps.class)
+@ExtendWith(ExtensionRunOnProp.class)
+public @interface RunOnProp {
+    String name() default "";
+
+    String[] value() default {};
 }

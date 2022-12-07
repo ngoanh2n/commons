@@ -17,9 +17,9 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  */
 @Retention(RUNTIME)
 @Target({TYPE, METHOD})
-@Repeatable(PropSetters.class)
-@ExtendWith(ExtensionPropSetter.class)
-public @interface PropSetter {
+@Repeatable(SetProps.class)
+@ExtendWith(ExtensionSetProp.class)
+public @interface SetProp {
     String name();
 
     String value();
