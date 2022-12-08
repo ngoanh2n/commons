@@ -20,7 +20,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Repeatable(RunOnProps.class)
 @ExtendWith(ExtensionRunOnProp.class)
 public @interface RunOnProp {
-    String name() default "";
+    String name();
 
-    String[] value() default {};
+    String[] value();
 }

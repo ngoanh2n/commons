@@ -8,6 +8,7 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.platform.commons.util.AnnotationUtils.findRepeatableAnnotations;
 
@@ -41,7 +42,7 @@ public class ExtensionRunOnProp implements ExecutionCondition {
         String name = target.name();
         String[] value = target.value();
 
-        if (name.isEmpty()) {
+        if (name == null || value == null) {
             return false;
         }
 
@@ -72,5 +73,10 @@ public class ExtensionRunOnProp implements ExecutionCondition {
             }
         }
         return sb.toString();
+    }
+
+    private String getTestName(ExtensionContext context) {
+        Optional<Class<?>> testClazz = context.getTestClass();
+        return testClazz.map(Class::getSimpleName).orElse("");
     }
 }

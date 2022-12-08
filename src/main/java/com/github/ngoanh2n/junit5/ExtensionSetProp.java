@@ -14,10 +14,15 @@ import java.util.List;
 public class ExtensionSetProp implements BeforeEachCallback, AfterEachCallback, BeforeAllCallback, AfterAllCallback {
     public static void setProps(ExtensionContext context) {
         List<SetProp> setters = getPropSetters(context);
-        setters.forEach(setter -> Prop.string(setter.name()).setValue(setter.value()));
+        setters.forEach(setter -> {
+            Prop<String> prop = Prop.string(setter.name());
+            if (prop.getValue() == null) {
+                prop.setValue(setter.value());
+            }
+        });
     }
 
-    private static void clearProps(ExtensionContext context) {
+    public static void clearProps(ExtensionContext context) {
         List<SetProp> setters = getPropSetters(context);
         setters.forEach(setter -> Prop.string(setter.name()).clearValue());
     }
