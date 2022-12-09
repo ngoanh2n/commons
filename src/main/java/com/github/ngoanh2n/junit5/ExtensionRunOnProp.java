@@ -75,7 +75,7 @@ public class ExtensionRunOnProp implements ExecutionCondition {
         return sb.toString();
     }
 
-    private String getTestName(ExtensionContext context) {
+    private static String getTestName(ExtensionContext context) {
         Optional<Class<?>> testClazz = context.getTestClass();
         return testClazz.map(Class::getSimpleName).orElse("");
     }

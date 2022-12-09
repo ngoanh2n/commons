@@ -22,7 +22,7 @@ public class ExtensionSetProp implements BeforeEachCallback, AfterEachCallback, 
         });
     }
 
-    public static void clearProps(ExtensionContext context) {
+    private static void clearProps(ExtensionContext context) {
         List<SetProp> setters = getPropSetters(context);
         setters.forEach(setter -> Prop.string(setter.name()).clearValue());
     }
@@ -43,14 +43,6 @@ public class ExtensionSetProp implements BeforeEachCallback, AfterEachCallback, 
      * {@inheritDoc}
      */
     @Override
-    public void afterAll(ExtensionContext context) {
-        clearProps(context);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public void beforeEach(ExtensionContext context) {
         setProps(context);
     }
@@ -60,6 +52,14 @@ public class ExtensionSetProp implements BeforeEachCallback, AfterEachCallback, 
      */
     @Override
     public void afterEach(ExtensionContext context) {
+        clearProps(context);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void afterAll(ExtensionContext context) {
         clearProps(context);
     }
 }
