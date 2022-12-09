@@ -64,6 +64,9 @@ public class Prop<T> {
 
     public T getValue() {
         String val = System.getProperty(name);
+        if (val == null && value != null) {
+            return null;
+        }
         if (val != null) {
             if (value == null && defaultValue != null) {
                 return defaultValue;
