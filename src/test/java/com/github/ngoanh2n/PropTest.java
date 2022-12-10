@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
  * @version 1.0.0
  * @since 2022-04-11
  */
-public class PropConstructTest {
+public class PropTest {
     private static final String NAME = "prop";
     private static final String PASSED_VALUE = "passed";
     private static final String DEFAULT_VALUE = "default";
@@ -25,6 +25,7 @@ public class PropConstructTest {
     void twoArgs() {
         Prop<String> prop = Prop.string(NAME);
 
+        Assertions.assertEquals(PASSED_VALUE, System.getProperty(NAME));
         Assertions.assertEquals(PASSED_VALUE, prop.getValue());
         Assertions.assertEquals(PASSED_VALUE, prop.getDefaultValue());
 
@@ -33,7 +34,6 @@ public class PropConstructTest {
         Assertions.assertEquals(ASSIGNED_VALUE, System.getProperty(NAME));
         Assertions.assertEquals(ASSIGNED_VALUE, prop.getValue());
         Assertions.assertEquals(ASSIGNED_VALUE, Prop.string(NAME).getValue());
-
         Assertions.assertEquals(PASSED_VALUE, prop.getDefaultValue());
     }
 
@@ -41,6 +41,7 @@ public class PropConstructTest {
     void threeArgs() {
         Prop<String> prop = Prop.string(NAME, DEFAULT_VALUE);
 
+        Assertions.assertEquals(PASSED_VALUE, System.getProperty(NAME));
         Assertions.assertEquals(PASSED_VALUE, prop.getValue());
         Assertions.assertEquals(DEFAULT_VALUE, prop.getDefaultValue());
 
@@ -49,7 +50,6 @@ public class PropConstructTest {
         Assertions.assertEquals(ASSIGNED_VALUE, System.getProperty(NAME));
         Assertions.assertEquals(ASSIGNED_VALUE, prop.getValue());
         Assertions.assertEquals(ASSIGNED_VALUE, Prop.string(NAME).getValue());
-
         Assertions.assertEquals(DEFAULT_VALUE, prop.getDefaultValue());
     }
 
