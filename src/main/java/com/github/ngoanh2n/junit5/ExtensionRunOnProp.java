@@ -28,17 +28,17 @@ public class ExtensionRunOnProp implements ExecutionCondition {
 
         if (targets.size() > 0) {
             for (RunOnProp target : targets) {
-                if (!matches(target)) {
-                    return ConditionEvaluationResult.disabled(toString(targets));
+                if (!isTargetEnabled(target)) {
+                    String reason = targetToString(targets);
+                    return ConditionEvaluationResult.disabled(reason);
                 }
             }
-            return ConditionEvaluationResult.enabled(toString(targets));
-        } else {
-            return ConditionEvaluationResult.enabled("Not related to @ExecuteOnTarget");
+            return ConditionEvaluationResult.enabled(targetToString(targets));
         }
+        return ConditionEvaluationResult.enabled("Not related to @ExecuteOnTarget");
     }
 
-    private boolean matches(RunOnProp target) {
+    private boolean isTargetEnabled(RunOnProp target) {
         String name = target.name();
         String[] value = target.value();
 
@@ -55,11 +55,11 @@ public class ExtensionRunOnProp implements ExecutionCondition {
         return Arrays.asList(value).contains(propValue);
     }
 
-    private String toString(List<RunOnProp> targets) {
+    private String targetToString(List<RunOnProp> targets) {
         StringBuilder sb = new StringBuilder();
         Iterator<RunOnProp> it = targets.iterator();
 
-        if (it.hasNext()) {
+        while (it.hasNext()) {
             RunOnProp target = it.next();
             String name = target.name();
             String passed = Prop.string(name).getValue();
@@ -69,7 +69,7 @@ public class ExtensionRunOnProp implements ExecutionCondition {
             sb.append(String.format(toAppend, name, passed, value));
 
             if (it.hasNext()) {
-                sb.append(",");
+                sb.append("\r\n");
             }
         }
         return sb.toString();
