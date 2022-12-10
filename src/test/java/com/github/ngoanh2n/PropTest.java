@@ -1,5 +1,6 @@
 package com.github.ngoanh2n;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,33 +10,56 @@ import org.junit.jupiter.api.Test;
  * @version 1.0.0
  * @since 2022-04-11
  */
-public class PropTest {
+public class PropConstructTest {
+    private static final String NAME = "prop";
+    private static final String PASSED_VALUE = "passed";
+    private static final String DEFAULT_VALUE = "default";
+    private static final String ASSIGNED_VALUE = "assigned";
+
     @BeforeEach
-    void setValue() {
-        System.setProperty("prop", "passed");
+    void initProperty() {
+        System.setProperty(NAME, PASSED_VALUE);
     }
 
     @Test
     void twoArgs() {
-        Prop<String> prop = Prop.string("prop");
+        Prop<String> prop = Prop.string(NAME);
 
-        Assertions.assertEquals("passed", prop.getValue());
-        Assertions.assertEquals("passed", prop.getDefaultValue());
+        Assertions.assertEquals(PASSED_VALUE, prop.getValue());
+        Assertions.assertEquals(PASSED_VALUE, prop.getDefaultValue());
 
-        prop.setValue("assigned");
-        Assertions.assertEquals("assigned", prop.getValue());
-        Assertions.assertEquals("passed", prop.getDefaultValue());
+        prop.setValue(ASSIGNED_VALUE);
+
+        Assertions.assertEquals(ASSIGNED_VALUE, System.getProperty(NAME));
+        Assertions.assertEquals(ASSIGNED_VALUE, prop.getValue());
+        Assertions.assertEquals(ASSIGNED_VALUE, Prop.string(NAME).getValue());
+
+        Assertions.assertEquals(PASSED_VALUE, prop.getDefaultValue());
     }
 
     @Test
     void threeArgs() {
-        Prop<String> prop = Prop.string("prop", "default");
+        Prop<String> prop = Prop.string(NAME, DEFAULT_VALUE);
 
-        Assertions.assertEquals("passed", prop.getValue());
-        Assertions.assertEquals("default", prop.getDefaultValue());
+        Assertions.assertEquals(PASSED_VALUE, prop.getValue());
+        Assertions.assertEquals(DEFAULT_VALUE, prop.getDefaultValue());
 
-        prop.setValue("assigned");
-        Assertions.assertEquals("assigned", prop.getValue());
-        Assertions.assertEquals("default", prop.getDefaultValue());
+        prop.setValue(ASSIGNED_VALUE);
+
+        Assertions.assertEquals(ASSIGNED_VALUE, System.getProperty(NAME));
+        Assertions.assertEquals(ASSIGNED_VALUE, prop.getValue());
+        Assertions.assertEquals(ASSIGNED_VALUE, Prop.string(NAME).getValue());
+
+        Assertions.assertEquals(DEFAULT_VALUE, prop.getDefaultValue());
+    }
+
+    @AfterEach
+    void clearProperty() {
+        Prop<String> prop = Prop.string(NAME);
+        prop.clearValue();
+
+        Assertions.assertNull(System.getProperty(NAME));
+        Assertions.assertEquals(ASSIGNED_VALUE, prop.getValue());
+        Assertions.assertNull(Prop.string(NAME).getValue());
     }
 }

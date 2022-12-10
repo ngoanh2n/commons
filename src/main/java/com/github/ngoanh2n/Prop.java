@@ -97,6 +97,7 @@ public class Prop<T> {
     }
 
     public void clearValue() {
+        value = null;
         System.clearProperty(name);
     }
 
