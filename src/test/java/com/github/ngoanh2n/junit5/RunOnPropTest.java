@@ -20,10 +20,9 @@ public class RunOnPropTest {
 
         @BeforeAll
         static void beforeAll() {
-            logger.debug("");
-            logger.debug("@BeforeAll: " + System.getProperty(NAME));
-            logger.debug("@BeforeAll: " + prop.getValue());
-            logger.debug("@BeforeAll: " + Prop.string(NAME).getValue());
+            logger.debug("" + System.getProperty(NAME));
+            logger.debug("" + prop.getValue());
+            logger.debug("" + Prop.string(NAME).getValue());
 
             Assertions.assertNull(System.getProperty(NAME));
             Assertions.assertNull(prop.getValue());
@@ -32,10 +31,9 @@ public class RunOnPropTest {
 
         @BeforeEach
         void beforeEach() {
-            logger.debug("");
-            logger.debug("@BeforeEach: " + System.getProperty(NAME));
-            logger.debug("@BeforeEach: " + prop.getValue());
-            logger.debug("@BeforeEach: " + Prop.string(NAME).getValue());
+            logger.debug(System.getProperty(NAME));
+            logger.debug(prop.getValue());
+            logger.debug(Prop.string(NAME).getValue());
 
             Assertions.assertEquals(VALUE, System.getProperty(NAME));
             Assertions.assertEquals(VALUE, prop.getValue());
@@ -53,10 +51,9 @@ public class RunOnPropTest {
 
         @AfterEach
         void afterEach() {
-            logger.debug("");
-            logger.debug("@AfterEach: " + System.getProperty(NAME));
-            logger.debug("@AfterEach: " + prop.getValue());
-            logger.debug("@AfterEach: " + Prop.string(NAME).getValue());
+            logger.debug(System.getProperty(NAME));
+            logger.debug(prop.getValue());
+            logger.debug(Prop.string(NAME).getValue());
 
             Assertions.assertEquals(VALUE, System.getProperty(NAME));
             Assertions.assertEquals(VALUE, prop.getValue());
@@ -65,10 +62,9 @@ public class RunOnPropTest {
 
         @AfterAll
         static void afterAll() {
-            logger.debug("");
-            logger.debug("@AfterAll: " + System.getProperty(NAME));
-            logger.debug("@AfterAll: " + prop.getValue());
-            logger.debug("@AfterAll: " + Prop.string(NAME).getValue());
+            logger.debug("" + System.getProperty(NAME));
+            logger.debug("" + prop.getValue());
+            logger.debug("" + Prop.string(NAME).getValue());
 
             Assertions.assertNull(System.getProperty(NAME));
             Assertions.assertNull(prop.getValue());
@@ -82,10 +78,9 @@ public class RunOnPropTest {
 
         @BeforeAll
         static void beforeAll() {
-            logger.debug("");
-            logger.debug("@BeforeAll: " + System.getProperty(NAME));
-            logger.debug("@BeforeAll: " + prop.getValue());
-            logger.debug("@BeforeAll: " + Prop.string(NAME).getValue());
+            logger.debug(System.getProperty(NAME));
+            logger.debug(prop.getValue());
+            logger.debug(Prop.string(NAME).getValue());
 
             Assertions.assertEquals(VALUE, System.getProperty(NAME));
             Assertions.assertEquals(VALUE, prop.getValue());
@@ -94,10 +89,9 @@ public class RunOnPropTest {
 
         @BeforeEach
         void beforeEach() {
-            logger.debug("");
-            logger.debug("@BeforeEach: " + System.getProperty(NAME));
-            logger.debug("@BeforeEach: " + prop.getValue());
-            logger.debug("@BeforeEach: " + Prop.string(NAME).getValue());
+            logger.debug(System.getProperty(NAME));
+            logger.debug(prop.getValue());
+            logger.debug(Prop.string(NAME).getValue());
 
             Assertions.assertEquals(VALUE, System.getProperty(NAME));
             Assertions.assertEquals(VALUE, prop.getValue());
@@ -107,7 +101,6 @@ public class RunOnPropTest {
         @Test
         @RunOnProp(name = NAME, value = VALUE)
         void test() {
-            logger.debug("");
             Assertions.assertEquals(VALUE, System.getProperty(NAME));
             Assertions.assertEquals(VALUE, prop.getValue());
             Assertions.assertEquals(VALUE, Prop.string(NAME).getValue());
@@ -115,10 +108,9 @@ public class RunOnPropTest {
 
         @AfterEach
         void afterEach() {
-            logger.debug("");
-            logger.debug("@AfterEach: " + System.getProperty(NAME));
-            logger.debug("@AfterEach: " + prop.getValue());
-            logger.debug("@AfterEach: " + Prop.string(NAME).getValue());
+            logger.debug(System.getProperty(NAME));
+            logger.debug(prop.getValue());
+            logger.debug(Prop.string(NAME).getValue());
 
             Assertions.assertEquals(VALUE, System.getProperty(NAME));
             Assertions.assertEquals(VALUE, prop.getValue());
@@ -127,10 +119,9 @@ public class RunOnPropTest {
 
         @AfterAll
         static void afterAll() {
-            logger.debug("");
-            logger.debug("@AfterAll: " + System.getProperty(NAME));
-            logger.debug("@AfterAll: " + prop.getValue());
-            logger.debug("@AfterAll: " + Prop.string(NAME).getValue());
+            logger.debug(System.getProperty(NAME));
+            logger.debug(prop.getValue());
+            logger.debug(Prop.string(NAME).getValue());
 
             Assertions.assertEquals(VALUE, System.getProperty(NAME));
             Assertions.assertEquals(VALUE, prop.getValue());
