@@ -28,18 +28,6 @@ commands:
           name: Prepare environment
           command: |
             chmod +x gradlew
-  cache_store:
-    steps:
-      - save_cache:
-          name: Store Gradle cache
-          paths:
-            - ~/.gradle
-          key: gradle-{{checksum "build.gradle"}}
-  cache_restore:
-    steps:
-      - restore_cache:
-          name: Restore Gradle cache
-          key: gradle-{{checksum "build.gradle"}}
   test_execute:
     steps:
       - run:
@@ -55,9 +43,7 @@ jobs:
     executor: <<parameters.os>>
     steps:
       - env_prepare
-      #- cache_restore
       - test_execute
-      #- cache_store
 
 workflows:
   test_execution:
