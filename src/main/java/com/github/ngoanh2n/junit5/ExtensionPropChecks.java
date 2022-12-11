@@ -1,9 +1,8 @@
 package com.github.ngoanh2n.junit5;
 
 import com.github.ngoanh2n.Prop;
-import org.junit.jupiter.api.extension.ConditionEvaluationResult;
-import org.junit.jupiter.api.extension.ExecutionCondition;
-import org.junit.jupiter.api.extension.ExtensionContext;
+import org.junit.jupiter.api.extension.*;
+import org.junit.platform.commons.util.AnnotationUtils;
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -17,28 +16,60 @@ import static org.junit.platform.commons.util.AnnotationUtils.findRepeatableAnno
  * @version 1.0.0
  * @since 2021-04-10
  */
-public class ExtensionRunOnProp implements ExecutionCondition {
+class ExtensionPropChecks implements ExecutionCondition, BeforeEachCallback, AfterEachCallback, BeforeAllCallback, AfterAllCallback {
     /**
      * {@inheritDoc}
      */
     @Override
     public ConditionEvaluationResult evaluateExecutionCondition(ExtensionContext context) {
-        ExtensionSetProp.setProps(context);
+        setProps(context);
         List<RunOnProp> targets = findRepeatableAnnotations(context.getElement(), RunOnProp.class);
 
         if (targets.size() > 0) {
             for (RunOnProp target : targets) {
-                if (!isTargetEnabled(target)) {
-                    String reason = targetToString(targets);
+                if (!targetEnabled(target)) {
+                    String reason = targetsToString(targets);
                     return ConditionEvaluationResult.disabled(reason);
                 }
             }
-            return ConditionEvaluationResult.enabled(targetToString(targets));
+            return ConditionEvaluationResult.enabled(targetsToString(targets));
         }
         return ConditionEvaluationResult.enabled("Not related to @ExecuteOnTarget");
     }
 
-    private boolean isTargetEnabled(RunOnProp target) {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void beforeAll(ExtensionContext context) {
+        setProps(context);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void beforeEach(ExtensionContext context) {
+        setProps(context);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void afterEach(ExtensionContext context) {
+        clearProps(context);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void afterAll(ExtensionContext context) {
+        clearProps(context);
+    }
+
+    private boolean targetEnabled(RunOnProp target) {
         String name = target.name();
         String[] value = target.value();
 
@@ -55,7 +86,7 @@ public class ExtensionRunOnProp implements ExecutionCondition {
         return Arrays.asList(value).contains(propValue);
     }
 
-    private String targetToString(List<RunOnProp> targets) {
+    private String targetsToString(List<RunOnProp> targets) {
         StringBuilder sb = new StringBuilder();
         Iterator<RunOnProp> it = targets.iterator();
 
@@ -73,6 +104,25 @@ public class ExtensionRunOnProp implements ExecutionCondition {
             }
         }
         return sb.toString();
+    }
+
+    public static void setProps(ExtensionContext context) {
+        List<SetProp> setters = getPropSetters(context);
+        setters.forEach(setter -> {
+            Prop<String> prop = Prop.string(setter.name());
+            if (prop.getValue() == null) {
+                prop.setValue(setter.value());
+            }
+        });
+    }
+
+    private static void clearProps(ExtensionContext context) {
+        List<SetProp> setters = getPropSetters(context);
+        setters.forEach(setter -> Prop.string(setter.name()).clearValue());
+    }
+
+    private static List<SetProp> getPropSetters(ExtensionContext context) {
+        return AnnotationUtils.findRepeatableAnnotations(context.getElement(), SetProp.class);
     }
 
     private static String getTestName(ExtensionContext context) {
