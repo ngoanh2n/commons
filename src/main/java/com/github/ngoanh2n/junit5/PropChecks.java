@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
  * @version 1.0.0
  * @since 2021-04-10
  */
-class ExtensionPropChecks implements ExecutionCondition, BeforeEachCallback, AfterEachCallback, BeforeAllCallback, AfterAllCallback {
+class PropChecks implements ExecutionCondition, BeforeEachCallback, AfterEachCallback, BeforeAllCallback, AfterAllCallback {
     /**
      * {@code true}:  Allow setting multiple value for a System Property<br>
      * E.g: -Dngoanh2n=[value1,value2,value3]

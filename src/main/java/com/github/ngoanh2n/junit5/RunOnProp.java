@@ -18,7 +18,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 @Target({TYPE, METHOD})
 @Repeatable(RunOnProps.class)
-@ExtendWith(ExtensionPropChecks.class)
+@ExtendWith(PropChecks.class)
 public @interface RunOnProp {
     String name();
 
