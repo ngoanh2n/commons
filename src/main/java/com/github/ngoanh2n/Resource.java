@@ -28,6 +28,8 @@ public class Resource {
      */
     public static final Prop<Boolean> findOnClasspath = Prop.bool("ngoanh2n.findOnClasspath", true);
 
+    //===============================================================================//
+
     /**
      * Get the resource file
      *
@@ -92,6 +94,8 @@ public class Resource {
             throw new RuntimeError(e);
         }
     }
+
+    //===============================================================================//
 
     private static File file(final String name) {
         File file;

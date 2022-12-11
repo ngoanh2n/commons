@@ -30,6 +30,8 @@ public abstract class YamlData<Model> {
         _modelClazz = getModelClazz();
     }
 
+    //===============================================================================//
+
     /**
      * Read Yaml file as {@linkplain Map}
      *
