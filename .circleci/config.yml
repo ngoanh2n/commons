@@ -32,8 +32,7 @@ commands:
     steps:
       - run:
           name: Execute the test
-          command: |
-            ./gradlew clean test
+          command: ./gradlew clean test
           when: always
 
 jobs:
