@@ -26,7 +26,7 @@ public class Resource {
      * {@code false}: Look for the resources in root location
      * [PROJECT]/src/test/resources/ or [PROJECT]/main/test/resources/
      */
-    public static final Prop<Boolean> findOnClasspath = Prop.bool("ngoanh2n.findOnClasspath", true);
+    public static final Prop<Boolean> findOnClasspath = Prop.bool("ngoanh2n.resource.findOnClasspath", true);
 
     //===============================================================================//
 
