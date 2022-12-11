@@ -1,15 +1,16 @@
 package com.github.ngoanh2n.junit5;
 
 import com.github.ngoanh2n.Prop;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.extension.*;
 import org.junit.platform.commons.util.AnnotationUtils;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 /**
  * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
@@ -30,6 +31,7 @@ class ExtensionPropChecks implements ExecutionCondition, BeforeEachCallback, Aft
      */
     @Override
     public ConditionEvaluationResult evaluateExecutionCondition(ExtensionContext context) {
+        resetMultiValueProp();
         setProps(getSetProps(context));
         List<RunOnProp> props = getRunOnProps(context);
 
@@ -72,6 +74,7 @@ class ExtensionPropChecks implements ExecutionCondition, BeforeEachCallback, Aft
     public void afterEach(ExtensionContext context) {
         List<SetProp> annotations = getSetProps(context);
         clearProps(annotations);
+        resetMultiValueProp();
     }
 
     /**
@@ -81,6 +84,7 @@ class ExtensionPropChecks implements ExecutionCondition, BeforeEachCallback, Aft
     public void afterAll(ExtensionContext context) {
         List<SetProp> annotations = getSetProps(context);
         clearProps(annotations);
+        resetMultiValueProp();
     }
 
     //===============================================================================//
@@ -88,27 +92,27 @@ class ExtensionPropChecks implements ExecutionCondition, BeforeEachCallback, Aft
     private boolean propEnabled(RunOnProp annotation) {
         String name = annotation.name();
         String[] value = annotation.value();
-        String valueSet = Prop.string(name).getValue();
+        Prop<String> prop = Prop.string(name);
+        String valueSet = StringUtils.trim(prop.getValue());
 
         if (name == null || value == null || valueSet == null) {
             return false;
         }
 
         if (multiValueEnabled.getValue()) {
-            boolean enabled = false;
             String regex = "^\\[(.*)]$";
             Pattern pattern = Pattern.compile(regex);
-            Matcher matcher = pattern.matcher(valueSet.trim());
+            Matcher matcher = pattern.matcher(valueSet);
 
             if (matcher.matches()) {
-                String[] parts = matcher.group(1).split(",");
-                for (String part : parts) {
-                    if (Arrays.asList(value).contains(part.trim())) {
-                        enabled = true;
-                        break;
+                for (String part : matcher.group(1).split(",")) {
+                    String valuePart = part.trim();
+
+                    if (Arrays.asList(value).contains(valuePart)) {
+                        resolveMultiValueProp(name, valuePart);
+                        return true;
                     }
                 }
-                return enabled;
             }
         }
         return Arrays.asList(value).contains(valueSet);
@@ -120,9 +124,9 @@ class ExtensionPropChecks implements ExecutionCondition, BeforeEachCallback, Aft
 
         while (it.hasNext()) {
             RunOnProp annotation = it.next();
-            String name = annotation.name().trim();
-            String set = Prop.string(name).getValue().trim();
-            String value = "[" + String.join(",", annotation.value()) + "]";
+            String name = StringUtils.trim(annotation.name());
+            String set = StringUtils.trim(Prop.string(name).getValue());
+            String value = ("[" + String.join(",", annotation.value()) + "]").replace(" ", "");
             sb.append(String.format("@RunOnProp(name=%s,value=%s) ← %s", name, value, set));
 
             if (it.hasNext()) {
@@ -153,5 +157,30 @@ class ExtensionPropChecks implements ExecutionCondition, BeforeEachCallback, Aft
 
     private List<SetProp> getSetProps(ExtensionContext context) {
         return AnnotationUtils.findRepeatableAnnotations(context.getElement(), SetProp.class);
+    }
+
+    //===============================================================================//
+
+    private final static List<Prop<String>> multiValueProps = new ArrayList<>();
+
+    private void resetMultiValueProp() {
+        for (Prop<String> multiValueProp : multiValueProps) {
+            String name = multiValueProp.getDefaultValue();
+            String value = multiValueProp.getValue();
+
+            if (value != null) {
+                Prop.string(name).setValue(value);
+            }
+        }
+    }
+
+    private void resolveMultiValueProp(String name, String valuePart) {
+        Prop<String> prop = Prop.string(name);
+        String valueSet = StringUtils.trim(prop.getValue());
+        prop.setValue(valuePart);
+
+        Prop<String> multiValueProp = Prop.string(name + ".original", name);
+        multiValueProp.setValue(valueSet);
+        multiValueProps.add(multiValueProp);
     }
 }
