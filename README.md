@@ -1,6 +1,37 @@
+[![GitHub forks](https://img.shields.io/github/forks/ngoanh2n/utilities.svg?style=social&label=Fork&maxAge=2592000)](https://github.com/ngoanh2n/utilities/network/members/)
+[![GitHub stars](https://img.shields.io/github/stars/ngoanh2n/utilities.svg?style=social&label=Star&maxAge=2592000)](https://github.com/ngoanh2n/utilities/stargazers/)
+[![GitHub watchers](https://img.shields.io/github/watchers/ngoanh2n/utilities.svg?style=social&label=Watch&maxAge=2592000)](https://github.com/ngoanh2n/utilities/watchers/)
+
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.ngoanh2n/utilities/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.ngoanh2n/utilities)
 [![badge-jdk](https://img.shields.io/badge/jdk-8-blue.svg)](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blueviolet.svg)](https://opensource.org/licenses/MIT)
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+  - [Gradle Project](#gradle-project)
+  - [Maven Project](#maven-project)
+- [Usages](#usages)
+  - [Resource](#resource)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+## Gradle Project
+_Add dependency to `build.gradle`_
+```gradle
+implementation("com.github.ngoanh2n:utilities:2.3.7")
+```
+
+## Maven Project
+_Add dependency to `pom.xml`_
+```xml
+<dependency>
+    <groupId>com.github.ngoanh2n</groupId>
+    <artifactId>utilities</artifactId>
+    <version>2.3.7</version>
+</dependency>
+```
 
 # Usages
 ## Resource
@@ -34,19 +65,9 @@ _`Resource` class has a property named `ngoanh2n.resource.findOnClasspath` (Defa
     + `<PROJECT>/src/production/resources`
     + `<PROJECT>/src/test/resources`
 
-1. File
-    ```java
-    File file = Resource.getFile("config.yml");
-    ```
-2. Path
-    ```java
-    Path path = Resource.getPath("config.yml");
-    ```
-3. InputStream
-    ```java
-    InputStream is = Resource.getInputStream("config.yml");
-    ```
-4. Content
-    ```java
-    String content = Resource.getContent("config.yml");
-    ```
+```java
+File file = Resource.getFile("categories.json");
+Path path = Resource.getPath("categories.json");
+InputStream is = Resource.getInputStream("categories.json");
+String content = Resource.getContent("categories.json");
+```
