@@ -1,7 +1,6 @@
 package com.github.ngoanh2n.allure;
 
 import com.github.ngoanh2n.Commons;
-import com.github.ngoanh2n.Resource;
 import io.qameta.allure.util.PropertiesUtils;
 
 import java.io.File;
