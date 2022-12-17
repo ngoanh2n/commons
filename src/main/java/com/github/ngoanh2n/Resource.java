@@ -2,6 +2,8 @@ package com.github.ngoanh2n;
 
 import com.google.common.base.Preconditions;
 import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
 import java.io.*;
@@ -18,7 +20,9 @@ import java.util.concurrent.atomic.AtomicReference;
  * @version 1.0.0
  * @since 2021-01-16
  */
-public class Resource {
+public final class Resource {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Resource.class);
+
     /**
      * {@code true}:  Look for the resources on the classpath:
      * [PROJECT]/out/test/resources/ or [PROJECT]/out/production/resources/
@@ -38,7 +42,7 @@ public class Resource {
      * @return {@linkplain File} of resource if the file exists; {@linkplain RuntimeError} otherwise
      */
     public static File getFile(@Nonnull String resourceName) {
-        return file(resourceName);
+        return findResource(resourceName);
     }
 
     /**
@@ -97,45 +101,61 @@ public class Resource {
 
     //===============================================================================//
 
-    private static File file(final String name) {
+    private static File findResource(String name) {
         File file;
-        validate(name);
+        validateResourceName(name);
+        String msg = String.format("Find resource %s", name);
 
         if (findOnClasspath.getValue()) {
-            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-            URL url = classLoader.getResource(name);
-            file = (url == null) ? null : new File(url.getFile());
+            file = findResourceOnClassPath(name);
         } else {
-            AtomicReference<File> refFile = new AtomicReference<>();
-            refFile.set(file(name, "test"));
-
-            if (refFile.get() != null) {
-                file = refFile.get();
-            } else {
-                refFile.set(file(name, "main"));
-                if (refFile.get() == null) {
-                    file = null;
-                } else {
-                    file = refFile.get();
-                }
-            }
+            file = findResourceInRootLocation(name);
         }
 
         if (file != null) {
             File resourceFile = new File(file.getPath());
-            if (resourceFile.exists()) return resourceFile;
+            if (resourceFile.exists()) {
+                LOGGER.debug(msg);
+                return resourceFile;
+            }
         }
-        throw new RuntimeError(String.format("Resource [%s] not found", name));
+
+        LOGGER.error(msg);
+        throw new RuntimeError(msg);
     }
 
-    private static File file(String name, String src) {
+    private static File findResourceOnClassPath(String name) {
+        ClassLoader clazzLoader = Thread.currentThread().getContextClassLoader();
+        URL url = clazzLoader.getResource(name);
+        return (url == null) ? null : new File(url.getFile());
+    }
+
+    private static File findResourceInRootLocation(String name) {
+        File file;
+        AtomicReference<File> refFile = new AtomicReference<>();
+        refFile.set(findResourceInRootLocation(name, "test"));
+
+        if (refFile.get() != null) {
+            file = refFile.get();
+        } else {
+            refFile.set(findResourceInRootLocation(name, "main"));
+            if (refFile.get() == null) {
+                file = null;
+            } else {
+                file = refFile.get();
+            }
+        }
+        return file;
+    }
+
+    private static File findResourceInRootLocation(String name, String src) {
         Path resourcesPath = Paths.get("src", src, "resources");
         Path resourcePath = Paths.get("", name.split("/"));
         return resourcesPath.resolve(resourcePath).toFile();
     }
 
-    private static void validate(String name) {
-        Preconditions.checkNotNull(name, "Resource name cannot be null");
-        Preconditions.checkArgument(name.trim().length() > 0, "Resource name cannot be empty");
+    private static void validateResourceName(String value) {
+        Preconditions.checkNotNull(value, "Resource name cannot be null");
+        Preconditions.checkArgument(value.trim().length() > 0, "Resource name cannot be empty");
     }
 }
