@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import javax.annotation.Nonnull;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.nio.file.Files;
@@ -33,6 +34,8 @@ import java.util.Properties;
 @CanIgnoreReturnValue
 public final class Commons {
     private static final Logger LOGGER = LoggerFactory.getLogger(Commons.class);
+
+    //===============================================================================//
 
     public static String timestamp() {
         Format dateFormat = new SimpleDateFormat("yyyyMMdd.HHmmss.SSS");
@@ -75,23 +78,48 @@ public final class Commons {
 
     public static File writeProps(Properties props, File file) {
         createDir(file.toPath());
+        String msg = String.format("Write Properties to %s", getRelative(file));
+
         try (OutputStream os = Files.newOutputStream(file.toPath())) {
             props.store(os, null);
         } catch (IOException e) {
-            String msg = "Path not found to create file: %s";
-            LOGGER.error(String.format(msg, file.getAbsolutePath()), e);
+            LOGGER.error(msg);
+            throw new RuntimeError(msg, e);
         }
+        LOGGER.debug(msg);
         return file;
     }
 
+    public static Properties readProps(@Nonnull String resourceName) {
+        File file = Resource.getFile(resourceName);
+        return readProps(file);
+    }
+
+    public static Properties readProps(@Nonnull File file) {
+        Properties props = new Properties();
+        String msg = String.format("Read Properties from %s", getRelative(file));
+
+        try (InputStream is = Files.newInputStream(file.toPath())) {
+            props.load(is);
+        } catch (IOException e) {
+            LOGGER.error(msg);
+            throw new RuntimeError(msg, e);
+        }
+        LOGGER.debug(msg);
+        return props;
+    }
+
     public static <T> T getPrivateValue(Class<?> clazz, Object clazzInstance, String fieldName) {
+        String msg = String.format("Get private value [%s, %s]", clazz.getSimpleName(), fieldName);
         try {
             Field field = clazz.getDeclaredField(fieldName);
             field.setAccessible(true);
-            return (T) field.get(clazzInstance);
+            T value = (T) field.get(clazzInstance);
+            LOGGER.debug(msg);
+            return value;
         } catch (NoSuchFieldException | IllegalAccessException e) {
-            String msg = "Error of private value [%s, %s]";
-            throw new RuntimeError(String.format(msg, clazz.getSimpleName(), fieldName));
+            LOGGER.error(msg);
+            throw new RuntimeError(msg, e);
         }
     }
 }
