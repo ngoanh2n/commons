@@ -1,16 +1,23 @@
 package com.github.ngoanh2n;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
+import org.apache.commons.io.FilenameUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
 import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.lang.reflect.Field;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.Properties;
 
 /**
  * Common helpers
@@ -23,36 +30,58 @@ import java.util.Iterator;
         "unchecked",
         "ResultOfMethodCallIgnored"
 })
+@CanIgnoreReturnValue
 public final class Commons {
-    public static String timeStamp() {
+    private static final Logger logger = LoggerFactory.getLogger(Commons.class);
+
+    public static String timestamp() {
         Format dateFormat = new SimpleDateFormat("yyyyMMdd.HHmmss.SSS");
         return dateFormat.format(new Date());
     }
 
-    @CanIgnoreReturnValue
-    public static Path createDir(@Nonnull Path location) {
-        Iterator<Path> elements = location.iterator();
+    public static File createDir(@Nonnull File file) {
+        return createDir(file.toPath()).toFile();
+    }
+
+    public static Path createDir(@Nonnull Path path) {
+        String extension = FilenameUtils.getExtension(path.toString());
+        if (!extension.isEmpty()) {
+            path = path.getParent();
+        }
+
+        Iterator<Path> elements = path.iterator();
         Path parentElement = Paths.get("");
 
         while (elements.hasNext()) {
             parentElement = parentElement.resolve(elements.next());
             parentElement.toFile().mkdirs();
         }
-        return location;
+        return path;
+    }
+
+    public static File getRelative(@Nonnull File file) {
+        return getRelative(file.toPath()).toFile();
     }
 
     public static Path getRelative(@Nonnull Path path) {
-        return getRelative(path.toFile());
-    }
-
-    public static Path getRelative(@Nonnull File file) {
         String userDir = System.getProperty("user.dir");
         Path userPath = Paths.get(userDir);
         try {
-            return userPath.relativize(file.toPath());
+            return userPath.relativize(path);
         } catch (IllegalArgumentException ignored) {
-            return file.toPath();
+            return path;
         }
+    }
+
+    public static File writeProps(Properties props, File file) {
+        createDir(file.toPath());
+        try (OutputStream os = Files.newOutputStream(file.toPath())) {
+            props.store(os, null);
+        } catch (IOException e) {
+            String msg = "Path not found to create file: %s";
+            logger.error(String.format(msg, file.getAbsolutePath()), e);
+        }
+        return file;
     }
 
     public static <T> T getPrivateValue(Class<?> clazz, Object clazzInstance, String fieldName) {
