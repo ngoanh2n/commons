@@ -10,7 +10,6 @@ dependencies {
     implementation("org.apache.commons:commons-lang3:${VERSION_COMMONS_LANG3}")
     implementation("org.junit.jupiter:junit-jupiter:${VERSION_JUNIT5_JUPITER}")
     implementation("com.fasterxml.jackson.core:jackson-databind:${VERSION_JACKSON}")
-    implementation("com.fasterxml.jackson.core:jackson-databind:${VERSION_JACKSON}")
 
     testImplementation("org.slf4j:slf4j-log4j12:${VERSION_SLF4J}")
     testImplementation("io.qameta.allure:allure-junit5:${VERSION_ALLURE}")
