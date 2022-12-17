@@ -32,7 +32,7 @@ import java.util.Properties;
 })
 @CanIgnoreReturnValue
 public final class Commons {
-    private static final Logger logger = LoggerFactory.getLogger(Commons.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(Commons.class);
 
     public static String timestamp() {
         Format dateFormat = new SimpleDateFormat("yyyyMMdd.HHmmss.SSS");
@@ -79,7 +79,7 @@ public final class Commons {
             props.store(os, null);
         } catch (IOException e) {
             String msg = "Path not found to create file: %s";
-            logger.error(String.format(msg, file.getAbsolutePath()), e);
+            LOGGER.error(String.format(msg, file.getAbsolutePath()), e);
         }
         return file;
     }
