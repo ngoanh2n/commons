@@ -3,12 +3,13 @@
  * @since 2021-01-16
  */
 dependencies {
-    implementation("org.yaml:snakeyaml:1.33")
-    implementation("commons-io:commons-io:2.11.0")
-    implementation("com.google.guava:guava:31.1-jre")
-    implementation("org.junit.jupiter:junit-jupiter:5.9.1")
-    implementation("org.apache.commons:commons-lang3:3.12.0")
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.14.1")
+    implementation("org.yaml:snakeyaml:${VERSION_SNAKEYAML}")
+    implementation("com.google.guava:guava:${VERSION_GUAVA}")
+    implementation("commons-io:commons-io:${VERSION_COMMONS_IO}")
+    implementation("org.apache.commons:commons-lang3:${VERSION_COMMONS_LANG3}")
+    implementation("org.junit.jupiter:junit-jupiter:${VERSION_JUNIT5_JUPITER}")
+    implementation("com.fasterxml.jackson.core:jackson-databind:${VERSION_JACKSON}")
 
-    testImplementation("org.slf4j:slf4j-log4j12:2.0.5")
+    testImplementation("org.slf4j:slf4j-log4j12:${VERSION_SLF4J}")
+    testImplementation("io.qameta.allure:allure-junit5:${VERSION_ALLURE}")
 }

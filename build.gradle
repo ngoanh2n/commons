@@ -1,13 +1,26 @@
 /**
  * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
  * @since 2021-01-16
+ * Allure Gradle Plugin: https://github.com/allure-framework/allure-gradle
  */
+buildscript {
+    apply from: "gradle/versions.gradle"
+    repositories {
+        mavenCentral()
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+    dependencies {}
+}
+
+plugins {
+    id("java")
+    id("idea")
+    id("io.qameta.allure") version "2.11.2"
+}
+
 group(property("prj.groupId"))
 version(property("prj.version"))
 description(property("prj.desc") as String)
-
-apply plugin: "java"
-apply plugin: "idea"
 
 apply from: "gradle/testing.gradle"
 apply from: "gradle/compiling.gradle"
@@ -19,12 +32,27 @@ repositories {
     maven { url "https://plugins.gradle.org/m2/" }
 }
 
-buildscript {
-    repositories {
-        mavenCentral()
-        maven { url "https://plugins.gradle.org/m2/" }
+reporting {
+    setBaseDir(layout.buildDirectory.dir("reports"))
+}
+
+allure {
+    version.set("${VERSION_ALLURE}")
+    adapter {
+        aspectjWeaver.set(true)
+        aspectjVersion.set("1.9.5")
+        autoconfigureListeners.set(true)
+
+        frameworks {
+            junit5 {
+                enabled.set(true)
+                autoconfigureListeners.set(true)
+            }
+        }
     }
-    dependencies {}
+    report {
+        reportDir.set(project.reporting.baseDirectory.dir("allure-report"))
+    }
 }
 
 clean.doFirst {

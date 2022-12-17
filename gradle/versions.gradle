@@ -1,0 +1,14 @@
+/**
+ * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
+ * @since 2021-01-16
+ */
+ext {
+    VERSION_SNAKEYAML               =   "1.33"
+    VERSION_GUAVA                   =   "31.1-jre"
+    VERSION_SLF4J                   =   "2.0.5"
+    VERSION_COMMONS_IO              =   "2.11.0"
+    VERSION_COMMONS_LANG3           =   "3.12.0"
+    VERSION_JACKSON                 =   "2.14.1"
+    VERSION_ALLURE                  =   "2.20.1"
+    VERSION_JUNIT5_JUPITER          =   "5.9.1"
+}
