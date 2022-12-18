@@ -15,6 +15,7 @@ buildscript {
 plugins {
     id("java")
     id("idea")
+    id("java-library")
     id("io.qameta.allure") version "2.11.2"
 }
 
