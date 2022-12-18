@@ -10,7 +10,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -107,19 +106,5 @@ public final class Commons {
         }
         LOGGER.debug(msg);
         return props;
-    }
-
-    public static <T> T getPrivateValue(Class<?> clazz, Object clazzInstance, String fieldName) {
-        String msg = String.format("Get private value [%s, %s]", clazz.getSimpleName(), fieldName);
-        try {
-            Field field = clazz.getDeclaredField(fieldName);
-            field.setAccessible(true);
-            T value = (T) field.get(clazzInstance);
-            LOGGER.debug(msg);
-            return value;
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            LOGGER.error(msg);
-            throw new RuntimeError(msg, e);
-        }
     }
 }
