@@ -109,13 +109,14 @@ public final class Commons {
         return props;
     }
 
-    public static <T> T readField(Object object, String name) {
+    public static <T> T readField(Object object, String fieldName) {
         try {
-            return (T) FieldUtils.readField(object, name, true);
+            return (T) FieldUtils.readField(object, fieldName, true);
         } catch (IllegalAccessException e) {
-            String msg = "Read private value [%s, %s]";
-            LOGGER.error(String.format(msg, object.getClass().getName(), name));
-            throw new RuntimeError(e);
+            String clazzName = object.getClass().getName();
+            String msg = String.format("Read field %s in class %s", fieldName, clazzName);
+            LOGGER.error(msg);
+            throw new RuntimeError(msg, e);
         }
     }
 }
