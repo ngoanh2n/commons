@@ -125,7 +125,7 @@ public final class Commons {
         }
     }
 
-    private Class<?> getJUnit5SignatureAnnotation(ReflectiveInvocationContext<Method> invocationContext) {
+    public static Class<?> getJUnit5SignatureAnnotation(ReflectiveInvocationContext<Method> invocationContext) {
         Class<?>[] signatures = new Class[]{
                 BeforeAll.class, BeforeEach.class, Test.class, RepeatedTest.class,
                 ParameterizedTest.class, TestFactory.class, TestTemplate.class
