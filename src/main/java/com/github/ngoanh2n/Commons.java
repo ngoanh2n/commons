@@ -2,6 +2,7 @@ package com.github.ngoanh2n;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang3.reflect.FieldUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -106,5 +107,15 @@ public final class Commons {
         }
         LOGGER.debug(msg);
         return props;
+    }
+
+    public static <T> T readField(Object object, String name) {
+        try {
+            return (T) FieldUtils.readField(object, name, true);
+        } catch (IllegalAccessException e) {
+            String msg = "Read private value [%s, %s]";
+            LOGGER.error(String.format(msg, object.getClass().getName(), name));
+            throw new RuntimeError(e);
+        }
     }
 }
