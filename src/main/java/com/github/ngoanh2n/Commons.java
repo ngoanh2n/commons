@@ -6,6 +6,7 @@ import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ReflectiveInvocationContext;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.mozilla.universalchardet.UniversalDetector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -114,17 +115,6 @@ public final class Commons {
         return props;
     }
 
-    public static <T> T readField(Object object, String fieldName) {
-        try {
-            return (T) FieldUtils.readField(object, fieldName, true);
-        } catch (IllegalAccessException e) {
-            String clazzName = object.getClass().getName();
-            String msg = String.format("Read field %s in class %s", fieldName, clazzName);
-            LOGGER.error(msg);
-            throw new RuntimeError(msg, e);
-        }
-    }
-
     public static Class<?> getJUnit5SignatureAnnotation(ReflectiveInvocationContext<Method> invocationContext) {
         Class<?>[] signatures = new Class[]{
                 BeforeAll.class, BeforeEach.class, Test.class, RepeatedTest.class,
@@ -144,5 +134,22 @@ public final class Commons {
         String msg = String.format("Get signature annotation from %s", invocationContext.getClass().getName());
         LOGGER.error(msg);
         throw new RuntimeError(msg);
+    }
+
+    //===============================================================================//
+
+    public static String detectCharset(File file) throws IOException {
+        return UniversalDetector.detectCharset(file.toPath());
+    }
+
+    public static <T> T readField(Object object, String fieldName) {
+        try {
+            return (T) FieldUtils.readField(object, fieldName, true);
+        } catch (IllegalAccessException e) {
+            String clazzName = object.getClass().getName();
+            String msg = String.format("Read field %s in class %s", fieldName, clazzName);
+            LOGGER.error(msg);
+            throw new RuntimeError(msg, e);
+        }
     }
 }
