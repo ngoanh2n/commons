@@ -7,6 +7,7 @@ ext {
     VERSION_GUAVA                   =   "31.1-jre"
     VERSION_COMMONS_IO              =   "2.11.0"
     VERSION_COMMONS_LANG3           =   "3.12.0"
+    VERSION_JUNIVERSAL_CHARDET      =   "2.4.0"
     VERSION_SNAKEYAML               =   "1.33"
     VERSION_JACKSON                 =   "2.14.1"
     VERSION_ALLURE                  =   "2.20.1"

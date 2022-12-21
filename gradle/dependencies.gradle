@@ -7,6 +7,7 @@ dependencies {
     api("com.google.guava:guava:$VERSION_GUAVA")
     api("commons-io:commons-io:$VERSION_COMMONS_IO")
     api("org.apache.commons:commons-lang3:$VERSION_COMMONS_LANG3")
+    api("com.github.albfernandez:juniversalchardet:$VERSION_JUNIVERSAL_CHARDET")
 
     implementation("org.yaml:snakeyaml:$VERSION_SNAKEYAML")
     implementation("org.junit.jupiter:junit-jupiter:$VERSION_JUNIT5_JUPITER")
