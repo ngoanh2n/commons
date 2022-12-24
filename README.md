@@ -10,26 +10,28 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
-  - [Gradle Project](#gradle-project)
-  - [Maven Project](#maven-project)
+- [Declarations](#declarations)
+  - [Gradle](#gradle)
+  - [Maven](#maven)
 - [Usages](#usages)
   - [Resource](#resource)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-## Gradle Project
+# Declarations
+## Gradle
 _Add dependency to `build.gradle`_
 ```gradle
-implementation("com.github.ngoanh2n:utilities:2.3.7")
+implementation("com.github.ngoanh2n:utilities:2.3.11")
 ```
 
-## Maven Project
+## Maven
 _Add dependency to `pom.xml`_
 ```xml
 <dependency>
     <groupId>com.github.ngoanh2n</groupId>
     <artifactId>utilities</artifactId>
-    <version>2.3.7</version>
+    <version>2.3.11</version>
 </dependency>
 ```
 
@@ -68,6 +70,6 @@ _`Resource` class has a property named `ngoanh2n.resource.findOnClasspath` (Defa
 ```java
 File file = Resource.getFile("categories.json");
 Path path = Resource.getPath("categories.json");
-InputStream is = Resource.getInputStream("categories.json");
 String content = Resource.getContent("categories.json");
+InputStream is = Resource.getInputStream("categories.json");
 ```
