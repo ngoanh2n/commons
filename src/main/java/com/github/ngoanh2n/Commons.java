@@ -3,9 +3,6 @@ package com.github.ngoanh2n;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
-import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.extension.ReflectiveInvocationContext;
-import org.junit.jupiter.params.ParameterizedTest;
 import org.mozilla.universalchardet.UniversalDetector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,8 +12,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Method;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -113,27 +108,6 @@ public final class Commons {
         }
         LOGGER.debug(msg);
         return props;
-    }
-
-    public static Class<?> getJUnit5SignatureAnnotation(ReflectiveInvocationContext<Method> invocationContext) {
-        Class<?>[] signatures = new Class[]{
-                BeforeAll.class, BeforeEach.class, Test.class, RepeatedTest.class,
-                ParameterizedTest.class, TestFactory.class, TestTemplate.class
-        };
-
-        Method method = readField(invocationContext, "method");
-        Annotation[] declarations = method.getDeclaredAnnotations();
-
-        for (Class<?> signature : signatures) {
-            for (Annotation declaration : declarations) {
-                if (signature.getName().equals(declaration.annotationType().getName())) {
-                    return signature;
-                }
-            }
-        }
-        String msg = String.format("Get signature annotation from %s", invocationContext.getClass().getName());
-        LOGGER.error(msg);
-        throw new RuntimeError(msg);
     }
 
     //===============================================================================//
