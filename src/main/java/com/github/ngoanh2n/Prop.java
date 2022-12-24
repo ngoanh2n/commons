@@ -3,7 +3,7 @@ package com.github.ngoanh2n;
 import java.net.URL;
 
 /**
- * Class for representing a system property
+ * Class for representing a JVM system property.
  *
  * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
  * @version 1.0.0
@@ -16,6 +16,12 @@ public class Prop<T> {
     private final T defaultValue;
     private T value;
 
+    /**
+     * Creates a new Prop.
+     *
+     * @param name The name of the JVM system property.
+     * @param type The class type of the JVM system property.
+     */
     public Prop(String name, Class<T> type) {
         this.name = name;
         this.type = type;
@@ -23,6 +29,13 @@ public class Prop<T> {
         this.defaultValue = value;
     }
 
+    /**
+     * Creates a new Prop.
+     *
+     * @param name         The name of the JVM system property.
+     * @param type         The class type of the JVM system property.
+     * @param defaultValue The default value of the JVM system property.
+     */
     public Prop(String name, Class<T> type, T defaultValue) {
         this.name = name;
         this.type = type;
@@ -30,38 +43,86 @@ public class Prop<T> {
         this.defaultValue = defaultValue;
     }
 
+    /**
+     * Creates a new string Prop.
+     *
+     * @param name The name of the JVM system property.
+     */
     public static Prop<String> string(String name) {
         return new Prop<>(name, String.class);
     }
 
+    /**
+     * Creates a new string Prop.
+     *
+     * @param name         The name of the JVM system property.
+     * @param defaultValue The default value of the JVM system property.
+     */
     public static Prop<String> string(String name, String defaultValue) {
         return new Prop<>(name, String.class, defaultValue);
     }
 
+    /**
+     * Creates a new boolean Prop.
+     *
+     * @param name The name of the JVM system property.
+     */
     public static Prop<Boolean> bool(String name) {
         return new Prop<>(name, Boolean.class);
     }
 
+    /**
+     * Creates a new boolean Prop.
+     *
+     * @param name         The name of the JVM system property.
+     * @param defaultValue The default value of the JVM system property.
+     */
     public static Prop<Boolean> bool(String name, Boolean defaultValue) {
         return new Prop<>(name, Boolean.class, defaultValue);
     }
 
+    /**
+     * Creates a new integer Prop.
+     *
+     * @param name The name of the JVM system property.
+     */
     public static Prop<Integer> integer(String name) {
         return new Prop<>(name, Integer.class);
     }
 
+    /**
+     * Creates a new integer Prop.
+     *
+     * @param name         The name of the JVM system property.
+     * @param defaultValue The default value of the JVM system property.
+     */
     public static Prop<Integer> integer(String name, int defaultValue) {
         return new Prop<>(name, Integer.class, defaultValue);
     }
 
+    /**
+     * The name of the system property.
+     *
+     * @return the JVM system property name.
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * The class type of the JVM system property.
+     *
+     * @return the class type of JVM system property name.
+     */
     public Class<T> getType() {
         return type;
     }
 
+    /**
+     * The value of the system property.
+     *
+     * @return the JVM system property value.
+     */
     public T getValue() {
         String val = System.getProperty(name);
         if (val == null && value != null) {
@@ -91,16 +152,27 @@ public class Prop<T> {
         return defaultValue;
     }
 
+    /**
+     * Sets the JVM system property indicated by the specified key.
+     */
     public void setValue(T newValue) {
         value = newValue;
         System.setProperty(name, String.valueOf(newValue));
     }
 
+    /**
+     * Removes the JVM system property indicated by the specified key.
+     */
     public void clearValue() {
         value = null;
         System.clearProperty(name);
     }
 
+    /**
+     * The default value of the JVM system property.
+     *
+     * @return the JVM system property object.
+     */
     public T getDefaultValue() {
         return defaultValue;
     }

@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -22,31 +23,43 @@ import java.util.Iterator;
 import java.util.Properties;
 
 /**
- * Common helpers
+ * Common helpers.
  *
  * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
  * @version 1.0.0
  * @since 2021-01-16
  */
-@SuppressWarnings({
-        "unchecked",
-        "ResultOfMethodCallIgnored"
-})
+@SuppressWarnings({"unchecked", "ResultOfMethodCallIgnored"})
 @CanIgnoreReturnValue
 public final class Commons {
     private static final Logger LOGGER = LoggerFactory.getLogger(Commons.class);
 
     //===============================================================================//
 
+    /**
+     * Creates a timestamp.
+     *
+     * @return timestamp as string.
+     */
     public static String timestamp() {
         Format dateFormat = new SimpleDateFormat("yyyyMMdd.HHmmss.SSS");
         return dateFormat.format(new Date());
     }
 
+    /**
+     * Creates recursively directory from {@linkplain File}.
+     *
+     * @return directory as a file.
+     */
     public static File createDir(@Nonnull File file) {
         return createDir(file.toPath()).toFile();
     }
 
+    /**
+     * Creates recursively directory from {@linkplain Path}.
+     *
+     * @return directory as a path.
+     */
     public static Path createDir(@Nonnull Path path) {
         String extension = FilenameUtils.getExtension(path.toString());
         if (!extension.isEmpty()) {
@@ -63,10 +76,22 @@ public final class Commons {
         return path;
     }
 
+    /**
+     * Gets relative path of file against to current user directory.
+     *
+     * @param file to get relative path.
+     * @return relative path.
+     */
     public static File getRelative(@Nonnull File file) {
         return getRelative(file.toPath()).toFile();
     }
 
+    /**
+     * Gets relative path of path against to current user directory.
+     *
+     * @param path to get relative path.
+     * @return relative path.
+     */
     public static Path getRelative(@Nonnull Path path) {
         String userDir = System.getProperty("user.dir");
         Path userPath = Paths.get(userDir);
@@ -77,6 +102,12 @@ public final class Commons {
         }
     }
 
+    /**
+     * Writes {@linkplain Properties} to file.
+     *
+     * @param file to be written.
+     * @return output file.
+     */
     public static File writeProps(Properties props, File file) {
         createDir(file.toPath());
         String msg = String.format("Write Properties to %s", getRelative(file));
@@ -91,11 +122,23 @@ public final class Commons {
         return file;
     }
 
+    /**
+     * Reads {@linkplain Properties} from given Java resource name.
+     *
+     * @param resourceName Java resource name to read.
+     * @return {@linkplain Properties} object.
+     */
     public static Properties readProps(@Nonnull String resourceName) {
         File file = Resource.getFile(resourceName);
         return readProps(file);
     }
 
+    /**
+     * Reads {@linkplain Properties} from given properties file.
+     *
+     * @param file to read.
+     * @return {@linkplain Properties} object.
+     */
     public static Properties readProps(@Nonnull File file) {
         Properties props = new Properties();
         String msg = String.format("Read Properties from %s", getRelative(file));
@@ -112,10 +155,25 @@ public final class Commons {
 
     //===============================================================================//
 
+    /**
+     * Gets the charset of a file. <br>
+     * Method to mark {@linkplain UniversalDetector} for reusing
+     *
+     * @param file The file to check charset for.
+     * @return The charset of the file, null when could not be determined.
+     */
     public static String detectCharset(File file) throws IOException {
         return UniversalDetector.detectCharset(file.toPath());
     }
 
+    /**
+     * Reads the named {@link Field}. Superclasses will be considered. <br>
+     * Method to mark {@linkplain FieldUtils} for reusing
+     *
+     * @param object    The object to reflect, must not be {@code null}.
+     * @param fieldName The field name to obtain.
+     * @return The field value.
+     */
     public static <T> T readField(Object object, String fieldName) {
         try {
             return (T) FieldUtils.readField(object, fieldName, true);

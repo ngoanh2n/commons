@@ -13,13 +13,15 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
+ * {@link Extension} for {@link RunOnProp @RunOnProp} and {@link SetProp @SetProp}.
+ *
  * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
  * @version 1.0.0
  * @since 2021-04-10
  */
-class PropChecks implements ExecutionCondition, BeforeEachCallback, AfterEachCallback, BeforeAllCallback, AfterAllCallback {
+public class PropChecks implements ExecutionCondition, BeforeAllCallback, BeforeEachCallback, AfterEachCallback, AfterAllCallback {
     /**
-     * {@code true}:  Allow setting multiple value for a System Property<br>
+     * {@code true}:  Allow setting multiple value for a JVM System Property.<br>
      * E.g: -Dngoanh2n=[value1,value2,value3]
      */
     public static final Prop<Boolean> multiValueEnabled = Prop.bool("ngoanh2n.prop.multiValueEnabled", true);

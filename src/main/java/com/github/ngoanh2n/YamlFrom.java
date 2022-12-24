@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Provide a file or resource for Model that extends {@linkplain YamlData} class
+ * Provides a file or resource for Model that extends {@linkplain YamlData} class.
  *
  * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
  * @version 1.0.0
@@ -15,7 +15,17 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface YamlFrom {
+    /**
+     * The path name of Yaml file.
+     *
+     * @return the path name.
+     */
     String file() default "";
 
+    /**
+     * The resource name to get the Yaml file.
+     *
+     * @return the resource name.
+     */
     String resource() default "";
 }

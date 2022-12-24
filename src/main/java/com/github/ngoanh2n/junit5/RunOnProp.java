@@ -11,6 +11,9 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
+ * Uses to signal that the annotated test class or test method is only <em>enabled</em>
+ * if the value of the specified {@linkplain #name} equals to any value in {@linkplain #value} array.
+ *
  * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
  * @version 1.0.0
  * @since 2021-04-10
@@ -20,7 +23,17 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Repeatable(RunOnProps.class)
 @ExtendWith(PropChecks.class)
 public @interface RunOnProp {
+    /**
+     * The name of the JVM system property to retrieve.
+     *
+     * @return the JVM system property name.
+     */
     String name();
 
+    /**
+     * A value list of JVM system property.
+     *
+     * @return values of the JVM system property.
+     */
     String[] value();
 }

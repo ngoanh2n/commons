@@ -14,8 +14,8 @@ import java.nio.charset.Charset;
 import java.util.*;
 
 /**
- * Yaml file to Map, Model, List of Models.<br>
- * Class of Model should be `public` and has `setter` methods
+ * Reads Yaml file to Map, Model, List of Models.<br>
+ * Class of Model must be `public` and has `setter` methods.
  *
  * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
  * @version 1.0.0
@@ -23,35 +23,26 @@ import java.util.*;
  */
 @SuppressWarnings("unchecked")
 public abstract class YamlData<Model> {
-    private InputStream _inputStream;
-    private Class<Model> _modelClazz;
-
-    public YamlData() {
-        _modelClazz = getModelClazz();
-    }
-
-    //===============================================================================//
-
     /**
-     * Read Yaml file as {@linkplain Map}
+     * Reads Yaml file as {@linkplain Map}.
      *
-     * @param name is the name of file <br>
+     * @param name is the name of file. <br>
      *             e.g. src/test/resources/com/foo/File.yml
      * @return {@linkplain Map} if the file exists; <br>
-     * {@linkplain RuntimeError } if the file doesn't exist or read multiple object as single object
+     * {@linkplain RuntimeError } if the file doesn't exist or read multiple object as single object.
      */
     public static Map<String, Object> toMapFromFile(String name) {
         return toMapFromFile(name, Charset.defaultCharset());
     }
 
     /**
-     * Read Yaml file as {@linkplain Map}
+     * Reads Yaml file as {@linkplain Map}.
      *
-     * @param name is the name of file <br>
+     * @param name is the name of file. <br>
      *             e.g. src/test/resources/com/foo/File.yml
      * @param cs   is a Charset
      * @return {@linkplain Map} if the file exists; <br>
-     * {@linkplain RuntimeError } if the file doesn't exist or read multiple object as single object
+     * {@linkplain RuntimeError } if the file doesn't exist or read multiple object as single object.
      */
     public static Map<String, Object> toMapFromFile(String name, Charset cs) {
         InputStream is = getInputStream(name);
@@ -59,29 +50,81 @@ public abstract class YamlData<Model> {
     }
 
     /**
-     * Read Yaml file as {@linkplain Map}
+     * Reads Yaml file as {@linkplain Map}.
      *
-     * @param name is the name of resource <br>
+     * @param name is the name of resource. <br>
      *             e.g. com/foo/File.yml
      * @return {@linkplain Map} if the file exists; <br>
-     * {@linkplain RuntimeError } if the file doesn't exist or read multiple object as single object
+     * {@linkplain RuntimeError } if the file doesn't exist or read multiple object as single object.
      */
     public static Map<String, Object> toMapFromResource(String name) {
         return toMapFromResource(name, Charset.defaultCharset());
     }
 
     /**
-     * Read Yaml file as {@linkplain Map}
+     * Reads Yaml file as {@linkplain Map}.
      *
-     * @param name is the name of resource <br>
+     * @param name is the name of resource. <br>
      *             e.g. com/foo/File.yml
      * @param cs   is a Charset
      * @return {@linkplain Map} if the file exists; <br>
-     * {@linkplain RuntimeError } if the file doesn't exist or read multiple object as single object
+     * {@linkplain RuntimeError } if the file doesn't exist or read multiple object as single object.
      */
     public static Map<String, Object> toMapFromResource(String name, Charset cs) {
         InputStream is = Resource.getInputStream(name);
         return toMapFromInputStream(is, cs);
+    }
+
+    /**
+     * Reads Yaml file as {@linkplain List} of {@linkplain Map}.
+     *
+     * @param name is the name of file. <br>
+     *             e.g. com/foo/File.yml
+     * @return {@linkplain List} of {@linkplain Map} if the file exists;<br>
+     * {@linkplain RuntimeError } otherwise.
+     */
+    public static List<Map<String, Object>> toMapsFromFile(String name) {
+        return toMapsFromFile(name, Charset.defaultCharset());
+    }
+
+    /**
+     * Reads Yaml file as {@linkplain List} of {@linkplain Map}.
+     *
+     * @param name is the name of file. <br>
+     *             e.g. com/foo/File.yml
+     * @param cs   is a Charset
+     * @return {@linkplain List} of {@linkplain Map} if the file exists;<br>
+     * {@linkplain RuntimeError } otherwise.
+     */
+    public static List<Map<String, Object>> toMapsFromFile(String name, Charset cs) {
+        InputStream is = getInputStream(name);
+        return toMapsFromInputStream(is, cs);
+    }
+
+    /**
+     * Reads Yaml file as {@linkplain List} of {@linkplain Map}.
+     *
+     * @param name is the name of resource. <br>
+     *             e.g. com/foo/File.yml
+     * @return {@linkplain List} of {@linkplain Map} if the file exists;<br>
+     * {@linkplain RuntimeError } otherwise.
+     */
+    public static List<Map<String, Object>> toMapsFromResource(String name) {
+        return toMapsFromResource(name, Charset.defaultCharset());
+    }
+
+    /**
+     * Reads Yaml file as {@linkplain List} of {@linkplain Map}.
+     *
+     * @param name is the name of resource. <br>
+     *             e.g. com/foo/File.yml
+     * @param cs   is a Charset
+     * @return {@linkplain List} of {@linkplain Map} if the file exists;<br>
+     * {@linkplain RuntimeError } otherwise.
+     */
+    public static List<Map<String, Object>> toMapsFromResource(String name, Charset cs) {
+        InputStream is = Resource.getInputStream(name);
+        return toMapsFromInputStream(is, cs);
     }
 
     private static Map<String, Object> toMapFromInputStream(InputStream is, Charset cs) {
@@ -91,58 +134,6 @@ public abstract class YamlData<Model> {
         } else {
             throw new RuntimeError("It's list, use toMapsFrom() instead");
         }
-    }
-
-    /**
-     * Read Yaml file as {@linkplain List} of {@linkplain Map}
-     *
-     * @param name is the name of file <br>
-     *             e.g. com/foo/File.yml
-     * @return {@linkplain List} of {@linkplain Map} if the file exists;<br>
-     * {@linkplain RuntimeError } otherwise
-     */
-    public static List<Map<String, Object>> toMapsFromFile(String name) {
-        return toMapsFromFile(name, Charset.defaultCharset());
-    }
-
-    /**
-     * Read Yaml file as {@linkplain List} of {@linkplain Map}
-     *
-     * @param name is the name of file <br>
-     *             e.g. com/foo/File.yml
-     * @param cs   is a Charset
-     * @return {@linkplain List} of {@linkplain Map} if the file exists;<br>
-     * {@linkplain RuntimeError } otherwise
-     */
-    public static List<Map<String, Object>> toMapsFromFile(String name, Charset cs) {
-        InputStream is = getInputStream(name);
-        return toMapsFromInputStream(is, cs);
-    }
-
-    /**
-     * Read Yaml file as {@linkplain List} of {@linkplain Map}
-     *
-     * @param name is the name of resource <br>
-     *             e.g. com/foo/File.yml
-     * @return {@linkplain List} of {@linkplain Map} if the file exists;<br>
-     * {@linkplain RuntimeError } otherwise
-     */
-    public static List<Map<String, Object>> toMapsFromResource(String name) {
-        return toMapsFromResource(name, Charset.defaultCharset());
-    }
-
-    /**
-     * Read Yaml file as {@linkplain List} of {@linkplain Map}
-     *
-     * @param name is the name of resource <br>
-     *             e.g. com/foo/File.yml
-     * @param cs   is a Charset
-     * @return {@linkplain List} of {@linkplain Map} if the file exists;<br>
-     * {@linkplain RuntimeError } otherwise
-     */
-    public static List<Map<String, Object>> toMapsFromResource(String name, Charset cs) {
-        InputStream is = Resource.getInputStream(name);
-        return toMapsFromInputStream(is, cs);
     }
 
     private static List<Map<String, Object>> toMapsFromInputStream(InputStream is, Charset cs) {
@@ -171,17 +162,31 @@ public abstract class YamlData<Model> {
 
     //===============================================================================//
 
+    private InputStream _inputStream;
+    private Class<Model> _modelClazz;
+
+    public YamlData() {
+        _modelClazz = getModelClazz();
+    }
+
+    /**
+     * Sets the path name of Yaml file.
+     *
+     * @param name is the name of Yaml file. <br>
+     *             e.g. src/test/resources/com/foo/File.yml
+     * @return the current instance of {@linkplain Model}.
+     */
     public Model fromFile(String name) {
         _inputStream = getInputStream(name);
         return (Model) this;
     }
 
     /**
-     * Set resource name to get the Yaml file
+     * Sets resource name to get the Yaml file.
      *
-     * @param name is the name of resource <br>
+     * @param name is the name of resource. <br>
      *             e.g. com/foo/File.yml
-     * @return the current instance of {@linkplain Model}
+     * @return the current instance of {@linkplain Model}.
      */
     public Model fromResource(String name) {
         _inputStream = Resource.getInputStream(name);
@@ -189,21 +194,21 @@ public abstract class YamlData<Model> {
     }
 
     /**
-     * Read Yaml file as {@linkplain Model}
+     * Reads Yaml file as {@linkplain Model}.
      *
      * @return {@linkplain Model} if the file exists; <br>
-     * Throws {@linkplain RuntimeError} if the file doesn't exist or read multiple object as single object
+     * Throws {@linkplain RuntimeError} if the file doesn't exist or read multiple object as single object.
      */
     public Model toModel() {
         return toModel(Charset.defaultCharset());
     }
 
     /**
-     * Read Yaml file as {@linkplain Model}
+     * Reads Yaml file as {@linkplain Model}.
      *
-     * @param cs is a Charset
+     * @param cs is a Charset.
      * @return {@linkplain Model} if the file exists; <br>
-     * Throws {@linkplain RuntimeError} if the file doesn't exist or read multiple object as single object
+     * Throws {@linkplain RuntimeError} if the file doesn't exist or read multiple object as single object.
      */
     public Model toModel(Charset cs) {
         InputStream is = getInputStream();
@@ -217,23 +222,23 @@ public abstract class YamlData<Model> {
     }
 
     /**
-     * Read Yaml file as {@linkplain List} of {@linkplain Model}
+     * Reads Yaml file as {@linkplain List} of {@linkplain Model}.
      *
      * @return {@linkplain List} of {@linkplain Model} if the file exists;<br>
-     * {@linkplain List} of {@linkplain Model} with one element when trying to single object as multiple object
-     * Throws {@linkplain RuntimeError} if the file doesn't exist
+     * {@linkplain List} of {@linkplain Model} with one element when trying to single object as multiple object.
+     * Throws {@linkplain RuntimeError} if the file doesn't exist.
      */
     public List<Model> toModels() {
         return toModels(Charset.defaultCharset());
     }
 
     /**
-     * Read Yaml file as {@linkplain List} of {@linkplain Model}
+     * Reads Yaml file as {@linkplain List} of {@linkplain Model}.
      *
-     * @param cs is a Charset
+     * @param cs is a .
      * @return {@linkplain List} of {@linkplain Model} if the file exists;<br>
-     * {@linkplain List} of {@linkplain Model} with one element when trying to single object as multiple object
-     * Throws {@linkplain RuntimeError} if the file doesn't exist
+     * {@linkplain List} of {@linkplain Model} with one element when trying to single object as multiple object.
+     * Throws {@linkplain RuntimeError} if the file doesn't exist.
      */
     public List<Model> toModels(Charset cs) {
         InputStream is = getInputStream();
@@ -248,8 +253,6 @@ public abstract class YamlData<Model> {
         }
         return models;
     }
-
-    //===============================================================================//
 
     private Class<Model> getModelClazz() {
         if (_modelClazz == null) {

@@ -35,33 +35,33 @@ public final class Resource {
     //===============================================================================//
 
     /**
-     * Get the resource file
+     * Get the resource file.
      *
-     * @param resourceName is the name of resource <br>
+     * @param resourceName is the name of resource. <br>
      *                     e.g. com/foo/File.properties
-     * @return {@linkplain File} of resource if the file exists; {@linkplain RuntimeError} otherwise
+     * @return {@linkplain File} of resource if the file exists; {@linkplain RuntimeError} otherwise.
      */
     public static File getFile(@Nonnull String resourceName) {
         return findResource(resourceName);
     }
 
     /**
-     * Get the path of resource
+     * Gets the path of resource.
      *
-     * @param resourceName is the name of resource <br>
+     * @param resourceName is the name of resource. <br>
      *                     e.g. com/foo/File.properties
-     * @return {@linkplain Path} of resource if the file exists; {@linkplain RuntimeError} otherwise
+     * @return {@linkplain Path} of resource if the file exists; {@linkplain RuntimeError} otherwise.
      */
     public static Path getPath(@Nonnull String resourceName) {
         return getFile(resourceName).toPath();
     }
 
     /**
-     * Get the resource file as {@linkplain InputStream}
+     * Gets the resource file as {@linkplain InputStream}.
      *
-     * @param resourceName is the name of resource <br>
+     * @param resourceName is the name of resource. <br>
      *                     e.g. com/foo/File.properties
-     * @return {@linkplain InputStream} if the file exists; {@linkplain RuntimeError} otherwise
+     * @return {@linkplain InputStream} if the file exists; {@linkplain RuntimeError} otherwise.
      */
     public static InputStream getInputStream(@Nonnull String resourceName) {
         try {
@@ -72,23 +72,23 @@ public final class Resource {
     }
 
     /**
-     * Get the resource file as {@linkplain String}
+     * Gets the resource file as {@linkplain String}.
      *
-     * @param resourceName is the name of resource <br>
+     * @param resourceName is the name of resource. <br>
      *                     e.g. com/foo/File.properties
-     * @return {@linkplain String} if the file exists; {@linkplain RuntimeError} otherwise
+     * @return {@linkplain String} if the file exists; {@linkplain RuntimeError} otherwise.
      */
     public static String getContent(@Nonnull String resourceName) {
         return getContent(resourceName, Charset.defaultCharset());
     }
 
     /**
-     * Get the resource file as {@linkplain String}
+     * Gets the resource file as {@linkplain String}.
      *
-     * @param resourceName is the name of resource <br>
+     * @param resourceName is the name of resource. <br>
      *                     e.g. com/foo/File.properties
-     * @param charset      the charset to use, null means platform default
-     * @return {@linkplain String} if the file exists; {@linkplain RuntimeError} otherwise
+     * @param charset      the charset to use, null means platform default.
+     * @return {@linkplain String} if the file exists; {@linkplain RuntimeError} otherwise.
      */
     public static String getContent(@Nonnull String resourceName, @Nonnull Charset charset) {
         try {
