@@ -15,6 +15,13 @@
   - [Maven](#maven)
 - [Usages](#usages)
   - [Resource](#resource)
+  - [YamlData](#yamldata)
+    - [Static APIs](#static-apis)
+    - [Inheritance](#inheritance)
+      - [Without annotation](#without-annotation)
+      - [With annotation](#with-annotation)
+  - [@RunOnProp](#runonprop)
+  - [@SetProp](#setprop)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -36,8 +43,6 @@ _Add dependency to `pom.xml`_
 ```
 
 # Usages
-## Resource
-_Get Java resource files by resource name._
 ```
 ├── build
 ├── out
@@ -46,7 +51,7 @@ _Get Java resource files by resource name._
 │   |       └── log4j.properties
 │   └── test
 │       └── resources
-│           ├── config.yml
+│           ├── user.yml
 │           ├── categories.json
 │           └── selenide.properties
 ├── src
@@ -55,10 +60,13 @@ _Get Java resource files by resource name._
 │   |       └── log4j.properties
 │   └── test
 │       └── resources
-│           ├── config.yml
+│           ├── user.yml
 │           ├── categories.json
 │           └── selenide.properties
 ```
+
+## Resource
+_Get Java resource files by resource name._
 _`Resource` class has a property named `ngoanh2n.resource.findOnClasspath` (Default to true)_
 - When property is set to `true`: Get the resource on the classpath
     + `<PROJECT>/out/production/resources`
@@ -72,4 +80,186 @@ File file = Resource.getFile("categories.json");
 Path path = Resource.getPath("categories.json");
 String content = Resource.getContent("categories.json");
 InputStream is = Resource.getInputStream("categories.json");
+```
+
+## YamlData
+### Static APIs
+_Reads Yaml file to Map, List of Map._
+```java
+Map<String, Object> map = YamlData.toMapFromResource("user.yml")
+Map<String, Object> map = YamlData.toMapFromFile("src/test/resources/user.yml")
+
+List<Map<String, Object>> maps = YamlData.toMapsFromResource("user.yml")
+List<Map<String, Object>> maps = YamlData.toMapsFromFile("src/test/resources/user.yml")
+```
+
+### Inheritance
+_Reads Yaml file to Java Bean, List of Java Bean._
+
+```yml
+# Yaml File
+
+username: ngoanh2n
+notes:
+  - note1
+  - note2
+companies:
+  - name: Com1
+    address: Addr1
+  - name: Com2
+    address: Addr3
+```
+
+```java
+// Java Bean
+
+public class User extends YamlData<User> {
+  private String username;
+  private List<String> notes;
+  private List<Company> companies;
+
+  ...GETTERS & SETTERS...
+}
+```
+
+```java
+// Java Bean
+
+public class Company extends YamlData<Company> {
+  private String name;
+  private String address;
+
+  ...GETTERS & SETTERS...
+}
+```
+
+#### Without annotation
+```
+User user = new User().fromResource("user.yml").toModel();
+// OR
+User user = new User().fromFile("src/test/resources/user.yml").toModel();
+```
+
+#### With annotation
+You should attach `com.github.ngoanh2n.YamlFrom` for Java Bean.
+
+```java
+// Java Bean
+
+@YamlFrom(resource = "user.yml")
+// OR
+@YamlFrom(file = "src/test/resources/user.yml")
+public class User extends YamlData<User> {
+  ...
+}
+```
+```
+User user = new User().toModel();
+// Replace declared value of @YamlFrom by calling fromResource() or fromFile() method.
+```
+
+## @RunOnProp
+_Signal that the annotated JUnit5 test class or test method is enabled._
+
+```java
+// Junit5 test
+
+public class SeleniumTest {
+  // This means, test method will be enabled if satisfied following conditions:
+  // JVM system property: os equals to one of macos, linux, windows
+  // JVM system property: browser equals to chrome
+  @Test
+  @RunOnProp(name = "os", value = {"macos", "windows", "linux"})
+  @RunOnProp(name = "browser", value = "chrome")
+  public void chromeTest() {
+    ...
+  }
+
+  // This means, test method will be enabled if satisfied following conditions:
+  // JVM system property: os equals to macos, windows
+  // JVM system property: browser equals to opera
+  @Test
+  @RunOnProp(name = "os", value = {"macos", "windows"})
+  @RunOnProp(name = "browser", value = "opera")
+  public void operaTest() {
+    ...
+  }
+}
+```
+
+```
+./gradlew test --tests SeleniumTest -Dos=windows -Dbrowser=chrome,opera
+→ Tests will be enabled: SeleniumTest.chromeTest() & SeleniumTest.operaTest()
+
+./gradlew test --tests SeleniumTest -Dos=macos -Dbrowser=opera
+→ Tests will be enabled: SeleniumTest.operaTest()
+```
+
+## @SetProp
+_Set value to JVM system property._
+
+```java
+// Test Class
+
+@SetProp(name = "os", value = "windows")
+public class SeleniumTest {
+  @BeforeAll
+  public static void beforeAll() {
+    Assertions.assertEquals("windows", System.getProperty("os"));
+  }
+
+  @BeforeEach
+  public void beforeEach() {
+    Assertions.assertEquals("windows", System.getProperty("os"));
+  }
+
+  @Test
+  public void test() {
+    Assertions.assertEquals("windows", System.getProperty("os"));
+  }
+
+  @AfterEach
+  public void afterEach() {
+    Assertions.assertEquals("windows", System.getProperty("os"));
+  }
+
+  @AfterAll
+  public static void afterAll() {
+    Assertions.assertEquals("windows", System.getProperty("os"));
+  }
+}
+```
+
+```java
+// Test Method
+
+public class SeleniumTest {
+  @BeforeAll
+  public static void beforeAll() {
+    Assertions.assertNotEquals("windows", System.getProperty("os"));
+    // JVM system property `os` is not set in class scope
+  }
+
+  @BeforeEach
+  public void beforeEach() {
+    Assertions.assertEquals("windows", System.getProperty("os"));
+  }
+
+  @Test
+  @SetProp(name = "os", value = "windows")
+  public void test() {
+    Assertions.assertEquals("windows", System.getProperty("os"));
+  }
+
+  @AfterEach
+  public void afterEach() {
+    Assertions.assertEquals("windows", System.getProperty("os"));
+  }
+
+  @AfterAll
+  public static void afterAll() {
+    Assertions.assertNotEquals("windows", System.getProperty("os"));
+    // JVM system property `os` is not set in class scope
+  }
+}
 ```
