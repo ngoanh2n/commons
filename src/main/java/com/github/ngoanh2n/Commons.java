@@ -36,6 +36,9 @@ public final class Commons {
 
     //===============================================================================//
 
+    private Commons() {
+    }
+
     /**
      * Creates a timestamp.
      *
@@ -49,6 +52,7 @@ public final class Commons {
     /**
      * Creates recursively directory from {@linkplain File}.
      *
+     * @param file is directory as File.
      * @return directory as a file.
      */
     public static File createDir(@Nonnull File file) {
@@ -58,6 +62,7 @@ public final class Commons {
     /**
      * Creates recursively directory from {@linkplain Path}.
      *
+     * @param path is directory as Path.
      * @return directory as a path.
      */
     public static Path createDir(@Nonnull Path path) {
@@ -105,7 +110,8 @@ public final class Commons {
     /**
      * Writes {@linkplain Properties} to file.
      *
-     * @param file to be written.
+     * @param file  to be stored.
+     * @param props to be written.
      * @return output file.
      */
     public static File writeProps(Properties props, File file) {
@@ -161,6 +167,7 @@ public final class Commons {
      *
      * @param file The file to check charset for.
      * @return The charset of the file, null when could not be determined.
+     * @throws IOException if some IO error occurs.
      */
     public static String detectCharset(File file) throws IOException {
         return UniversalDetector.detectCharset(file.toPath());
@@ -170,6 +177,7 @@ public final class Commons {
      * Reads the named {@link Field}. Superclasses will be considered. <br>
      * Method to mark {@linkplain FieldUtils} for reusing
      *
+     * @param <T>       Type of result will be returned.
      * @param object    The object to reflect, must not be {@code null}.
      * @param fieldName The field name to obtain.
      * @return The field value.

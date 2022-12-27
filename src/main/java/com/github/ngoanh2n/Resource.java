@@ -34,6 +34,9 @@ public final class Resource {
 
     //===============================================================================//
 
+    private Resource() {
+    }
+
     /**
      * Get the resource file.
      *

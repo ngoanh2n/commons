@@ -47,6 +47,7 @@ public class Prop<T> {
      * Creates a new string Prop.
      *
      * @param name The name of the JVM system property.
+     * @return This instance.
      */
     public static Prop<String> string(String name) {
         return new Prop<>(name, String.class);
@@ -57,6 +58,7 @@ public class Prop<T> {
      *
      * @param name         The name of the JVM system property.
      * @param defaultValue The default value of the JVM system property.
+     * @return This instance.
      */
     public static Prop<String> string(String name, String defaultValue) {
         return new Prop<>(name, String.class, defaultValue);
@@ -66,6 +68,7 @@ public class Prop<T> {
      * Creates a new boolean Prop.
      *
      * @param name The name of the JVM system property.
+     * @return This instance.
      */
     public static Prop<Boolean> bool(String name) {
         return new Prop<>(name, Boolean.class);
@@ -76,6 +79,7 @@ public class Prop<T> {
      *
      * @param name         The name of the JVM system property.
      * @param defaultValue The default value of the JVM system property.
+     * @return This instance.
      */
     public static Prop<Boolean> bool(String name, Boolean defaultValue) {
         return new Prop<>(name, Boolean.class, defaultValue);
@@ -85,6 +89,7 @@ public class Prop<T> {
      * Creates a new integer Prop.
      *
      * @param name The name of the JVM system property.
+     * @return This instance.
      */
     public static Prop<Integer> integer(String name) {
         return new Prop<>(name, Integer.class);
@@ -95,6 +100,7 @@ public class Prop<T> {
      *
      * @param name         The name of the JVM system property.
      * @param defaultValue The default value of the JVM system property.
+     * @return This instance.
      */
     public static Prop<Integer> integer(String name, int defaultValue) {
         return new Prop<>(name, Integer.class, defaultValue);
@@ -154,6 +160,8 @@ public class Prop<T> {
 
     /**
      * Sets the JVM system property indicated by the specified key.
+     *
+     * @param newValue The value of the JVM system property.
      */
     public void setValue(T newValue) {
         value = newValue;

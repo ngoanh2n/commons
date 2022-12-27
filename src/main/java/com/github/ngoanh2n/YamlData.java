@@ -14,7 +14,7 @@ import java.nio.charset.Charset;
 import java.util.*;
 
 /**
- * Reads Yaml file to Map, Model, List of Models.<br>
+ * Reads Yaml file to Map, list of Map, Model, list of Models.<br>
  * Class of Model must be `public` and has `setter` methods.
  *
  * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
@@ -165,6 +165,9 @@ public abstract class YamlData<Model> {
     private InputStream _inputStream;
     private Class<Model> _modelClazz;
 
+    /**
+     * Constructs and gets current Java Bean class
+     */
     public YamlData() {
         _modelClazz = getModelClazz();
     }

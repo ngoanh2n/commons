@@ -21,6 +21,12 @@ import java.util.regex.Pattern;
  */
 public class PropChecks implements ExecutionCondition, BeforeAllCallback, BeforeEachCallback, AfterEachCallback, AfterAllCallback {
     /**
+     * Default constructor
+     */
+    public PropChecks() {
+    }
+
+    /**
      * {@code true}:  Allow setting multiple value for a JVM System Property.<br>
      * E.g: -Dngoanh2n=[value1,value2,value3]
      */
