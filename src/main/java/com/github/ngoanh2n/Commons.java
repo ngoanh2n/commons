@@ -1,7 +1,6 @@
 package com.github.ngoanh2n;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
-import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.mozilla.universalchardet.UniversalDetector;
 import org.slf4j.Logger;
@@ -63,11 +62,6 @@ public final class Commons {
      * @return directory as a path.
      */
     public static Path createDir(@Nonnull Path path) {
-        String extension = FilenameUtils.getExtension(path.toString());
-        if (!extension.isEmpty()) {
-            path = path.getParent();
-        }
-
         Iterator<Path> elements = path.iterator();
         Path parentElement = Paths.get("");
 
