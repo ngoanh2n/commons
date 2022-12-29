@@ -16,6 +16,8 @@ public class Prop<T> {
     private final T defaultValue;
     private T value;
 
+    //-------------------------------------------------------------------------------//
+
     /**
      * Creates a new Prop.
      *
@@ -105,6 +107,8 @@ public class Prop<T> {
     public static Prop<Integer> integer(String name, int defaultValue) {
         return new Prop<>(name, Integer.class, defaultValue);
     }
+
+    //-------------------------------------------------------------------------------//
 
     /**
      * The name of the system property.

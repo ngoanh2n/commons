@@ -127,6 +127,8 @@ public abstract class YamlData<Model> {
         return toMapsFromInputStream(is, cs);
     }
 
+    //-------------------------------------------------------------------------------//
+
     private static Map<String, Object> toMapFromInputStream(InputStream is, Charset cs) {
         Object object = inputStreamToObject(is, cs);
         if (object instanceof LinkedHashMap) {
@@ -160,10 +162,12 @@ public abstract class YamlData<Model> {
         throw new RuntimeError("Yaml content is empty");
     }
 
-    //===============================================================================//
+    //-------------------------------------------------------------------------------//
 
     private InputStream _inputStream;
     private Class<Model> _modelClazz;
+
+    //-------------------------------------------------------------------------------//
 
     /**
      * Constructs and gets current Java Bean class
@@ -256,6 +260,8 @@ public abstract class YamlData<Model> {
         }
         return models;
     }
+
+    //-------------------------------------------------------------------------------//
 
     private Class<Model> getModelClazz() {
         if (_modelClazz == null) {

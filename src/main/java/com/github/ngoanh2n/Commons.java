@@ -34,10 +34,7 @@ import java.util.Properties;
 public final class Commons {
     private static final Logger LOGGER = LoggerFactory.getLogger(Commons.class);
 
-    //===============================================================================//
-
-    private Commons() {
-    }
+    //-------------------------------------------------------------------------------//
 
     /**
      * Creates a timestamp.
@@ -159,11 +156,11 @@ public final class Commons {
         return props;
     }
 
-    //===============================================================================//
+    //-------------------------------------------------------------------------------//
 
     /**
      * Gets the charset of a file. <br>
-     * Method to mark {@linkplain UniversalDetector} for reusing
+     * Method to mark {@linkplain UniversalDetector} for reusing.
      *
      * @param file The file to check charset for.
      * @return The charset of the file, null when could not be determined.
@@ -175,7 +172,7 @@ public final class Commons {
 
     /**
      * Reads the named {@link Field}. Superclasses will be considered. <br>
-     * Method to mark {@linkplain FieldUtils} for reusing
+     * Method to mark {@linkplain FieldUtils} for reusing.
      *
      * @param <T>       Type of result will be returned.
      * @param object    The object to reflect, must not be {@code null}.
@@ -191,5 +188,10 @@ public final class Commons {
             LOGGER.error(msg);
             throw new RuntimeError(msg, e);
         }
+    }
+
+    //-------------------------------------------------------------------------------//
+
+    private Commons() {
     }
 }

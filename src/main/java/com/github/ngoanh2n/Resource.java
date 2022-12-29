@@ -32,10 +32,7 @@ public final class Resource {
      */
     public static final Prop<Boolean> findOnClasspath = Prop.bool("ngoanh2n.resource.findOnClasspath", true);
 
-    //===============================================================================//
-
-    private Resource() {
-    }
+    //-------------------------------------------------------------------------------//
 
     /**
      * Get the resource file.
@@ -102,7 +99,7 @@ public final class Resource {
         }
     }
 
-    //===============================================================================//
+    //-------------------------------------------------------------------------------//
 
     private static File findResource(String name) {
         File file;
@@ -161,4 +158,6 @@ public final class Resource {
         Preconditions.checkNotNull(value, "Resource name cannot be null");
         Preconditions.checkArgument(value.trim().length() > 0, "Resource name cannot be empty");
     }
+
+    private Resource() { /* No implementation necessary */ }
 }

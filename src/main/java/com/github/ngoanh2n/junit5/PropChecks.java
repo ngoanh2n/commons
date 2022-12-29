@@ -21,18 +21,17 @@ import java.util.regex.Pattern;
  */
 public class PropChecks implements ExecutionCondition, BeforeAllCallback, BeforeEachCallback, AfterEachCallback, AfterAllCallback {
     /**
-     * Default constructor
-     */
-    public PropChecks() {
-    }
-
-    /**
      * {@code true}:  Allow setting multiple value for a JVM System Property.<br>
      * E.g: -Dngoanh2n=[value1,value2,value3]
      */
     public static final Prop<Boolean> multiValueEnabled = Prop.bool("ngoanh2n.prop.multiValueEnabled", true);
 
-    //===============================================================================//
+    //-------------------------------------------------------------------------------//
+
+    /**
+     * Default constructor.
+     */
+    public PropChecks() { /* No implementation necessary */ }
 
     /**
      * {@inheritDoc}
@@ -55,7 +54,7 @@ public class PropChecks implements ExecutionCondition, BeforeAllCallback, Before
         return ConditionEvaluationResult.enabled("Not related to @RunOnProp");
     }
 
-    //===============================================================================//
+    //-------------------------------------------------------------------------------//
 
     /**
      * {@inheritDoc}
@@ -95,7 +94,7 @@ public class PropChecks implements ExecutionCondition, BeforeAllCallback, Before
         resetMultiValueProp();
     }
 
-    //===============================================================================//
+    //-------------------------------------------------------------------------------//
 
     private boolean propEnabled(RunOnProp annotation) {
         String name = annotation.name();
@@ -148,7 +147,7 @@ public class PropChecks implements ExecutionCondition, BeforeAllCallback, Before
         return AnnotationUtils.findRepeatableAnnotations(context.getElement(), RunOnProp.class);
     }
 
-    //===============================================================================//
+    //-------------------------------------------------------------------------------//
 
     private void setProps(List<SetProp> annotations) {
         annotations.forEach(annotation -> {
@@ -167,7 +166,7 @@ public class PropChecks implements ExecutionCondition, BeforeAllCallback, Before
         return AnnotationUtils.findRepeatableAnnotations(context.getElement(), SetProp.class);
     }
 
-    //===============================================================================//
+    //-------------------------------------------------------------------------------//
 
     private final static List<Prop<String>> multiValueProps = new ArrayList<>();
 

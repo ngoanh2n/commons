@@ -20,9 +20,6 @@ import java.util.stream.Stream;
  * @since 2022-12-17
  */
 public final class AllureEnvironment {
-    private AllureEnvironment() {
-    }
-
     /**
      * Write {@linkplain Properties} to {@code environment.properties} at Allure results directory.
      *
@@ -66,7 +63,7 @@ public final class AllureEnvironment {
         Commons.writeProps(mergeProps(props), file);
     }
 
-    //===============================================================================//
+    //-------------------------------------------------------------------------------//
 
     private static Path getResultsDir() {
         Properties props = PropertiesUtils.loadAllureProperties();
@@ -85,4 +82,6 @@ public final class AllureEnvironment {
         }
         return propsList.toArray(new Properties[]{});
     }
+
+    private AllureEnvironment() { /* No implementation necessary */ }
 }
