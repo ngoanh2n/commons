@@ -22,7 +22,7 @@ plugins {
 }
 
 group("com.github.ngoanh2n")
-version("2.3.12")
+version("2.3.13")
 description("Utilities of com.github.ngoanh2n")
 
 apply from: "gradle/testing.gradle"

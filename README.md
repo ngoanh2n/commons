@@ -29,7 +29,7 @@
 ## Gradle
 _Add dependency to `build.gradle`_
 ```gradle
-implementation("com.github.ngoanh2n:utilities:2.3.12")
+implementation("com.github.ngoanh2n:utilities:2.3.13")
 ```
 
 ## Maven
@@ -38,7 +38,7 @@ _Add dependency to `pom.xml`_
 <dependency>
     <groupId>com.github.ngoanh2n</groupId>
     <artifactId>utilities</artifactId>
-    <version>2.3.12</version>
+    <version>2.3.13</version>
 </dependency>
 ```
 
