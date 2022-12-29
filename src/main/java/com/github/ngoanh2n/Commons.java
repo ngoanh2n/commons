@@ -31,10 +31,6 @@ import java.util.Properties;
 @SuppressWarnings({"unchecked", "ResultOfMethodCallIgnored"})
 @CanIgnoreReturnValue
 public final class Commons {
-    private static final Logger LOGGER = LoggerFactory.getLogger(Commons.class);
-
-    //-------------------------------------------------------------------------------//
-
     /**
      * Creates a timestamp.
      *
@@ -186,6 +182,7 @@ public final class Commons {
 
     //-------------------------------------------------------------------------------//
 
-    private Commons() {
-    }
+    private static final Logger LOGGER = LoggerFactory.getLogger(Commons.class);
+
+    private Commons() { /* No implementation necessary */ }
 }

@@ -21,8 +21,6 @@ import java.util.concurrent.atomic.AtomicReference;
  * @since 2021-01-16
  */
 public final class Resource {
-    private static final Logger LOGGER = LoggerFactory.getLogger(Resource.class);
-
     /**
      * {@code true}:  Look for the resources on the classpath:
      * [PROJECT]/out/test/resources/ or [PROJECT]/out/production/resources/
@@ -159,5 +157,8 @@ public final class Resource {
         Preconditions.checkArgument(value.trim().length() > 0, "Resource name cannot be empty");
     }
 
+    //-------------------------------------------------------------------------------//
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(Resource.class);
     private Resource() { /* No implementation necessary */ }
 }
