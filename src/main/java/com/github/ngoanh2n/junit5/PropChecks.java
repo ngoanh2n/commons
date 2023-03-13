@@ -5,10 +5,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.extension.*;
 import org.junit.platform.commons.util.AnnotationUtils;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
+import java.lang.reflect.Method;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,7 +22,7 @@ public class PropChecks implements ExecutionCondition, BeforeAllCallback, Before
      * {@code true}:  Allow setting multiple value for a JVM System Property.<br>
      * E.g: -Dngoanh2n=[value1,value2,value3]
      */
-    public static final Prop<Boolean> multiValueEnabled = Prop.bool("ngoanh2n.prop.multiValueEnabled", true);
+    public static final Prop<Boolean> multiValueEnabled = Prop.bool("ngoanh2n.prop.multivalue.enabled", true);
 
     //-------------------------------------------------------------------------------//
 
@@ -45,11 +43,11 @@ public class PropChecks implements ExecutionCondition, BeforeAllCallback, Before
         if (props.size() > 0) {
             for (RunOnProp prop : props) {
                 if (!propEnabled(prop)) {
-                    String reason = propsToString(props);
+                    String reason = propsToString(props, context);
                     return ConditionEvaluationResult.disabled(reason);
                 }
             }
-            return ConditionEvaluationResult.enabled(propsToString(props));
+            return ConditionEvaluationResult.enabled(propsToString(props, context));
         }
         return ConditionEvaluationResult.enabled("Not related to @RunOnProp");
     }
@@ -125,7 +123,7 @@ public class PropChecks implements ExecutionCondition, BeforeAllCallback, Before
         return Arrays.asList(value).contains(valueSet);
     }
 
-    private String propsToString(List<RunOnProp> annotations) {
+    private String propsToString(List<RunOnProp> annotations, ExtensionContext context) {
         StringBuilder sb = new StringBuilder();
         Iterator<RunOnProp> it = annotations.iterator();
 
@@ -137,10 +135,18 @@ public class PropChecks implements ExecutionCondition, BeforeAllCallback, Before
             sb.append(String.format("@RunOnProp(name=%s,value=%s) ← %s", name, value, set));
 
             if (it.hasNext()) {
-                sb.append("\r\n");
+                sb.append("\n");
+            } else {
+                Optional<Method> method = context.getTestMethod();
+                method.ifPresent(v -> sb.append("\n").append(v));
             }
         }
         return sb.toString();
+    }
+
+    private static String getTestName(ExtensionContext context) {
+        Optional<Class<?>> testClazz = context.getTestClass();
+        return testClazz.map(Class::getSimpleName).orElse("");
     }
 
     private List<RunOnProp> getRunOnProps(ExtensionContext context) {
