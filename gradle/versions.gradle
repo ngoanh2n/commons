@@ -10,6 +10,6 @@ ext {
     VERSION_JUNIVERSAL_CHARDET      =   "2.4.0"
     VERSION_SNAKEYAML               =   "1.33"
     VERSION_JACKSON                 =   "2.14.1"
-    VERSION_ALLURE                  =   "2.20.1"
+    VERSION_ALLURE                  =   "2.21.0"
     VERSION_JUNIT5_JUPITER          =   "5.9.1"
 }
