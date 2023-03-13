@@ -1,14 +1,8 @@
-# IDEA
-*.iml
 .idea/
-
-# Java
-*/build/
-out/
-*.log
-
-# Gradle
 .gradle/
-build/
+.allure/
+.vscode/
 
-lombok.config
+bin/
+out/
+build/
