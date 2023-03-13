@@ -160,5 +160,6 @@ public final class Resource {
     //-------------------------------------------------------------------------------//
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Resource.class);
+
     private Resource() { /* No implementation necessary */ }
 }
