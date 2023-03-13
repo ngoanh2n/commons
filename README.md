@@ -164,6 +164,10 @@ _Signal that the annotated JUnit5 test class or test method is enabled._
 ```java
 // Junit5 test
 
+import com.github.ngoanh2n.junit5.RunOnProp;
+import com.github.ngoanh2n.junit5.SetProp;
+import org.junit.jupiter.api.Test;
+
 public class SeleniumTest {
   // This means, test method will be enabled if satisfied following conditions:
   // JVM system property: os equals to one of macos, linux, windows
@@ -188,7 +192,7 @@ public class SeleniumTest {
 ```
 
 ```
-./gradlew test --tests SeleniumTest -Dos=windows -Dbrowser=chrome,opera
+./gradlew test --tests SeleniumTest -Dos=windows -Dbrowser=[chrome,opera]
 → Tests will be enabled: SeleniumTest.chromeTest() & SeleniumTest.operaTest()
 
 ./gradlew test --tests SeleniumTest -Dos=macos -Dbrowser=opera
@@ -200,6 +204,9 @@ _Set value to JVM system property._
 
 ```java
 // Test Class
+
+import com.github.ngoanh2n.junit5.SetProp;
+import org.junit.jupiter.api.*;
 
 @SetProp(name = "os", value = "windows")
 public class SeleniumTest {
@@ -232,6 +239,9 @@ public class SeleniumTest {
 
 ```java
 // Test Method
+
+import com.github.ngoanh2n.junit5.SetProp;
+import org.junit.jupiter.api.*;
 
 public class SeleniumTest {
   @BeforeAll
