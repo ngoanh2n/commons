@@ -7,10 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -123,21 +120,23 @@ public final class Commons {
      */
     public static Properties readProps(@Nonnull String resourceName) {
         File file = Resource.getFile(resourceName);
-        return readProps(file);
+        return readProps(file, "UTF-8");
     }
 
     /**
      * Reads {@linkplain Properties} from given properties file.
      *
-     * @param file to read.
+     * @param file    to read.
+     * @param charset The name of a supported charset.
      * @return {@linkplain Properties} object.
      */
-    public static Properties readProps(@Nonnull File file) {
+    public static Properties readProps(@Nonnull File file, String charset) {
         Properties props = new Properties();
         String msg = String.format("Read Properties from %s", getRelative(file));
 
         try (InputStream is = Files.newInputStream(file.toPath())) {
-            props.load(is);
+            InputStreamReader isr = new InputStreamReader(is, charset);
+            props.load(isr);
         } catch (IOException e) {
             LOGGER.error(msg);
             throw new RuntimeError(msg, e);
