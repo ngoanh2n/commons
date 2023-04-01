@@ -132,7 +132,7 @@ public class PropChecks implements ExecutionCondition, BeforeAllCallback, Before
             String name = StringUtils.trim(annotation.name());
             String set = StringUtils.trim(Prop.string(name).getValue());
             String value = ("[" + String.join(",", annotation.value()) + "]").replace(" ", "");
-            sb.append(String.format("@RunOnProp(name=%s,value=%s) ← %s", name, value, set));
+            sb.append(String.format("@RunOnProp(name=%s,value=%s) <- %s", name, value, set));
 
             if (it.hasNext()) {
                 sb.append("\n");
