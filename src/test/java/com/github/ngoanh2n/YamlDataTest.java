@@ -7,8 +7,6 @@ import java.util.List;
 
 /**
  * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
- * @version 1.0.0
- * @since 2021-01-16
  */
 public class YamlDataTest {
     private final String resource0 = "com/github/ngoanh2n/Data0.yml";

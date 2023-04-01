@@ -9,8 +9,6 @@ import java.lang.annotation.Target;
  * Provides a file or resource for Model that extends {@linkplain YamlData} class.
  *
  * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
- * @version 1.0.0
- * @since 2021-01-16
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)

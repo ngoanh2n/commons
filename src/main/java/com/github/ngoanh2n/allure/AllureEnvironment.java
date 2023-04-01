@@ -16,8 +16,6 @@ import java.util.stream.Stream;
  * Write {@code environment.properties} to Allure results directory.
  *
  * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
- * @version 1.0.0
- * @since 2022-12-17
  */
 public final class AllureEnvironment {
     /**

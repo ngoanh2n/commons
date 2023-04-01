@@ -14,8 +14,6 @@ import java.util.regex.Pattern;
  * {@link Extension} for {@link RunOnProp @RunOnProp} and {@link SetProp @SetProp}.
  *
  * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
- * @version 1.0.0
- * @since 2021-04-10
  */
 public class PropChecks implements ExecutionCondition, BeforeAllCallback, BeforeEachCallback, AfterEachCallback, AfterAllCallback {
     /**

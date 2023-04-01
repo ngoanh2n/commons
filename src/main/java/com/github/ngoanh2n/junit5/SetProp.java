@@ -14,8 +14,6 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * Uses to set {@linkplain #value} for the system property indicated by the specified {@linkplain #name}.
  *
  * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
- * @version 1.0.0
- * @since 2021-04-10
  */
 @Retention(RUNTIME)
 @Target({TYPE, METHOD})

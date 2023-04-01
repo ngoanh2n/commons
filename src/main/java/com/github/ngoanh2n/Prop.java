@@ -6,8 +6,6 @@ import java.net.URL;
  * Class for representing a JVM system property.
  *
  * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
- * @version 1.0.0
- * @since 2021-01-16
  */
 @SuppressWarnings("unchecked")
 public class Prop<T> {

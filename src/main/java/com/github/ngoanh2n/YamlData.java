@@ -18,8 +18,6 @@ import java.util.*;
  * Class of Model must be `public` and has `setter` methods.
  *
  * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
- * @version 1.0.0
- * @since 2021-01-16
  */
 @SuppressWarnings("unchecked")
 public abstract class YamlData<Model> {

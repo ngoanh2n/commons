@@ -4,8 +4,6 @@ import org.junit.jupiter.api.*;
 
 /**
  * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
- * @version 1.0.0
- * @since 2021-01-16
  */
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ResourceTest {

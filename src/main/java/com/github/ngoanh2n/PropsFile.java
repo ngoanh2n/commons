@@ -12,25 +12,45 @@ public class PropsFile {
     private final File file;
     private Properties props;
 
+    /**
+     * Constructs this with a File.
+     *
+     * @param file properties file.
+     */
     public PropsFile(File file) {
         this.file = file;
     }
 
+    /**
+     * Constructs this with a resource.
+     *
+     * @param resourceName properties resource.
+     */
     public PropsFile(String resourceName) {
         this.file = Resource.getFile(resourceName);
     }
 
-    public synchronized String getProp(String key) {
-        if (props == null) {
-            props = Commons.readProps(file, "UTF-8");
-        }
-        return getProp(key, "");
+    /**
+     * The value of a key from a property file.
+     *
+     * @param propertyName The name of a property.
+     * @return The property value exists in a property file.
+     */
+    public synchronized String getProp(String propertyName) {
+        return getProp(propertyName, "");
     }
 
-    public synchronized String getProp(String key, String defaultValue) {
+    /**
+     * The value of a key from a property file.
+     *
+     * @param propertyName The name of a property.
+     * @param defaultValue The default value of a property.
+     * @return The property value exists in a property file.
+     */
+    public synchronized String getProp(String propertyName, String defaultValue) {
         if (props == null) {
             props = Commons.readProps(file, "UTF-8");
         }
-        return props.getProperty(key, defaultValue);
+        return props.getProperty(propertyName, defaultValue);
     }
 }
