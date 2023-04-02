@@ -1,6 +1,5 @@
 /**
  * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
- * @since 2021-01-16
  */
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
