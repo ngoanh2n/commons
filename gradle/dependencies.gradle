@@ -3,16 +3,16 @@
  * @since 2021-01-16
  */
 dependencies {
-    api("org.slf4j:slf4j-api:$VERSION_SLF4J")
-    api("com.google.guava:guava:$VERSION_GUAVA")
-    api("commons-io:commons-io:$VERSION_COMMONS_IO")
-    api("org.apache.commons:commons-lang3:$VERSION_COMMONS_LANG3")
-    api("com.github.albfernandez:juniversalchardet:$VERSION_JUNIVERSAL_CHARDET")
+    api("org.slf4j:slf4j-api:$versionSlf4j")
+    api("com.google.guava:guava:$versionGuava")
+    api("commons-io:commons-io:$versionCommonIO")
+    api("org.apache.commons:commons-lang3:$versionCommonsLang3")
+    api("com.github.albfernandez:juniversalchardet:$versionJuniversalChardet")
 
-    implementation("org.yaml:snakeyaml:$VERSION_SNAKEYAML")
-    implementation("org.junit.jupiter:junit-jupiter:$VERSION_JUNIT5_JUPITER")
-    implementation("com.fasterxml.jackson.core:jackson-databind:$VERSION_JACKSON")
+    implementation("org.yaml:snakeyaml:$versionSnakeYaml")
+    implementation("org.junit.jupiter:junit-jupiter:$versionJunitJupiter")
+    implementation("com.fasterxml.jackson.core:jackson-databind:$versionJackson")
 
-    testImplementation("org.slf4j:slf4j-log4j12:$VERSION_SLF4J")
-    testImplementation("io.qameta.allure:allure-junit5:$VERSION_ALLURE")
+    testImplementation("org.slf4j:slf4j-log4j12:$versionSlf4j")
+    testImplementation("io.qameta.allure:allure-junit5:$versionAllure")
 }

@@ -3,13 +3,13 @@
  * @since 2021-01-16
  */
 ext {
-    VERSION_SLF4J                   =   "2.0.6"
-    VERSION_GUAVA                   =   "31.1-jre"
-    VERSION_COMMONS_IO              =   "2.11.0"
-    VERSION_COMMONS_LANG3           =   "3.12.0"
-    VERSION_JUNIVERSAL_CHARDET      =   "2.4.0"
-    VERSION_SNAKEYAML               =   "1.33"
-    VERSION_JACKSON                 =   "2.14.1"
-    VERSION_ALLURE                  =   "2.21.0"
-    VERSION_JUNIT5_JUPITER          =   "5.9.1"
+    versionSlf4j                    =   "2.0.6"
+    versionGuava                    =   "31.1-jre"
+    versionCommonIO                 =   "2.11.0"
+    versionCommonsLang3             =   "3.12.0"
+    versionAllure                   =   "2.21.0"
+    versionJackson                  =   "2.14.1"
+    versionSnakeYaml                =   "1.33"
+    versionJunitJupiter             =   "5.9.1"
+    versionJuniversalChardet        =   "2.4.0"
 }
