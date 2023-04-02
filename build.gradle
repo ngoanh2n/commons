@@ -26,7 +26,7 @@ version("2.14.0")
 description("Utilities of com.github.ngoanh2n")
 
 apply from: "gradle/testing.gradle"
-apply from: "gradle/compiling.gradle"
+apply from: "gradle/compilation.gradle"
 apply from: "gradle/publishing.gradle"
 apply from: "gradle/dependencies.gradle"
 
