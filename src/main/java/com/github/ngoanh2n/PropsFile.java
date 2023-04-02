@@ -9,48 +9,48 @@ import java.util.Properties;
  * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
  */
 public class PropsFile {
-    private final File file;
-    private Properties props;
-
-    /**
-     * Constructs this with a File.
-     *
-     * @param file properties file.
-     */
-    public PropsFile(File file) {
-        this.file = file;
-    }
+    private final String resourceName;
+    private Properties properties;
 
     /**
      * Constructs this with a resource.
      *
-     * @param resourceName properties resource.
+     * @param name Name of properties file in resources dir.
      */
-    public PropsFile(String resourceName) {
-        this.file = Resource.getFile(resourceName);
+    public PropsFile(String name) {
+        this.resourceName = name;
     }
 
     /**
      * The value of a key from a property file.
      *
-     * @param propertyName The name of a property.
+     * @param name The name of a property.
      * @return The property value exists in a property file.
      */
-    public synchronized String getProp(String propertyName) {
-        return getProp(propertyName, "");
+    public synchronized String getProp(String name) {
+        return getProp(name, "");
     }
 
     /**
      * The value of a key from a property file.
      *
-     * @param propertyName The name of a property.
+     * @param name The name of a property.
      * @param defaultValue The default value of a property.
      * @return The property value exists in a property file.
      */
-    public synchronized String getProp(String propertyName, String defaultValue) {
-        if (props == null) {
-            props = Commons.readProps(file, "UTF-8");
+    public synchronized String getProp(String name, String defaultValue) {
+        if (properties == null) {
+            try {
+                File file = Resource.getFile(resourceName);
+                properties = Commons.readProps(file, "UTF-8");
+            } catch (RuntimeError ignored) {
+                properties = new Properties();
+            }
         }
-        return props.getProperty(propertyName, defaultValue);
+        Prop<String> prop = Prop.string(name);
+        if (prop.getValue() != null) {
+            return prop.getValue();
+        }
+        return properties.getProperty(name, defaultValue);
     }
 }
