@@ -104,10 +104,10 @@ public final class Commons {
         try (OutputStream os = Files.newOutputStream(file.toPath())) {
             props.store(os, null);
         } catch (IOException e) {
-            LOGGER.error(msg);
+            logger.error(msg);
             throw new RuntimeError(msg, e);
         }
-        LOGGER.debug(msg);
+        logger.debug(msg);
         return file;
     }
 
@@ -137,10 +137,10 @@ public final class Commons {
             InputStreamReader isr = new InputStreamReader(is, charset);
             props.load(isr);
         } catch (IOException e) {
-            LOGGER.error(msg);
+            logger.error(msg);
             throw new RuntimeError(msg, e);
         }
-        LOGGER.debug(msg);
+        logger.debug(msg);
         return props;
     }
 
@@ -173,7 +173,7 @@ public final class Commons {
         } catch (IllegalAccessException e) {
             String clazzName = object.getClass().getName();
             String msg = String.format("Read field %s in class %s", fieldName, clazzName);
-            LOGGER.error(msg);
+            logger.error(msg);
             throw new RuntimeError(msg, e);
         }
     }
@@ -197,14 +197,14 @@ public final class Commons {
         } catch (IllegalAccessException e) {
             String clazzName = object.getName();
             String msg = String.format("Write field %s in class %s", fieldName, clazzName);
-            LOGGER.error(msg);
+            logger.error(msg);
             throw new RuntimeError(msg, e);
         }
     }
 
     //-------------------------------------------------------------------------------//
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Commons.class);
+    private static final Logger logger = LoggerFactory.getLogger(Commons.class);
 
     private Commons() { /* No implementation necessary */ }
 }

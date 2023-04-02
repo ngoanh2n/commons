@@ -111,12 +111,12 @@ public final class Resource {
         if (file != null) {
             File resourceFile = new File(file.getPath());
             if (resourceFile.exists()) {
-                LOGGER.debug(msg);
+                logger.debug(msg);
                 return resourceFile;
             }
         }
 
-        LOGGER.error(msg);
+        logger.error(msg);
         throw new RuntimeError(msg);
     }
 
@@ -157,7 +157,7 @@ public final class Resource {
 
     //-------------------------------------------------------------------------------//
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Resource.class);
+    private static final Logger logger = LoggerFactory.getLogger(Resource.class);
 
     private Resource() { /* No implementation necessary */ }
 }
