@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import javax.annotation.Nonnull;
 import java.io.*;
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -172,6 +173,30 @@ public final class Commons {
         } catch (IllegalAccessException e) {
             String clazzName = object.getClass().getName();
             String msg = String.format("Read field %s in class %s", fieldName, clazzName);
+            LOGGER.error(msg);
+            throw new RuntimeError(msg, e);
+        }
+    }
+
+    /**
+     * Writes a private and final field.
+     *
+     * @param object    The object class to reflect, must not be {@code null}.
+     * @param fieldName The field name to obtain.
+     * @param value     The new value for the field of object being modified.
+     */
+    public static void writeField(Class<?> object, String fieldName, Object value) {
+        Field field = FieldUtils.getField(object, fieldName, true);
+        Field modifiers = FieldUtils.getField(Field.class, "modifiers", true);
+        field.setAccessible(true);
+        modifiers.setAccessible(true);
+
+        try {
+            modifiers.setInt(field, field.getModifiers() & ~Modifier.FINAL);
+            field.set(null, value);
+        } catch (IllegalAccessException e) {
+            String clazzName = object.getName();
+            String msg = String.format("Write field %s in class %s", fieldName, clazzName);
             LOGGER.error(msg);
             throw new RuntimeError(msg, e);
         }
