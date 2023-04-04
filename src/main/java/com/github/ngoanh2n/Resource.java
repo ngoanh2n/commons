@@ -28,6 +28,10 @@ public final class Resource {
      */
     public static final Prop<Boolean> findOnClasspath = Prop.bool("ngoanh2n.resource.findOnClasspath", true);
 
+    private static final Logger logger = LoggerFactory.getLogger(Resource.class);
+
+    private Resource() { /* No implementation necessary */ }
+
     //-------------------------------------------------------------------------------//
 
     /**
@@ -154,10 +158,4 @@ public final class Resource {
         Preconditions.checkNotNull(value, "Resource name cannot be null");
         Preconditions.checkArgument(value.trim().length() > 0, "Resource name cannot be empty");
     }
-
-    //-------------------------------------------------------------------------------//
-
-    private static final Logger logger = LoggerFactory.getLogger(Resource.class);
-
-    private Resource() { /* No implementation necessary */ }
 }

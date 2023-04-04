@@ -21,6 +21,8 @@ public class PropsFile {
         this.resourceName = name;
     }
 
+    //-------------------------------------------------------------------------------//
+
     /**
      * The value of a key from a property file.
      *
@@ -34,7 +36,7 @@ public class PropsFile {
     /**
      * The value of a key from a property file.
      *
-     * @param name The name of a property.
+     * @param name         The name of a property.
      * @param defaultValue The default value of a property.
      * @return The property value exists in a property file.
      */

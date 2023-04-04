@@ -22,12 +22,14 @@ public class PropChecks implements ExecutionCondition, BeforeAllCallback, Before
      */
     public static final Prop<Boolean> multiValueEnabled = Prop.bool("ngoanh2n.prop.multivalue.enabled", true);
 
-    //-------------------------------------------------------------------------------//
+    private static final List<Prop<String>> multiValueProps = new ArrayList<>();
 
     /**
      * Default constructor.
      */
     public PropChecks() { /* No implementation necessary */ }
+
+    //-------------------------------------------------------------------------------//
 
     /**
      * {@inheritDoc}
@@ -49,8 +51,6 @@ public class PropChecks implements ExecutionCondition, BeforeAllCallback, Before
         }
         return ConditionEvaluationResult.enabled("Not related to @RunOnProp");
     }
-
-    //-------------------------------------------------------------------------------//
 
     /**
      * {@inheritDoc}
@@ -142,16 +142,9 @@ public class PropChecks implements ExecutionCondition, BeforeAllCallback, Before
         return sb.toString();
     }
 
-    private static String getTestName(ExtensionContext context) {
-        Optional<Class<?>> testClazz = context.getTestClass();
-        return testClazz.map(Class::getSimpleName).orElse("");
-    }
-
     private List<RunOnProp> getRunOnProps(ExtensionContext context) {
         return AnnotationUtils.findRepeatableAnnotations(context.getElement(), RunOnProp.class);
     }
-
-    //-------------------------------------------------------------------------------//
 
     private void setProps(List<SetProp> annotations) {
         annotations.forEach(annotation -> {
@@ -169,10 +162,6 @@ public class PropChecks implements ExecutionCondition, BeforeAllCallback, Before
     private List<SetProp> getSetProps(ExtensionContext context) {
         return AnnotationUtils.findRepeatableAnnotations(context.getElement(), SetProp.class);
     }
-
-    //-------------------------------------------------------------------------------//
-
-    private final static List<Prop<String>> multiValueProps = new ArrayList<>();
 
     private void resetMultiValueProp() {
         for (Prop<String> multiValueProp : multiValueProps) {

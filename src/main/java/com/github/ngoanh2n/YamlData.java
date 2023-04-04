@@ -21,6 +21,18 @@ import java.util.*;
  */
 @SuppressWarnings("unchecked")
 public abstract class YamlData<Model> {
+    private InputStream _inputStream;
+    private Class<Model> _modelClazz;
+
+    /**
+     * Constructs and gets current Java Bean class
+     */
+    public YamlData() {
+        _modelClazz = getModelClazz();
+    }
+
+    //-------------------------------------------------------------------------------//
+
     /**
      * Reads Yaml file as {@linkplain Map}.
      *
@@ -161,18 +173,6 @@ public abstract class YamlData<Model> {
     }
 
     //-------------------------------------------------------------------------------//
-
-    private InputStream _inputStream;
-    private Class<Model> _modelClazz;
-
-    //-------------------------------------------------------------------------------//
-
-    /**
-     * Constructs and gets current Java Bean class
-     */
-    public YamlData() {
-        _modelClazz = getModelClazz();
-    }
 
     /**
      * Sets the path name of Yaml file.

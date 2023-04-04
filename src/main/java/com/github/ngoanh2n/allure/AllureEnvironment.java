@@ -18,6 +18,10 @@ import java.util.stream.Stream;
  * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
  */
 public final class AllureEnvironment {
+    private AllureEnvironment() { /* No implementation necessary */ }
+
+    //-------------------------------------------------------------------------------//
+
     /**
      * Write {@linkplain Properties} to {@code environment.properties} at Allure results directory.
      *
@@ -80,6 +84,4 @@ public final class AllureEnvironment {
         }
         return propsList.toArray(new Properties[]{});
     }
-
-    private AllureEnvironment() { /* No implementation necessary */ }
 }
