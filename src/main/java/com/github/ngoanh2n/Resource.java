@@ -14,7 +14,7 @@ import java.nio.file.Paths;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
- * Utilities for finding and reading Java resources
+ * Utilities for finding and reading Java resources.
  *
  * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
  */
@@ -26,7 +26,7 @@ public final class Resource {
      * {@code false}: Look for the resources in root location
      * [PROJECT]/src/test/resources/ or [PROJECT]/main/test/resources/
      */
-    public static final Prop<Boolean> findOnClasspath = Prop.bool("ngoanh2n.resource.findOnClasspath", true);
+    public static final Prop<Boolean> findOnClasspath = Prop.bool("ngoanh2n.findResourceOnClasspath", true);
 
     private static final Logger logger = LoggerFactory.getLogger(Resource.class);
 

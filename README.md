@@ -29,7 +29,7 @@
 ## Gradle
 _Add dependency to `build.gradle`_
 ```gradle
-implementation("com.github.ngoanh2n:utilities:2.3.13")
+implementation("com.github.ngoanh2n:utilities:2.14.0")
 ```
 
 ## Maven
@@ -38,7 +38,7 @@ _Add dependency to `pom.xml`_
 <dependency>
     <groupId>com.github.ngoanh2n</groupId>
     <artifactId>utilities</artifactId>
-    <version>2.3.13</version>
+    <version>2.14.0</version>
 </dependency>
 ```
 
@@ -67,7 +67,7 @@ _Add dependency to `pom.xml`_
 
 ## Resource
 _Get Java resource files by resource name._
-_`Resource` class has a property named `ngoanh2n.resource.findOnClasspath` (Default to true)_
+_`Resource` class has a property named `ngoanh2n.findResourceOnClasspath` (Default to true)_
 - When property is set to `true`: Get the resource on the classpath
     + `<PROJECT>/out/production/resources`
     + `<PROJECT>/out/test/resources`
