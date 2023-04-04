@@ -15,9 +15,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.Format;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.Properties;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Common helpers.
@@ -27,6 +26,12 @@ import java.util.Properties;
 @SuppressWarnings({"unchecked", "ResultOfMethodCallIgnored"})
 @CanIgnoreReturnValue
 public final class Commons {
+    private static final Logger logger = LoggerFactory.getLogger(Commons.class);
+
+    private Commons() { /* No implementation necessary */ }
+
+    //-------------------------------------------------------------------------------//
+
     /**
      * Creates a timestamp.
      *
@@ -144,8 +149,6 @@ public final class Commons {
         return props;
     }
 
-    //-------------------------------------------------------------------------------//
-
     /**
      * Gets the charset of a file. <br>
      * Method to mark {@linkplain UniversalDetector} for reusing.
@@ -159,52 +162,158 @@ public final class Commons {
     }
 
     /**
-     * Reads the named {@link Field}. Superclasses will be considered. <br>
-     * Method to mark {@linkplain FieldUtils} for reusing.
+     * Reads value of the {@link Field}. Its parents will be considered. <br>
+     * <ul>
+     *     <li>{@code private Type aField}
+     *     <li>{@code private final Type aField}
+     * </ul>
      *
-     * @param <T>       Type of result will be returned.
-     * @param object    The object to reflect, must not be {@code null}.
-     * @param fieldName The field name to obtain.
+     * @param <T>    Type of result will be returned.
+     * @param target The object instance to reflect, must not be {@code null}.
+     * @param name   The field name to obtain.
      * @return The field value.
      */
-    public static <T> T readField(Object object, String fieldName) {
-        try {
-            return (T) FieldUtils.readField(object, fieldName, true);
-        } catch (IllegalAccessException e) {
-            String clazzName = object.getClass().getName();
-            String msg = String.format("Read field %s in class %s", fieldName, clazzName);
-            logger.error(msg);
-            throw new RuntimeError(msg, e);
+    public static <T> T readField(Object target, String name) {
+        String msg = msgFieldAccess(target.getClass(), name, "Read");
+        Field[] fields = FieldUtils.getAllFields(target.getClass());
+
+        for (Field field : fields) {
+            if (field.getName().equals(name)) {
+                field.setAccessible(true);
+                try {
+                    return (T) field.get(target);
+                } catch (IllegalAccessException e) {
+                    logger.error(msg);
+                    throw new RuntimeError(msg, e);
+                }
+            }
+        }
+        logger.error(msg);
+        throw new RuntimeError(msg);
+    }
+
+    /**
+     * Reads value of the {@link Field}. Its parents will be considered. <br>
+     * <ul>
+     *     <li>{@code private static final Type aField}
+     * </ul>
+     *
+     * @param <T>    Type of result will be returned.
+     * @param target The object class to reflect, must not be {@code null}.
+     * @param name   The field name to obtain.
+     * @return The field value.
+     */
+    public static <T> T readField(Class<?> target, String name) {
+        String msg = msgFieldAccess(target, name, "Read");
+        Field[] fields = FieldUtils.getAllFields(target);
+
+        for (Field field : fields) {
+            if (field.getName().equals(name)) {
+                field.setAccessible(true);
+                try {
+                    return (T) field.get(target);
+                } catch (IllegalAccessException e) {
+                    logger.error(msg);
+                    throw new RuntimeError(msg, e);
+                }
+            }
+        }
+        logger.error(msg);
+        throw new RuntimeError(msg);
+    }
+
+    /**
+     * Writes value to the field with modifiers:
+     * <ul>
+     *     <li>Target object has fields:<pre>
+     *         {@code private Type aField}
+     *         {@code private final Type aField}</pre>
+     *     <li>Target object's parents have fields:<pre>
+     *         {@code private Type aField}
+     *         {@code private final Type aField}
+     *         {@code private static Type aField}
+     *         {@code private static final Type aField}</pre>
+     * </ul>
+     *
+     * @param target The object instance to reflect, must not be {@code null}.
+     * @param name   The field name to obtain.
+     * @param value  The new value for the field of object being modified.
+     */
+    public static void writeField(Object target, String name, Object value) {
+        String msg = msgFieldAccess(target.getClass(), name, "Write");
+        List<Field> fieldList = Arrays.stream(FieldUtils.getAllFields(target.getClass()))
+                .filter(field -> field.getName().equals(name))
+                .collect(Collectors.toList());
+
+        for (Field field : fieldList) {
+            field.setAccessible(true);
+            try {
+                if (!Modifier.isStatic(field.getModifiers())) {
+                    Object fValue = field.get(target);
+                    if (fValue.hashCode() != value.hashCode()) {
+                        field.set(target, value);
+                    }
+                } else {
+                    Field modifiers = FieldUtils.getField(Field.class, "modifiers", true);
+                    modifiers.setAccessible(true);
+                    modifiers.setInt(field, field.getModifiers() & ~Modifier.FINAL);
+                    field.set(null, value);
+                }
+            } catch (IllegalAccessException e) {
+                logger.error(msg);
+                throw new RuntimeError(msg, e);
+            }
         }
     }
 
     /**
-     * Writes a private and final field.
+     * Writes value to the field with modifiers:
+     * <ul>
+     *     <li>Target object has fields:<pre>
+     *         {@code private static Type aField}
+     *         {@code private static final Type aField}</pre>
+     *     <li>Target object's parents have fields:<pre>
+     *         {@code private static Type aField}
+     *         {@code private static final Type aField}</pre>
+     * </ul>
      *
-     * @param object    The object class to reflect, must not be {@code null}.
-     * @param fieldName The field name to obtain.
-     * @param value     The new value for the field of object being modified.
+     * @param target The object class to reflect, must not be {@code null}.
+     * @param name   The field name to obtain.
+     * @param value  The new value for the field of object being modified.
      */
-    public static void writeField(Class<?> object, String fieldName, Object value) {
-        Field field = FieldUtils.getField(object, fieldName, true);
-        Field modifiers = FieldUtils.getField(Field.class, "modifiers", true);
-        field.setAccessible(true);
-        modifiers.setAccessible(true);
+    public static void writeField(Class<?> target, String name, Object value) {
+        String msg = msgFieldAccess(target, name, "Write");
+        List<Field> fields = Arrays.stream(FieldUtils.getAllFields(target))
+                .filter(field -> field.getName().equals(name))
+                .collect(Collectors.toList());
 
-        try {
-            modifiers.setInt(field, field.getModifiers() & ~Modifier.FINAL);
-            field.set(null, value);
-        } catch (IllegalAccessException e) {
-            String clazzName = object.getName();
-            String msg = String.format("Write field %s in class %s", fieldName, clazzName);
-            logger.error(msg);
-            throw new RuntimeError(msg, e);
+        for (Field field : fields) {
+            field.setAccessible(true);
+            try {
+                if (!Modifier.isStatic(field.getModifiers())) {
+                    boolean override = readField(field, "override");
+                    if (!override) {
+                        Object fValue = field.get(target);
+                        if (fValue.hashCode() != value.hashCode()) {
+                            field.set(target, value);
+                        }
+                    }
+                } else {
+                    Field modifiers = FieldUtils.getField(Field.class, "modifiers", true);
+                    modifiers.setAccessible(true);
+                    modifiers.setInt(field, field.getModifiers() & ~Modifier.FINAL);
+                    field.set(null, value);
+                }
+            } catch (IllegalAccessException e) {
+                logger.error(msg);
+                throw new RuntimeError(msg, e);
+            }
         }
     }
 
     //-------------------------------------------------------------------------------//
 
-    private static final Logger logger = LoggerFactory.getLogger(Commons.class);
-
-    private Commons() { /* No implementation necessary */ }
+    private static String msgFieldAccess(Class<?> target, String name, String action) {
+        return String.format("%s field %s.%s", action, target.getName(), name);
+    }
 }
