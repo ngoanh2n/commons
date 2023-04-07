@@ -2,7 +2,7 @@
  * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
  */
 ext {
-    versionSlf4j                    =   "2.0.6"
+    versionSlf4j                    =   "2.0.7"
     versionGuava                    =   "31.1-jre"
     versionCommonIO                 =   "2.11.0"
     versionCommonsLang3             =   "3.12.0"
