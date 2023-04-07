@@ -17,7 +17,6 @@ plugins {
     id("signing")
     id("java-library")
     id("maven-publish")
-    id("io.qameta.allure") version "2.11.2"
 }
 
 group("com.github.ngoanh2n")
@@ -36,25 +35,6 @@ repositories {
 
 reporting {
     setBaseDir(layout.buildDirectory.dir("reports"))
-}
-
-allure {
-    version = "$versionAllure"
-    adapter {
-        aspectjWeaver = true
-        aspectjVersion = "1.9.5"
-        autoconfigureListeners = true
-
-        frameworks {
-            junit5 {
-                enabled = true
-                autoconfigureListeners = true
-            }
-        }
-    }
-    report {
-        reportDir = project.reporting.baseDirectory.dir("allure-report")
-    }
 }
 
 clean.doFirst {

@@ -1,7 +1,5 @@
 package com.github.ngoanh2n;
 
-import io.qameta.allure.util.PropertiesUtils;
-
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -67,8 +65,12 @@ public final class AllureEnvironment {
     //-------------------------------------------------------------------------------//
 
     private static Path getResultsDir() {
-        Properties props = PropertiesUtils.loadAllureProperties();
-        return Paths.get(props.getProperty("allure.results.directory", "allure-results"));
+        PropFile propFile = new PropFile("allure.properties");
+        String resultsDir = propFile.getPropValue("allure.results.directory");
+        if (resultsDir == null) {
+            resultsDir = "build/allure-results";
+        }
+        return Paths.get(resultsDir);
     }
 
     private static Properties mergeProps(Properties... props) {

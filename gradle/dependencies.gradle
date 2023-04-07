@@ -4,14 +4,12 @@
 dependencies {
     api("org.slf4j:slf4j-api:$versionSlf4j")
     api("com.google.guava:guava:$versionGuava")
+    api("org.yaml:snakeyaml:$versionSnakeYaml")
     api("commons-io:commons-io:$versionCommonIO")
     api("org.apache.commons:commons-lang3:$versionCommonsLang3")
+    api("com.fasterxml.jackson.core:jackson-databind:$versionJackson")
     api("com.github.albfernandez:juniversalchardet:$versionJuniversalChardet")
-
-    implementation("org.yaml:snakeyaml:$versionSnakeYaml")
     implementation("org.junit.jupiter:junit-jupiter:$versionJunitJupiter")
-    implementation("com.fasterxml.jackson.core:jackson-databind:$versionJackson")
 
     testImplementation("org.slf4j:slf4j-log4j12:$versionSlf4j")
-    testImplementation("io.qameta.allure:allure-junit5:$versionAllure")
 }
