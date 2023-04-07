@@ -20,8 +20,8 @@ plugins {
 }
 
 group("com.github.ngoanh2n")
-version("2.14.1")
-description("Utilities of com.github.ngoanh2n")
+version("1.0.0")
+description("Common utils for com.github.ngoanh2n")
 
 apply from: "gradle/test.gradle"
 apply from: "gradle/compilation.gradle"

@@ -29,7 +29,7 @@
 ## Gradle
 _Add dependency to `build.gradle`_
 ```gradle
-implementation("com.github.ngoanh2n:utilities:2.14.1")
+implementation("com.github.ngoanh2n:commons:1.0.0")
 ```
 
 ## Maven
@@ -37,8 +37,8 @@ _Add dependency to `pom.xml`_
 ```xml
 <dependency>
     <groupId>com.github.ngoanh2n</groupId>
-    <artifactId>utilities</artifactId>
-    <version>2.14.1</version>
+    <artifactId>commons</artifactId>
+    <version>1.0.0</version>
 </dependency>
 ```
 

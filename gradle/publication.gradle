@@ -19,7 +19,7 @@ publishing {
             pom {
                 name = project.name
                 description = project.description
-                url = "https://github.com/ngoanh2n/utilities"
+                url = "https://github.com/ngoanh2n/commons"
 
                 licenses {
                     license {
@@ -36,9 +36,9 @@ publishing {
                     }
                 }
                 scm {
-                    url = "https://github.com/ngoanh2n/utilities"
-                    connection = "scm:git:git://github.com/ngoanh2n/utilities.git"
-                    developerConnection = "scm:git:ssh://github.com/ngoanh2n/utilities.git"
+                    url = "https://github.com/ngoanh2n/commons"
+                    connection = "scm:git:git://github.com/ngoanh2n/commons.git"
+                    developerConnection = "scm:git:ssh://github.com/ngoanh2n/commons.git"
                 }
             }
         }
