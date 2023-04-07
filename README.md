@@ -1,8 +1,8 @@
-[![GitHub forks](https://img.shields.io/github/forks/ngoanh2n/utilities.svg?style=social&label=Fork&maxAge=2592000)](https://github.com/ngoanh2n/utilities/network/members/)
-[![GitHub stars](https://img.shields.io/github/stars/ngoanh2n/utilities.svg?style=social&label=Star&maxAge=2592000)](https://github.com/ngoanh2n/utilities/stargazers/)
-[![GitHub watchers](https://img.shields.io/github/watchers/ngoanh2n/utilities.svg?style=social&label=Watch&maxAge=2592000)](https://github.com/ngoanh2n/utilities/watchers/)
+[![GitHub forks](https://img.shields.io/github/forks/ngoanh2n/commons.svg?style=social&label=Fork&maxAge=2592000)](https://github.com/ngoanh2n/commons/network/members/)
+[![GitHub stars](https://img.shields.io/github/stars/ngoanh2n/commons.svg?style=social&label=Star&maxAge=2592000)](https://github.com/ngoanh2n/commons/stargazers/)
+[![GitHub watchers](https://img.shields.io/github/watchers/ngoanh2n/commons.svg?style=social&label=Watch&maxAge=2592000)](https://github.com/ngoanh2n/commons/watchers/)
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.ngoanh2n/utilities/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.ngoanh2n/utilities)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.ngoanh2n/commons/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.ngoanh2n/commons)
 [![badge-jdk](https://img.shields.io/badge/jdk-8-blue.svg)](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blueviolet.svg)](https://opensource.org/licenses/MIT)
 
@@ -36,9 +36,9 @@ implementation("com.github.ngoanh2n:commons:1.0.0")
 _Add dependency to `pom.xml`_
 ```xml
 <dependency>
-    <groupId>com.github.ngoanh2n</groupId>
-    <artifactId>commons</artifactId>
-    <version>1.0.0</version>
+  <groupId>com.github.ngoanh2n</groupId>
+  <artifactId>commons</artifactId>
+  <version>1.0.0</version>
 </dependency>
 ```
 
@@ -69,11 +69,11 @@ _Add dependency to `pom.xml`_
 _Get Java resource files by resource name._
 _`Resource` class has a property named `ngoanh2n.findResourceOnClasspath` (Default to true)_
 - When property is set to `true`: Get the resource on the classpath
-    + `<PROJECT>/out/production/resources`
-    + `<PROJECT>/out/test/resources`
+  + `<PROJECT>/out/production/resources`
+  + `<PROJECT>/out/test/resources`
 - When property is set to `false`: Get the resource in root location
-    + `<PROJECT>/src/production/resources`
-    + `<PROJECT>/src/test/resources`
+  + `<PROJECT>/src/production/resources`
+  + `<PROJECT>/src/test/resources`
 
 ```java
 File file = Resource.getFile("categories.json");
