@@ -28,7 +28,7 @@ public final class Resource {
      */
     public static final Prop<Boolean> findOnClasspath = Prop.bool("ngoanh2n.findResourceOnClasspath", true);
 
-    private static final Logger logger = LoggerFactory.getLogger(Resource.class);
+    private static final Logger log = LoggerFactory.getLogger(Resource.class);
 
     private Resource() { /* No implementation necessary */ }
 
@@ -115,12 +115,12 @@ public final class Resource {
         if (file != null) {
             File resourceFile = new File(file.getPath());
             if (resourceFile.exists()) {
-                logger.debug(msg);
+                log.debug(msg);
                 return resourceFile;
             }
         }
 
-        logger.error(msg);
+        log.error(msg);
         throw new RuntimeError(msg);
     }
 
