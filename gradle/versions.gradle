@@ -7,7 +7,7 @@ ext {
     versionCommonIO                 =   "2.11.0"
     versionCommonsLang3             =   "3.12.0"
     versionAllure                   =   "2.21.0"
-    versionJackson                  =   "2.14.1"
+    versionJackson                  =   "2.14.2"
     versionSnakeYaml                =   "1.33"
     versionJunitJupiter             =   "5.9.1"
     versionJuniversalChardet        =   "2.4.0"
