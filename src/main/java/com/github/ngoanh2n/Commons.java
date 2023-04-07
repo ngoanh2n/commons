@@ -9,7 +9,10 @@ import org.slf4j.LoggerFactory;
 import javax.annotation.Nonnull;
 import java.io.*;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -26,7 +29,7 @@ import java.util.stream.Collectors;
 @SuppressWarnings({"unchecked", "ResultOfMethodCallIgnored"})
 @CanIgnoreReturnValue
 public final class Commons {
-    private static final Logger logger = LoggerFactory.getLogger(Commons.class);
+    private static final Logger log = LoggerFactory.getLogger(Commons.class);
 
     private Commons() { /* No implementation necessary */ }
 
@@ -109,10 +112,10 @@ public final class Commons {
         try (OutputStream os = Files.newOutputStream(file.toPath())) {
             props.store(os, null);
         } catch (IOException e) {
-            logger.error(msg);
+            log.error(msg);
             throw new RuntimeError(msg, e);
         }
-        logger.debug(msg);
+        log.debug(msg);
         return file;
     }
 
@@ -136,16 +139,17 @@ public final class Commons {
      */
     public static Properties readProps(@Nonnull File file, String charset) {
         Properties props = new Properties();
-        String msg = String.format("Read Properties from %s", getRelative(file));
+        String path = getRelative(file).getPath().replace('\\', '/');
+        String msg = "Read Properties " + path;
 
         try (InputStream is = Files.newInputStream(file.toPath())) {
             InputStreamReader isr = new InputStreamReader(is, charset);
             props.load(isr);
         } catch (IOException e) {
-            logger.error(msg);
+            log.error(msg);
             throw new RuntimeError(msg, e);
         }
-        logger.debug(msg);
+        log.debug(msg);
         return props;
     }
 
@@ -183,12 +187,12 @@ public final class Commons {
                 try {
                     return (T) field.get(target);
                 } catch (IllegalAccessException e) {
-                    logger.error(msg);
+                    log.error(msg);
                     throw new RuntimeError(msg, e);
                 }
             }
         }
-        logger.error(msg);
+        log.error(msg);
         throw new RuntimeError(msg);
     }
 
@@ -213,12 +217,12 @@ public final class Commons {
                 try {
                     return (T) field.get(target);
                 } catch (IllegalAccessException e) {
-                    logger.error(msg);
+                    log.error(msg);
                     throw new RuntimeError(msg, e);
                 }
             }
         }
-        logger.error(msg);
+        log.error(msg);
         throw new RuntimeError(msg);
     }
 
@@ -260,7 +264,7 @@ public final class Commons {
                     field.set(null, value);
                 }
             } catch (IllegalAccessException e) {
-                logger.error(msg);
+                log.error(msg);
                 throw new RuntimeError(msg, e);
             }
         }
@@ -305,10 +309,63 @@ public final class Commons {
                     field.set(null, value);
                 }
             } catch (IllegalAccessException e) {
-                logger.error(msg);
+                log.error(msg);
                 throw new RuntimeError(msg, e);
             }
         }
+    }
+
+    /**
+     * Convert String value to a specific object.
+     *
+     * @param type  The Class object which to return an object.
+     * @param value String value to convert.
+     * @param <T>   The type of target object.
+     * @return The target object.
+     */
+    public static <T> T convertValue(Class<T> type, String value) {
+        if (!type.isEnum()) {
+            if (type == URL.class) {
+                try {
+                    return (T) new URL(value);
+                } catch (Exception e) {
+                    throw new RuntimeError(e);
+                }
+            }
+            if (type == String.class) return (T) value;
+            if (type == Byte.class) return (T) Byte.valueOf(value);
+            if (type == Long.class) return (T) Long.valueOf(value);
+            if (type == Short.class) return (T) Short.valueOf(value);
+            if (type == Float.class) return (T) Float.valueOf(value);
+            if (type == Double.class) return (T) Double.valueOf(value);
+            if (type == Integer.class) return (T) Integer.valueOf(value);
+            if (type == Boolean.class) return (T) Boolean.valueOf(value);
+            throw new RuntimeError("Type " + type.getTypeName() + " cannot be parsed");
+        }
+        return Commons.buildEnum(type, value).orElse(null);
+    }
+
+    /**
+     * Builds enum from enum class and enum constant name.
+     *
+     * @param type The Class object of the enum type from which to return a constant.
+     * @param name The name of enum constant to return, exactly as declared in its enum declaration.
+     * @param <T>  The type of enum object.
+     * @return Optional of the enum constant of the specified enum type with the specified name.
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> Optional<T> buildEnum(Class<T> type, String name) {
+        for (Field field : type.getDeclaredFields()) {
+            if (field.isEnumConstant() && field.getName().equals(name)) {
+                try {
+                    Method valueOfMethod = type.getDeclaredMethod("valueOf", String.class);
+                    return (Optional<T>) Optional.of(valueOfMethod.invoke(null, name));
+                } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+                    return Optional.empty();
+                }
+            }
+        }
+        return Optional.empty();
     }
 
     //-------------------------------------------------------------------------------//
