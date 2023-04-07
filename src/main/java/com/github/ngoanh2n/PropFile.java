@@ -1,5 +1,6 @@
 package com.github.ngoanh2n;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.io.File;
 import java.util.Properties;
 
@@ -8,51 +9,82 @@ import java.util.Properties;
  *
  * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
  */
-public class PropsFile {
-    private final String resourceName;
-    private Properties properties;
+@ParametersAreNonnullByDefault
+public class PropFile {
+    private Properties props;
 
     /**
-     * Constructs this with a resource.
+     * Constructs this with a resource name.
      *
      * @param name Name of properties file in resources dir.
      */
-    public PropsFile(String name) {
-        this.resourceName = name;
+    public PropFile(String name) {
+        loadPropFile(name);
+    }
+
+    /**
+     * Constructs this with a {@link File}.
+     *
+     * @param file Properties file in resources dir.
+     */
+    public PropFile(File file) {
+        loadPropFile(file);
     }
 
     //-------------------------------------------------------------------------------//
 
     /**
-     * The value of a key from a property file.
+     * Get property value.<br>
+     * Priority order: JVM System Property > Properties file.
      *
      * @param name The name of a property.
-     * @return The property value exists in a property file.
+     * @return The value of a property as {@link String}.
      */
-    public synchronized String getProp(String name) {
-        return getProp(name, "");
+    public synchronized String getPropValue(String name) {
+        return getPropValue(Prop.string(name));
     }
 
     /**
-     * The value of a key from a property file.
+     * Get property object.<br>
+     * Priority order: JVM System Property > Properties file > Default value.
      *
-     * @param name         The name of a property.
-     * @param defaultValue The default value of a property.
-     * @return The property value exists in a property file.
+     * @param prop {@link Prop} object.
+     * @return The value of a property.
      */
-    public synchronized String getProp(String name, String defaultValue) {
-        if (properties == null) {
-            try {
-                File file = Resource.getFile(resourceName);
-                properties = Commons.readProps(file, "UTF-8");
-            } catch (RuntimeError ignored) {
-                properties = new Properties();
+    public synchronized <T> T getPropValue(Prop<T> prop) {
+        String name = prop.getName();
+        Class<T> type = prop.getType();
+        T value = new Prop<>(name, type).getValue();
+
+        if (value == null) {
+            String valueStr = props.getProperty(name);
+            if (valueStr == null) {
+                return prop.getDefaultValue();
+            } else {
+                return Commons.convertValue(type, valueStr);
             }
         }
-        Prop<String> prop = Prop.string(name);
-        if (prop.getValue() != null) {
-            return prop.getValue();
+        return value;
+    }
+
+    //-------------------------------------------------------------------------------//
+
+    private void loadPropFile(String name) {
+        try {
+            File file = Resource.getFile(name);
+            loadPropFile(file);
+        } catch (RuntimeError ignored) {
+            props = new Properties();
         }
-        return properties.getProperty(name, defaultValue);
+    }
+
+    private void loadPropFile(File file) {
+        if (props == null) {
+            try {
+                props = Commons.readProps(file, "UTF-8");
+            } catch (RuntimeError ignored) {
+                props = new Properties();
+            }
+        }
     }
 }

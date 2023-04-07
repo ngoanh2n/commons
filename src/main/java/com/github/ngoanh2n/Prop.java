@@ -1,5 +1,7 @@
 package com.github.ngoanh2n;
 
+import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.net.URL;
 
 /**
@@ -8,6 +10,7 @@ import java.net.URL;
  * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
  */
 @SuppressWarnings("unchecked")
+@ParametersAreNonnullByDefault
 public class Prop<T> {
     private final String name;
     private final Class<T> type;
@@ -36,7 +39,7 @@ public class Prop<T> {
      * @param type         The class type of the JVM system property.
      * @param defaultValue The default value of the JVM system property.
      */
-    public Prop(String name, Class<T> type, T defaultValue) {
+    public Prop(String name, Class<T> type, @Nullable T defaultValue) {
         this.name = name;
         this.type = type;
         this.value = getValue();
@@ -132,30 +135,15 @@ public class Prop<T> {
      * @return the JVM system property value.
      */
     public T getValue() {
-        String val = System.getProperty(name);
-        if (val == null && value != null) {
+        String valueStr = System.getProperty(name);
+        if (valueStr == null && value != null) {
             return null;
         }
-        if (val != null) {
+        if (valueStr != null) {
             if (value == null && defaultValue != null) {
                 return defaultValue;
             }
-            if (type == URL.class) {
-                try {
-                    return (T) new URL(val);
-                } catch (Exception e) {
-                    throw new RuntimeError(e);
-                }
-            }
-            if (type == String.class) return (T) val;
-            if (type == Byte.class) return (T) Byte.valueOf(val);
-            if (type == Long.class) return (T) Long.valueOf(val);
-            if (type == Short.class) return (T) Short.valueOf(val);
-            if (type == Float.class) return (T) Float.valueOf(val);
-            if (type == Double.class) return (T) Double.valueOf(val);
-            if (type == Integer.class) return (T) Integer.valueOf(val);
-            if (type == Boolean.class) return (T) Boolean.valueOf(val);
-            throw new RuntimeError("Type " + type.getTypeName() + " cannot be parsed");
+            return Commons.convertValue(type, valueStr);
         }
         return defaultValue;
     }
