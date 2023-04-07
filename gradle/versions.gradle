@@ -9,6 +9,6 @@ ext {
     versionAllure                   =   "2.21.0"
     versionJackson                  =   "2.14.2"
     versionSnakeYaml                =   "2.0"
-    versionJunitJupiter             =   "5.9.1"
+    versionJunitJupiter             =   "5.9.2"
     versionJuniversalChardet        =   "2.4.0"
 }
