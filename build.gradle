@@ -33,10 +33,6 @@ repositories {
     maven { url "https://plugins.gradle.org/m2/" }
 }
 
-reporting {
-    setBaseDir(layout.buildDirectory.dir("reports"))
-}
-
 clean.doFirst {
     delete project.file("out")
 }
