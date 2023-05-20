@@ -2,3 +2,4 @@ rootProject.setName("cms")
 
 include("commons")
 include("commons-allure")
+include("commons-junit5")
