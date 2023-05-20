@@ -35,29 +35,6 @@ public class WebDriverJUnit5 implements InvocationInterceptor {
 
     //-------------------------------------------------------------------------------//
 
-    protected static Class<?> getSignatureAnnotation(Method method) {
-        Class<?>[] signatures = new Class[]{
-                BeforeAll.class, BeforeEach.class,
-                Test.class, ParameterizedTest.class, TestFactory.class, RepeatedTest.class, TestTemplate.class,
-                AfterEach.class, AfterAll.class
-        };
-        Annotation[] declarations = method.getDeclaredAnnotations();
-
-        for (Class<?> signature : signatures) {
-            for (Annotation declaration : declarations) {
-                if (signature.getName().equals(declaration.annotationType().getName())) {
-                    return signature;
-                }
-            }
-        }
-
-        String msg = String.format("Get signature annotation at %s", method);
-        log.error(msg);
-        throw new RuntimeError(msg);
-    }
-
-    //-------------------------------------------------------------------------------//
-
     /**
      * {@inheritDoc}
      */
@@ -183,6 +160,27 @@ public class WebDriverJUnit5 implements InvocationInterceptor {
         Method method = Commons.readField(context, "method");
         String annotation = getSignatureAnnotation(method).getSimpleName();
         log.debug("{} @{} {} -> {}", aspect, annotation, method, driver);
+    }
+
+    protected Class<?> getSignatureAnnotation(Method method) {
+        Class<?>[] signatures = new Class[]{
+                BeforeAll.class, BeforeEach.class,
+                Test.class, ParameterizedTest.class, TestFactory.class, RepeatedTest.class, TestTemplate.class,
+                AfterEach.class, AfterAll.class
+        };
+        Annotation[] declarations = method.getDeclaredAnnotations();
+
+        for (Class<?> signature : signatures) {
+            for (Annotation declaration : declarations) {
+                if (signature.getName().equals(declaration.annotationType().getName())) {
+                    return signature;
+                }
+            }
+        }
+
+        String msg = String.format("Get signature annotation at %s", method);
+        log.error(msg);
+        throw new RuntimeError(msg);
     }
 
     //-------------------------------------------------------------------------------//
