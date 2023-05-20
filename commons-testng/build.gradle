@@ -4,4 +4,5 @@
 dependencies {
     api(project(":commons"))
     implementation("org.testng:testng:$versionTestNG")
+    implementation("org.seleniumhq.selenium:selenium-remote-driver:$versionSelenium")
 }
