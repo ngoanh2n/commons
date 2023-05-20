@@ -21,8 +21,8 @@ import java.lang.reflect.Method;
  *
  * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
  */
-public class WDCTestNG implements IInvokedMethodListener {
-    protected static final Logger log = LoggerFactory.getLogger(WDCTestNG.class);
+public class WebDriverTestNG implements IInvokedMethodListener {
+    protected static final Logger log = LoggerFactory.getLogger(WebDriverTestNG.class);
     protected static final String BE = "BE";
     protected static final String BO = "BO";
     protected static final String AF = "AF";
@@ -32,7 +32,7 @@ public class WDCTestNG implements IInvokedMethodListener {
     /**
      * Default constructor.
      */
-    public WDCTestNG() { /* No implementation necessary */ }
+    public WebDriverTestNG() { /* No implementation necessary */ }
 
     //-------------------------------------------------------------------------------//
 
