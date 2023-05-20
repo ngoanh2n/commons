@@ -20,8 +20,8 @@ import java.util.Optional;
  *
  * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
  */
-public class WDCJUnit5 implements InvocationInterceptor {
-    protected static final Logger log = LoggerFactory.getLogger(WDCJUnit5.class);
+public class WebDriverJUnit5 implements InvocationInterceptor {
+    protected static final Logger log = LoggerFactory.getLogger(WebDriverJUnit5.class);
     protected static final String BE = "BE";
     protected static final String BO = "BO";
     protected static final String AF = "AF";
@@ -31,7 +31,7 @@ public class WDCJUnit5 implements InvocationInterceptor {
     /**
      * Default constructor.
      */
-    public WDCJUnit5() { /* No implementation necessary */ }
+    public WebDriverJUnit5() { /* No implementation necessary */ }
 
     //-------------------------------------------------------------------------------//
 
@@ -65,9 +65,9 @@ public class WDCJUnit5 implements InvocationInterceptor {
     public void interceptBeforeAllMethod(Invocation<Void> invocation,
                                          ReflectiveInvocationContext<Method> invocationContext,
                                          ExtensionContext extensionContext) throws Throwable {
-        getWD(invocationContext, BE);
+        getDriver(invocationContext, BE);
         invocation.proceed();
-        getWD(invocationContext, AF);
+        getDriver(invocationContext, AF);
     }
 
     /**
@@ -77,9 +77,9 @@ public class WDCJUnit5 implements InvocationInterceptor {
     public void interceptBeforeEachMethod(Invocation<Void> invocation,
                                           ReflectiveInvocationContext<Method> invocationContext,
                                           ExtensionContext extensionContext) throws Throwable {
-        getWD(invocationContext, BE);
+        getDriver(invocationContext, BE);
         invocation.proceed();
-        getWD(invocationContext, AF);
+        getDriver(invocationContext, AF);
     }
 
     /**
@@ -89,9 +89,9 @@ public class WDCJUnit5 implements InvocationInterceptor {
     public void interceptTestMethod(Invocation<Void> invocation,
                                     ReflectiveInvocationContext<Method> invocationContext,
                                     ExtensionContext extensionContext) throws Throwable {
-        getWD(invocationContext, BE);
+        getDriver(invocationContext, BE);
         invocation.proceed();
-        getWD(invocationContext, AF);
+        getDriver(invocationContext, AF);
     }
 
     /**
@@ -101,9 +101,9 @@ public class WDCJUnit5 implements InvocationInterceptor {
     public <T> T interceptTestFactoryMethod(Invocation<T> invocation,
                                             ReflectiveInvocationContext<Method> invocationContext,
                                             ExtensionContext extensionContext) throws Throwable {
-        getWD(invocationContext, BE);
+        getDriver(invocationContext, BE);
         T result = invocation.proceed();
-        getWD(invocationContext, AF);
+        getDriver(invocationContext, AF);
         return result;
     }
 
@@ -114,9 +114,9 @@ public class WDCJUnit5 implements InvocationInterceptor {
     public void interceptTestTemplateMethod(Invocation<Void> invocation,
                                             ReflectiveInvocationContext<Method> invocationContext,
                                             ExtensionContext extensionContext) throws Throwable {
-        getWD(invocationContext, BE);
+        getDriver(invocationContext, BE);
         invocation.proceed();
-        getWD(invocationContext, AF);
+        getDriver(invocationContext, AF);
     }
 
     /**
@@ -126,12 +126,10 @@ public class WDCJUnit5 implements InvocationInterceptor {
     public void interceptAfterEachMethod(Invocation<Void> invocation,
                                          ReflectiveInvocationContext<Method> invocationContext,
                                          ExtensionContext extensionContext) throws Throwable {
-        getWD(invocationContext, BE);
+        getDriver(invocationContext, BE);
         invocation.proceed();
-        getWD(invocationContext, AF);
+        getDriver(invocationContext, AF);
     }
-
-    //-------------------------------------------------------------------------------//
 
     /**
      * {@inheritDoc}
@@ -140,12 +138,14 @@ public class WDCJUnit5 implements InvocationInterceptor {
     public void interceptAfterAllMethod(Invocation<Void> invocation,
                                         ReflectiveInvocationContext<Method> invocationContext,
                                         ExtensionContext extensionContext) throws Throwable {
-        getWD(invocationContext, BE);
+        getDriver(invocationContext, BE);
         invocation.proceed();
-        getWD(invocationContext, AF);
+        getDriver(invocationContext, AF);
     }
 
-    protected void getWD(ReflectiveInvocationContext<Method> context, String aspect) {
+    //-------------------------------------------------------------------------------//
+
+    protected void getDriver(ReflectiveInvocationContext<Method> context, String aspect) {
         invocationContext = context;
         Optional<Object> optInstance = context.getTarget();
         Object instance;
@@ -184,6 +184,8 @@ public class WDCJUnit5 implements InvocationInterceptor {
         String annotation = getSignatureAnnotation(method).getSimpleName();
         log.debug("{} @{} {} -> {}", aspect, annotation, method, driver);
     }
+
+    //-------------------------------------------------------------------------------//
 
     /*
      * Lifecycle Callbacks: https://www.baeldung.com/junit-5-extensions
