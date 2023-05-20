@@ -35,7 +35,7 @@ public class PropFile {
 
     /**
      * Get property value.<br>
-     * Priority order: JVM System Property > Properties file.
+     * Priority order: JVM System Property, Properties file.
      *
      * @param name The name of a property.
      * @return The value of a property as {@link String}.
@@ -46,8 +46,9 @@ public class PropFile {
 
     /**
      * Get property object.<br>
-     * Priority order: JVM System Property > Properties file > Default value.
+     * Priority order: JVM System Property, Properties file, Default value.
      *
+     * @param <T>  The type of current prop.
      * @param prop {@link Prop} object.
      * @return The value of a property.
      */
