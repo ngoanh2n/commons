@@ -3,4 +3,5 @@
  */
 dependencies {
     api(project(":commons"))
+    implementation("org.testng:testng:$versionTestNG")
 }
