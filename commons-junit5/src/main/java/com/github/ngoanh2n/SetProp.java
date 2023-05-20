@@ -1,4 +1,4 @@
-package com.github.ngoanh2n.junit5;
+package com.github.ngoanh2n;
 
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -11,27 +11,26 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * Uses to signal that the annotated test class or test method is only <em>enabled</em>
- * if the value of the specified {@linkplain #name} equals to any value in {@linkplain #value} array.
+ * Uses to set {@linkplain #value} for the system property indicated by the specified {@linkplain #name}.
  *
  * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
  */
 @Retention(RUNTIME)
 @Target({TYPE, METHOD})
-@Repeatable(RunOnProps.class)
+@Repeatable(SetProps.class)
 @ExtendWith(PropChecks.class)
-public @interface RunOnProp {
+public @interface SetProp {
     /**
-     * The name of the JVM system property to retrieve.
+     * The name of the system property.
      *
      * @return the JVM system property name.
      */
     String name();
 
     /**
-     * A value list of JVM system property.
+     * The value of the JVM system property.
      *
-     * @return values of the JVM system property.
+     * @return the JVM system property value.
      */
-    String[] value();
+    String value();
 }

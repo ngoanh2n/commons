@@ -1,6 +1,5 @@
-package com.github.ngoanh2n.junit5;
+package com.github.ngoanh2n;
 
-import com.github.ngoanh2n.Prop;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.extension.*;
 import org.junit.platform.commons.util.AnnotationUtils;

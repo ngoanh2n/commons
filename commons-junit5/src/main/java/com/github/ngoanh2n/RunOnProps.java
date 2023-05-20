@@ -1,4 +1,4 @@
-package com.github.ngoanh2n.junit5;
+package com.github.ngoanh2n;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;

@@ -1,6 +1,5 @@
-package com.github.ngoanh2n.junit5;
+package com.github.ngoanh2n;
 
-import com.github.ngoanh2n.Prop;
 import org.junit.jupiter.api.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +17,17 @@ public class RunOnPropTest {
 
         @BeforeAll
         static void beforeAll() {
+            logger.debug("" + System.getProperty(NAME));
+            logger.debug("" + prop.getValue());
+            logger.debug("" + Prop.string(NAME).getValue());
+
+            Assertions.assertNull(System.getProperty(NAME));
+            Assertions.assertNull(prop.getValue());
+            Assertions.assertNull(Prop.string(NAME).getValue());
+        }
+
+        @AfterAll
+        static void afterAll() {
             logger.debug("" + System.getProperty(NAME));
             logger.debug("" + prop.getValue());
             logger.debug("" + Prop.string(NAME).getValue());
@@ -57,17 +67,6 @@ public class RunOnPropTest {
             Assertions.assertEquals(VALUE, prop.getValue());
             Assertions.assertEquals(VALUE, Prop.string(NAME).getValue());
         }
-
-        @AfterAll
-        static void afterAll() {
-            logger.debug("" + System.getProperty(NAME));
-            logger.debug("" + prop.getValue());
-            logger.debug("" + Prop.string(NAME).getValue());
-
-            Assertions.assertNull(System.getProperty(NAME));
-            Assertions.assertNull(prop.getValue());
-            Assertions.assertNull(Prop.string(NAME).getValue());
-        }
     }
 
     @SetProp(name = NAME, value = VALUE)
@@ -76,6 +75,17 @@ public class RunOnPropTest {
 
         @BeforeAll
         static void beforeAll() {
+            logger.debug(System.getProperty(NAME));
+            logger.debug(prop.getValue());
+            logger.debug(Prop.string(NAME).getValue());
+
+            Assertions.assertEquals(VALUE, System.getProperty(NAME));
+            Assertions.assertEquals(VALUE, prop.getValue());
+            Assertions.assertEquals(VALUE, Prop.string(NAME).getValue());
+        }
+
+        @AfterAll
+        static void afterAll() {
             logger.debug(System.getProperty(NAME));
             logger.debug(prop.getValue());
             logger.debug(Prop.string(NAME).getValue());
@@ -106,17 +116,6 @@ public class RunOnPropTest {
 
         @AfterEach
         void afterEach() {
-            logger.debug(System.getProperty(NAME));
-            logger.debug(prop.getValue());
-            logger.debug(Prop.string(NAME).getValue());
-
-            Assertions.assertEquals(VALUE, System.getProperty(NAME));
-            Assertions.assertEquals(VALUE, prop.getValue());
-            Assertions.assertEquals(VALUE, Prop.string(NAME).getValue());
-        }
-
-        @AfterAll
-        static void afterAll() {
             logger.debug(System.getProperty(NAME));
             logger.debug(prop.getValue());
             logger.debug(Prop.string(NAME).getValue());
