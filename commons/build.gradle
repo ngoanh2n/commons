@@ -1,0 +1,12 @@
+/**
+ * Author: Ho Huu Ngoan (ngoanh2n@gmail.com)
+ */
+dependencies {
+    api("com.google.guava:guava:$versionGuava")
+    api("org.yaml:snakeyaml:$versionSnakeYaml")
+    api("commons-io:commons-io:$versionCommonIO")
+    api("org.apache.commons:commons-lang3:$versionCommonsLang3")
+    api("com.fasterxml.jackson.core:jackson-databind:$versionJackson")
+    api("com.github.albfernandez:juniversalchardet:$versionJuniversalChardet")
+    implementation("org.junit.jupiter:junit-jupiter:$versionJunitJupiter")
+}

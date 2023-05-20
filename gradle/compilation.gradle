@@ -1,5 +1,5 @@
 /**
- * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
+ * Author: Ho Huu Ngoan (ngoanh2n@gmail.com)
  */
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8

@@ -1,7 +1,41 @@
 /**
- * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
- * Allure Gradle Plugin: https://github.com/allure-framework/allure-gradle
+ * Author: Ho Huu Ngoan (ngoanh2n@gmail.com)
  */
+allprojects {
+    group("com.github.ngoanh2n")
+    version("1.0.0")
+
+    repositories {
+        mavenCentral()
+        maven { url("https://plugins.gradle.org/m2/") }
+    }
+    apply from: rootProject.file("gradle/versions.gradle")
+}
+
+subprojects {
+    apply plugin: "idea"
+    apply plugin: "java"
+    apply plugin: "signing"
+    apply plugin: "java-library"
+    apply plugin: "maven-publish"
+
+    apply from: rootProject.file("gradle/test.gradle")
+    apply from: rootProject.file("gradle/compilation.gradle")
+    apply from: rootProject.file("gradle/publication.gradle")
+    apply from: rootProject.file("gradle/dependencies.gradle")
+
+    clean.doFirst {
+        delete project.file("out")
+        delete rootProject.files("build")
+    }
+
+    tasks.build.configure {
+        dependsOn.removeIf { task -> (task == "check") }
+        assemble.dependsOn("clean")
+        dependsOn("publishToMavenLocal")
+    }
+}
+
 buildscript {
     repositories {
         mavenCentral()
@@ -9,36 +43,4 @@ buildscript {
     }
     dependencies {}
     apply from: "gradle/versions.gradle"
-}
-
-plugins {
-    id("java")
-    id("idea")
-    id("signing")
-    id("java-library")
-    id("maven-publish")
-}
-
-group("com.github.ngoanh2n")
-version("1.0.0")
-description("Common utils for com.github.ngoanh2n")
-
-apply from: "gradle/test.gradle"
-apply from: "gradle/compilation.gradle"
-apply from: "gradle/publication.gradle"
-apply from: "gradle/dependencies.gradle"
-
-repositories {
-    mavenCentral()
-    maven { url "https://plugins.gradle.org/m2/" }
-}
-
-clean.doFirst {
-    delete project.file("out")
-}
-
-tasks.build.configure {
-    dependsOn.removeIf { task -> (task == "check") }
-    assemble.dependsOn("clean")
-    dependsOn("publishToMavenLocal")
 }

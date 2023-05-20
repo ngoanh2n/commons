@@ -1,6 +1,5 @@
 /**
- * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
- * @see <a href="https://docs.gradle.org/current/userguide/java_testing.html">Testing in Java & JVM projects</a>
+ * Author: Ho Huu Ngoan (ngoanh2n@gmail.com)
  */
 reporting {
     baseDir = "$buildDir/reports"

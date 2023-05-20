@@ -1,15 +1,7 @@
 /**
- * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
+ * Author: Ho Huu Ngoan (ngoanh2n@gmail.com)
  */
 dependencies {
     api("org.slf4j:slf4j-api:$versionSlf4j")
-    api("com.google.guava:guava:$versionGuava")
-    api("org.yaml:snakeyaml:$versionSnakeYaml")
-    api("commons-io:commons-io:$versionCommonIO")
-    api("org.apache.commons:commons-lang3:$versionCommonsLang3")
-    api("com.fasterxml.jackson.core:jackson-databind:$versionJackson")
-    api("com.github.albfernandez:juniversalchardet:$versionJuniversalChardet")
-    implementation("org.junit.jupiter:junit-jupiter:$versionJunitJupiter")
-
     testImplementation("org.slf4j:slf4j-log4j12:$versionSlf4j")
 }

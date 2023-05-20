@@ -1,3 +1,6 @@
+/**
+ * Author: Ho Huu Ngoan (ngoanh2n@gmail.com)
+ */
 tasks.register("sourcesJar", Jar) {
     from sourceSets.main.allJava
     archiveClassifier = "sources"
@@ -17,8 +20,8 @@ publishing {
             artifact javadocJar
 
             pom {
-                name = project.name
-                description = project.description
+                name = property("artifact.name")
+                description = property("artifact.desc")
                 url = "https://github.com/ngoanh2n/commons"
 
                 licenses {
