@@ -16,7 +16,7 @@ import java.lang.reflect.Method;
 import java.util.Optional;
 
 /**
- * Lookup the {@link WebDriver} from current JUnit5 tests.
+ * Lookup {@link WebDriver} from the current JUnit5 tests.
  *
  * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
  */
