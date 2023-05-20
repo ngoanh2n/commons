@@ -1,7 +1,7 @@
 /**
  * Author: Ho Huu Ngoan (ngoanh2n@gmail.com)
  */
-sourceCompatibility = JavaVersion.VERSION_1_8
+sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_1_8
 
 compileJava {
