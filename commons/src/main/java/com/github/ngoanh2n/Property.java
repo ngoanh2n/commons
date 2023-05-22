@@ -128,6 +128,27 @@ public class Property<T> {
         return new Property<>(name, Long.class, defaultValue);
     }
 
+    /**
+     * Construct a new {@link Property} of {@link Float}.
+     *
+     * @param name The name of the JVM system property.
+     * @return This instance.
+     */
+    public static Property<Float> ofFloat(String name) {
+        return new Property<>(name, Float.class);
+    }
+
+    /**
+     * Construct a new {@link Property} of {@link Float}.
+     *
+     * @param name         The name of the JVM system property.
+     * @param defaultValue The default value of the JVM system property.
+     * @return This instance.
+     */
+    public static Property<Float> ofFloat(String name, float defaultValue) {
+        return new Property<>(name, Float.class, defaultValue);
+    }
+
     //-------------------------------------------------------------------------------//
 
     /**
