@@ -50,7 +50,7 @@ public class RunOnPropTest {
 
         @Test
         @SetProperty(name = NAME, value = VALUE)
-        @RunOnProp(name = NAME, value = VALUE)
+        @EnabledIfProperty(name = NAME, value = VALUE)
         void test() {
             Assertions.assertEquals(VALUE, System.getProperty(NAME));
             Assertions.assertEquals(VALUE, PROPERTY.getValue());
@@ -107,7 +107,7 @@ public class RunOnPropTest {
         }
 
         @Test
-        @RunOnProp(name = NAME, value = VALUE)
+        @EnabledIfProperty(name = NAME, value = VALUE)
         void test() {
             Assertions.assertEquals(VALUE, System.getProperty(NAME));
             Assertions.assertEquals(VALUE, PROPERTY.getValue());

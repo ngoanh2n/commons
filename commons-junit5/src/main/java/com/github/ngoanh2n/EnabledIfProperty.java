@@ -20,7 +20,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target({TYPE, METHOD})
 @Repeatable(RunOnProps.class)
 @ExtendWith(PropChecks.class)
-public @interface RunOnProp {
+public @interface EnabledIfProperty {
     /**
      * The name of the JVM system property to retrieve.
      *

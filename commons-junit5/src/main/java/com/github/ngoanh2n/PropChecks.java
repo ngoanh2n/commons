@@ -10,7 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * {@link Extension} for {@link RunOnProp @RunOnProp} and {@link SetProperty @SetProperty}.
+ * {@link Extension} for {@link EnabledIfProperty @EnabledIfProperty} and {@link SetProperty @SetProperty}.
  *
  * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
  */
@@ -36,19 +36,19 @@ public class PropChecks implements ExecutionCondition, BeforeAllCallback, Before
     @Override
     public ConditionEvaluationResult evaluateExecutionCondition(ExtensionContext context) {
         resetMultiValueProp();
-        setProps(getSetProps(context));
-        List<RunOnProp> props = getRunOnProps(context);
+        setProperties(getSetProperties(context));
+        List<EnabledIfProperty> properties = getEnabledIfProperties(context);
 
-        if (props.size() > 0) {
-            for (RunOnProp prop : props) {
-                if (!propEnabled(prop)) {
-                    String reason = propsToString(props, context);
+        if (properties.size() > 0) {
+            for (EnabledIfProperty property : properties) {
+                if (!propertyEnabled(property)) {
+                    String reason = propertiesToString(properties, context);
                     return ConditionEvaluationResult.disabled(reason);
                 }
             }
-            return ConditionEvaluationResult.enabled(propsToString(props, context));
+            return ConditionEvaluationResult.enabled(propertiesToString(properties, context));
         }
-        return ConditionEvaluationResult.enabled("Not related to @RunOnProp");
+        return ConditionEvaluationResult.enabled("Not related to @EnabledIfProperty");
     }
 
     /**
@@ -56,8 +56,8 @@ public class PropChecks implements ExecutionCondition, BeforeAllCallback, Before
      */
     @Override
     public void beforeAll(ExtensionContext context) {
-        List<SetProperty> annotations = getSetProps(context);
-        setProps(annotations);
+        List<SetProperty> annotations = getSetProperties(context);
+        setProperties(annotations);
     }
 
     /**
@@ -65,8 +65,8 @@ public class PropChecks implements ExecutionCondition, BeforeAllCallback, Before
      */
     @Override
     public void beforeEach(ExtensionContext context) {
-        List<SetProperty> annotations = getSetProps(context);
-        setProps(annotations);
+        List<SetProperty> annotations = getSetProperties(context);
+        setProperties(annotations);
     }
 
     /**
@@ -74,8 +74,8 @@ public class PropChecks implements ExecutionCondition, BeforeAllCallback, Before
      */
     @Override
     public void afterEach(ExtensionContext context) {
-        List<SetProperty> annotations = getSetProps(context);
-        clearProps(annotations);
+        List<SetProperty> annotations = getSetProperties(context);
+        clearProperties(annotations);
         resetMultiValueProp();
     }
 
@@ -84,14 +84,14 @@ public class PropChecks implements ExecutionCondition, BeforeAllCallback, Before
      */
     @Override
     public void afterAll(ExtensionContext context) {
-        List<SetProperty> annotations = getSetProps(context);
-        clearProps(annotations);
+        List<SetProperty> annotations = getSetProperties(context);
+        clearProperties(annotations);
         resetMultiValueProp();
     }
 
     //-------------------------------------------------------------------------------//
 
-    private boolean propEnabled(RunOnProp annotation) {
+    private boolean propertyEnabled(EnabledIfProperty annotation) {
         String name = annotation.name();
         String[] value = annotation.value();
         Property<String> property = Property.ofString(name);
@@ -120,16 +120,16 @@ public class PropChecks implements ExecutionCondition, BeforeAllCallback, Before
         return Arrays.asList(value).contains(valueSet);
     }
 
-    private String propsToString(List<RunOnProp> annotations, ExtensionContext context) {
+    private String propertiesToString(List<EnabledIfProperty> annotations, ExtensionContext context) {
         StringBuilder sb = new StringBuilder();
-        Iterator<RunOnProp> it = annotations.iterator();
+        Iterator<EnabledIfProperty> it = annotations.iterator();
 
         while (it.hasNext()) {
-            RunOnProp annotation = it.next();
+            EnabledIfProperty annotation = it.next();
             String name = StringUtils.trim(annotation.name());
             String set = StringUtils.trim(Property.ofString(name).getValue());
             String value = ("[" + String.join(",", annotation.value()) + "]").replace(" ", "");
-            sb.append(String.format("@RunOnProp(name=%s,value=%s) <- %s", name, value, set));
+            sb.append(String.format("@EnabledIfProperty(name=%s,value=%s) <- %s", name, value, set));
 
             if (it.hasNext()) {
                 sb.append("\n");
@@ -141,11 +141,11 @@ public class PropChecks implements ExecutionCondition, BeforeAllCallback, Before
         return sb.toString();
     }
 
-    private List<RunOnProp> getRunOnProps(ExtensionContext context) {
-        return AnnotationUtils.findRepeatableAnnotations(context.getElement(), RunOnProp.class);
+    private List<EnabledIfProperty> getEnabledIfProperties(ExtensionContext context) {
+        return AnnotationUtils.findRepeatableAnnotations(context.getElement(), EnabledIfProperty.class);
     }
 
-    private void setProps(List<SetProperty> annotations) {
+    private void setProperties(List<SetProperty> annotations) {
         annotations.forEach(annotation -> {
             Property<String> property = Property.ofString(annotation.name());
             if (property.getValue() == null) {
@@ -154,11 +154,11 @@ public class PropChecks implements ExecutionCondition, BeforeAllCallback, Before
         });
     }
 
-    private void clearProps(List<SetProperty> annotations) {
+    private void clearProperties(List<SetProperty> annotations) {
         annotations.forEach(annotation -> Property.ofString(annotation.name()).clearValue());
     }
 
-    private List<SetProperty> getSetProps(ExtensionContext context) {
+    private List<SetProperty> getSetProperties(ExtensionContext context) {
         return AnnotationUtils.findRepeatableAnnotations(context.getElement(), SetProperty.class);
     }
 

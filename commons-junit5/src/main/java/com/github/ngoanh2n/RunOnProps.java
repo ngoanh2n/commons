@@ -8,7 +8,7 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * Array of {@link RunOnProp @RunOnProp}.
+ * Array of {@link EnabledIfProperty @EnabledIfProperty}.
  *
  * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
  */
@@ -16,9 +16,9 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target({TYPE, METHOD})
 public @interface RunOnProps {
     /**
-     * {@link RunOnProp @RunOnProp} array to annotate test class or test method is only enabled.
+     * {@link EnabledIfProperty @EnabledIfProperty} array to annotate test class or test method is only enabled.
      *
-     * @return {@link RunOnProp @RunOnProp} array.
+     * @return {@link EnabledIfProperty @EnabledIfProperty} array.
      */
-    RunOnProp[] value();
+    EnabledIfProperty[] value();
 }
