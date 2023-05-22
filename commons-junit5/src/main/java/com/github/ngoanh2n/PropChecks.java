@@ -19,9 +19,9 @@ public class PropChecks implements ExecutionCondition, BeforeAllCallback, Before
      * {@code true}:  Allow setting multiple value for a JVM System Property.<br>
      * E.g: -Dngoanh2n=[value1,value2,value3]
      */
-    public static final Prop<Boolean> multiValueEnabled = Prop.bool("ngoanh2n.propMultiValueEnabled", true);
+    public static final Property<Boolean> multiValueEnabled = Property.bool("ngoanh2n.propMultiValueEnabled", true);
 
-    private static final List<Prop<String>> multiValueProps = new ArrayList<>();
+    private static final List<Property<String>> MULTI_VALUE_PROPERTIES = new ArrayList<>();
 
     /**
      * Default constructor.
@@ -94,8 +94,8 @@ public class PropChecks implements ExecutionCondition, BeforeAllCallback, Before
     private boolean propEnabled(RunOnProp annotation) {
         String name = annotation.name();
         String[] value = annotation.value();
-        Prop<String> prop = Prop.string(name);
-        String valueSet = StringUtils.trim(prop.getValue());
+        Property<String> property = Property.string(name);
+        String valueSet = StringUtils.trim(property.getValue());
 
         if (name == null || value == null || valueSet == null) {
             return false;
@@ -127,7 +127,7 @@ public class PropChecks implements ExecutionCondition, BeforeAllCallback, Before
         while (it.hasNext()) {
             RunOnProp annotation = it.next();
             String name = StringUtils.trim(annotation.name());
-            String set = StringUtils.trim(Prop.string(name).getValue());
+            String set = StringUtils.trim(Property.string(name).getValue());
             String value = ("[" + String.join(",", annotation.value()) + "]").replace(" ", "");
             sb.append(String.format("@RunOnProp(name=%s,value=%s) <- %s", name, value, set));
 
@@ -147,15 +147,15 @@ public class PropChecks implements ExecutionCondition, BeforeAllCallback, Before
 
     private void setProps(List<SetProp> annotations) {
         annotations.forEach(annotation -> {
-            Prop<String> prop = Prop.string(annotation.name());
-            if (prop.getValue() == null) {
-                prop.setValue(annotation.value());
+            Property<String> property = Property.string(annotation.name());
+            if (property.getValue() == null) {
+                property.setValue(annotation.value());
             }
         });
     }
 
     private void clearProps(List<SetProp> annotations) {
-        annotations.forEach(annotation -> Prop.string(annotation.name()).clearValue());
+        annotations.forEach(annotation -> Property.string(annotation.name()).clearValue());
     }
 
     private List<SetProp> getSetProps(ExtensionContext context) {
@@ -163,23 +163,23 @@ public class PropChecks implements ExecutionCondition, BeforeAllCallback, Before
     }
 
     private void resetMultiValueProp() {
-        for (Prop<String> multiValueProp : multiValueProps) {
-            String name = multiValueProp.getDefaultValue();
-            String value = multiValueProp.getValue();
+        for (Property<String> multiValueProperty : MULTI_VALUE_PROPERTIES) {
+            String name = multiValueProperty.getDefaultValue();
+            String value = multiValueProperty.getValue();
 
             if (value != null) {
-                Prop.string(name).setValue(value);
+                Property.string(name).setValue(value);
             }
         }
     }
 
     private void resolveMultiValueProp(String name, String valuePart) {
-        Prop<String> prop = Prop.string(name);
-        String valueSet = StringUtils.trim(prop.getValue());
-        prop.setValue(valuePart);
+        Property<String> property = Property.string(name);
+        String valueSet = StringUtils.trim(property.getValue());
+        property.setValue(valuePart);
 
-        Prop<String> multiValueProp = Prop.string(name + ".original", name);
-        multiValueProp.setValue(valueSet);
-        multiValueProps.add(multiValueProp);
+        Property<String> multiValueProperty = Property.string(name + ".original", name);
+        multiValueProperty.setValue(valueSet);
+        MULTI_VALUE_PROPERTIES.add(multiValueProperty);
     }
 }

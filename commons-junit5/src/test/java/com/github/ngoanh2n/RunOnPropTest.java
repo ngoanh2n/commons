@@ -10,42 +10,42 @@ import org.slf4j.LoggerFactory;
 public class RunOnPropTest {
     private static final String NAME = "prop";
     private static final String VALUE = "ngoanh2n";
-    private static final Prop<String> prop = Prop.string(NAME);
+    private static final Property<String> PROPERTY = Property.string(NAME);
 
-    static final class RunOnPropBTest {
-        private static final Logger logger = LoggerFactory.getLogger(RunOnPropBTest.class);
+    static final class RunOnPropertyBTest {
+        private static final Logger logger = LoggerFactory.getLogger(RunOnPropertyBTest.class);
 
         @BeforeAll
         static void beforeAll() {
             logger.debug("" + System.getProperty(NAME));
-            logger.debug("" + prop.getValue());
-            logger.debug("" + Prop.string(NAME).getValue());
+            logger.debug("" + PROPERTY.getValue());
+            logger.debug("" + Property.string(NAME).getValue());
 
             Assertions.assertNull(System.getProperty(NAME));
-            Assertions.assertNull(prop.getValue());
-            Assertions.assertNull(Prop.string(NAME).getValue());
+            Assertions.assertNull(PROPERTY.getValue());
+            Assertions.assertNull(Property.string(NAME).getValue());
         }
 
         @AfterAll
         static void afterAll() {
             logger.debug("" + System.getProperty(NAME));
-            logger.debug("" + prop.getValue());
-            logger.debug("" + Prop.string(NAME).getValue());
+            logger.debug("" + PROPERTY.getValue());
+            logger.debug("" + Property.string(NAME).getValue());
 
             Assertions.assertNull(System.getProperty(NAME));
-            Assertions.assertNull(prop.getValue());
-            Assertions.assertNull(Prop.string(NAME).getValue());
+            Assertions.assertNull(PROPERTY.getValue());
+            Assertions.assertNull(Property.string(NAME).getValue());
         }
 
         @BeforeEach
         void beforeEach() {
             logger.debug(System.getProperty(NAME));
-            logger.debug(prop.getValue());
-            logger.debug(Prop.string(NAME).getValue());
+            logger.debug(PROPERTY.getValue());
+            logger.debug(Property.string(NAME).getValue());
 
             Assertions.assertEquals(VALUE, System.getProperty(NAME));
-            Assertions.assertEquals(VALUE, prop.getValue());
-            Assertions.assertEquals(VALUE, Prop.string(NAME).getValue());
+            Assertions.assertEquals(VALUE, PROPERTY.getValue());
+            Assertions.assertEquals(VALUE, Property.string(NAME).getValue());
         }
 
         @Test
@@ -53,76 +53,76 @@ public class RunOnPropTest {
         @RunOnProp(name = NAME, value = VALUE)
         void test() {
             Assertions.assertEquals(VALUE, System.getProperty(NAME));
-            Assertions.assertEquals(VALUE, prop.getValue());
-            Assertions.assertEquals(VALUE, Prop.string(NAME).getValue());
+            Assertions.assertEquals(VALUE, PROPERTY.getValue());
+            Assertions.assertEquals(VALUE, Property.string(NAME).getValue());
         }
 
         @AfterEach
         void afterEach() {
             logger.debug(System.getProperty(NAME));
-            logger.debug(prop.getValue());
-            logger.debug(Prop.string(NAME).getValue());
+            logger.debug(PROPERTY.getValue());
+            logger.debug(Property.string(NAME).getValue());
 
             Assertions.assertEquals(VALUE, System.getProperty(NAME));
-            Assertions.assertEquals(VALUE, prop.getValue());
-            Assertions.assertEquals(VALUE, Prop.string(NAME).getValue());
+            Assertions.assertEquals(VALUE, PROPERTY.getValue());
+            Assertions.assertEquals(VALUE, Property.string(NAME).getValue());
         }
     }
 
     @SetProp(name = NAME, value = VALUE)
-    static final class RunOnPropATest {
-        private static final Logger logger = LoggerFactory.getLogger(RunOnPropATest.class);
+    static final class RunOnPropertyATest {
+        private static final Logger logger = LoggerFactory.getLogger(RunOnPropertyATest.class);
 
         @BeforeAll
         static void beforeAll() {
             logger.debug(System.getProperty(NAME));
-            logger.debug(prop.getValue());
-            logger.debug(Prop.string(NAME).getValue());
+            logger.debug(PROPERTY.getValue());
+            logger.debug(Property.string(NAME).getValue());
 
             Assertions.assertEquals(VALUE, System.getProperty(NAME));
-            Assertions.assertEquals(VALUE, prop.getValue());
-            Assertions.assertEquals(VALUE, Prop.string(NAME).getValue());
+            Assertions.assertEquals(VALUE, PROPERTY.getValue());
+            Assertions.assertEquals(VALUE, Property.string(NAME).getValue());
         }
 
         @AfterAll
         static void afterAll() {
             logger.debug(System.getProperty(NAME));
-            logger.debug(prop.getValue());
-            logger.debug(Prop.string(NAME).getValue());
+            logger.debug(PROPERTY.getValue());
+            logger.debug(Property.string(NAME).getValue());
 
             Assertions.assertEquals(VALUE, System.getProperty(NAME));
-            Assertions.assertEquals(VALUE, prop.getValue());
-            Assertions.assertEquals(VALUE, Prop.string(NAME).getValue());
+            Assertions.assertEquals(VALUE, PROPERTY.getValue());
+            Assertions.assertEquals(VALUE, Property.string(NAME).getValue());
         }
 
         @BeforeEach
         void beforeEach() {
             logger.debug(System.getProperty(NAME));
-            logger.debug(prop.getValue());
-            logger.debug(Prop.string(NAME).getValue());
+            logger.debug(PROPERTY.getValue());
+            logger.debug(Property.string(NAME).getValue());
 
             Assertions.assertEquals(VALUE, System.getProperty(NAME));
-            Assertions.assertEquals(VALUE, prop.getValue());
-            Assertions.assertEquals(VALUE, Prop.string(NAME).getValue());
+            Assertions.assertEquals(VALUE, PROPERTY.getValue());
+            Assertions.assertEquals(VALUE, Property.string(NAME).getValue());
         }
 
         @Test
         @RunOnProp(name = NAME, value = VALUE)
         void test() {
             Assertions.assertEquals(VALUE, System.getProperty(NAME));
-            Assertions.assertEquals(VALUE, prop.getValue());
-            Assertions.assertEquals(VALUE, Prop.string(NAME).getValue());
+            Assertions.assertEquals(VALUE, PROPERTY.getValue());
+            Assertions.assertEquals(VALUE, Property.string(NAME).getValue());
         }
 
         @AfterEach
         void afterEach() {
             logger.debug(System.getProperty(NAME));
-            logger.debug(prop.getValue());
-            logger.debug(Prop.string(NAME).getValue());
+            logger.debug(PROPERTY.getValue());
+            logger.debug(Property.string(NAME).getValue());
 
             Assertions.assertEquals(VALUE, System.getProperty(NAME));
-            Assertions.assertEquals(VALUE, prop.getValue());
-            Assertions.assertEquals(VALUE, Prop.string(NAME).getValue());
+            Assertions.assertEquals(VALUE, PROPERTY.getValue());
+            Assertions.assertEquals(VALUE, Property.string(NAME).getValue());
         }
     }
 }

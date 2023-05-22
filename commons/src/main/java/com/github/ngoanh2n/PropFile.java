@@ -41,26 +41,26 @@ public class PropFile {
      * @return The value of a property as {@link String}.
      */
     public synchronized String getPropValue(String name) {
-        return getPropValue(Prop.string(name));
+        return getPropValue(Property.string(name));
     }
 
     /**
      * Get property object.<br>
      * Priority order: JVM System Property, Properties file, Default value.
      *
-     * @param <T>  The type of current prop.
-     * @param prop {@link Prop} object.
-     * @return The value of a property.
+     * @param <T>  The type of current property.
+     * @param property The {@link Property} object.
+     * @return The value of {@link Property}.
      */
-    public synchronized <T> T getPropValue(Prop<T> prop) {
-        String name = prop.getName();
-        Class<T> type = prop.getType();
-        T value = new Prop<>(name, type).getValue();
+    public synchronized <T> T getPropValue(Property<T> property) {
+        String name = property.getName();
+        Class<T> type = property.getType();
+        T value = new Property<>(name, type).getValue();
 
         if (value == null) {
             String valueStr = props.getProperty(name);
             if (valueStr == null) {
-                return prop.getDefaultValue();
+                return property.getDefaultValue();
             } else {
                 return Commons.convertValue(type, valueStr);
             }
