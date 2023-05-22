@@ -4,7 +4,7 @@ import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 /**
- * Class for representing a JVM system property.
+ * Represent a JVM system property.
  *
  * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
  */
@@ -18,7 +18,7 @@ public class Property<T> {
     //-------------------------------------------------------------------------------//
 
     /**
-     * Creates a new Property.
+     * Construct {@link Property}.
      *
      * @param name The name of the JVM system property.
      * @param type The class type of the JVM system property.
@@ -31,7 +31,7 @@ public class Property<T> {
     }
 
     /**
-     * Creates a new Property.
+     * Construct {@link Property}.
      *
      * @param name         The name of the JVM system property.
      * @param type         The class type of the JVM system property.
@@ -45,7 +45,7 @@ public class Property<T> {
     }
 
     /**
-     * Creates a new string Property.
+     * Construct a new {@link Property} of {@link String}.
      *
      * @param name The name of the JVM system property.
      * @return This instance.
@@ -55,7 +55,7 @@ public class Property<T> {
     }
 
     /**
-     * Creates a new string Property.
+     * Construct a new {@link Property} of {@link String}.
      *
      * @param name         The name of the JVM system property.
      * @param defaultValue The default value of the JVM system property.
@@ -66,7 +66,7 @@ public class Property<T> {
     }
 
     /**
-     * Creates a new boolean Property.
+     * Construct a new {@link Property} of {@link Boolean}.
      *
      * @param name The name of the JVM system property.
      * @return This instance.
@@ -76,7 +76,7 @@ public class Property<T> {
     }
 
     /**
-     * Creates a new boolean Property.
+     * Construct a new {@link Property} of {@link Boolean}.
      *
      * @param name         The name of the JVM system property.
      * @param defaultValue The default value of the JVM system property.
@@ -87,7 +87,7 @@ public class Property<T> {
     }
 
     /**
-     * Creates a new integer Property.
+     * Construct a new {@link Property} of {@link Integer}.
      *
      * @param name The name of the JVM system property.
      * @return This instance.
@@ -97,7 +97,7 @@ public class Property<T> {
     }
 
     /**
-     * Creates a new integer Property.
+     * Construct a new {@link Property} of {@link Integer}.
      *
      * @param name         The name of the JVM system property.
      * @param defaultValue The default value of the JVM system property.
@@ -110,7 +110,7 @@ public class Property<T> {
     //-------------------------------------------------------------------------------//
 
     /**
-     * The name of the system property.
+     * Get the name of the JVM system property.
      *
      * @return the JVM system property name.
      */
@@ -119,7 +119,7 @@ public class Property<T> {
     }
 
     /**
-     * The class type of the JVM system property.
+     * Get the class type of the JVM system property.
      *
      * @return the class type of JVM system property name.
      */
@@ -128,7 +128,7 @@ public class Property<T> {
     }
 
     /**
-     * The value of the system property.
+     * Get the value of the JVM system property.
      *
      * @return the JVM system property value.
      */
@@ -147,7 +147,7 @@ public class Property<T> {
     }
 
     /**
-     * Sets the JVM system property indicated by the specified key.
+     * Set the JVM system property indicated by the specified key.
      *
      * @param newValue The value of the JVM system property.
      */
@@ -157,7 +157,7 @@ public class Property<T> {
     }
 
     /**
-     * Removes the JVM system property indicated by the specified key.
+     * Remove the JVM system property indicated by the specified key.
      */
     public void clearValue() {
         value = null;
@@ -165,7 +165,7 @@ public class Property<T> {
     }
 
     /**
-     * The default value of the JVM system property.
+     * Get the default value of the JVM system property.
      *
      * @return the JVM system property object.
      */
