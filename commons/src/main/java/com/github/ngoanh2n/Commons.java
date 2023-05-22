@@ -83,7 +83,7 @@ public final class Commons {
     }
 
     /**
-     * Gets relative path of path against to current user directory.
+     * Get relative path of path against to current user directory.
      *
      * @param path to get relative path.
      * @return relative path.
