@@ -50,7 +50,7 @@ public class Property<T> {
      * @param name The name of the JVM system property.
      * @return This instance.
      */
-    public static Property<String> string(String name) {
+    public static Property<String> ofString(String name) {
         return new Property<>(name, String.class);
     }
 
@@ -61,7 +61,7 @@ public class Property<T> {
      * @param defaultValue The default value of the JVM system property.
      * @return This instance.
      */
-    public static Property<String> string(String name, String defaultValue) {
+    public static Property<String> ofString(String name, String defaultValue) {
         return new Property<>(name, String.class, defaultValue);
     }
 

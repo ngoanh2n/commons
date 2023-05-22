@@ -21,7 +21,7 @@ public class PropertyTest {
 
     @Test
     void twoArgs() {
-        Property<String> property = Property.string(NAME);
+        Property<String> property = Property.ofString(NAME);
 
         Assertions.assertEquals(PASSED_VALUE, System.getProperty(NAME));
         Assertions.assertEquals(PASSED_VALUE, property.getValue());
@@ -31,13 +31,13 @@ public class PropertyTest {
 
         Assertions.assertEquals(ASSIGNED_VALUE, System.getProperty(NAME));
         Assertions.assertEquals(ASSIGNED_VALUE, property.getValue());
-        Assertions.assertEquals(ASSIGNED_VALUE, Property.string(NAME).getValue());
+        Assertions.assertEquals(ASSIGNED_VALUE, Property.ofString(NAME).getValue());
         Assertions.assertEquals(PASSED_VALUE, property.getDefaultValue());
     }
 
     @Test
     void threeArgs() {
-        Property<String> property = Property.string(NAME, DEFAULT_VALUE);
+        Property<String> property = Property.ofString(NAME, DEFAULT_VALUE);
 
         Assertions.assertEquals(PASSED_VALUE, System.getProperty(NAME));
         Assertions.assertEquals(PASSED_VALUE, property.getValue());
@@ -47,17 +47,17 @@ public class PropertyTest {
 
         Assertions.assertEquals(ASSIGNED_VALUE, System.getProperty(NAME));
         Assertions.assertEquals(ASSIGNED_VALUE, property.getValue());
-        Assertions.assertEquals(ASSIGNED_VALUE, Property.string(NAME).getValue());
+        Assertions.assertEquals(ASSIGNED_VALUE, Property.ofString(NAME).getValue());
         Assertions.assertEquals(DEFAULT_VALUE, property.getDefaultValue());
     }
 
     @AfterEach
     void clearProperty() {
-        Property<String> property = Property.string(NAME);
+        Property<String> property = Property.ofString(NAME);
         property.clearValue();
 
         Assertions.assertNull(System.getProperty(NAME));
         Assertions.assertEquals(ASSIGNED_VALUE, property.getValue());
-        Assertions.assertNull(Property.string(NAME).getValue());
+        Assertions.assertNull(Property.ofString(NAME).getValue());
     }
 }

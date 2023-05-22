@@ -94,7 +94,7 @@ public class PropChecks implements ExecutionCondition, BeforeAllCallback, Before
     private boolean propEnabled(RunOnProp annotation) {
         String name = annotation.name();
         String[] value = annotation.value();
-        Property<String> property = Property.string(name);
+        Property<String> property = Property.ofString(name);
         String valueSet = StringUtils.trim(property.getValue());
 
         if (name == null || value == null || valueSet == null) {
@@ -127,7 +127,7 @@ public class PropChecks implements ExecutionCondition, BeforeAllCallback, Before
         while (it.hasNext()) {
             RunOnProp annotation = it.next();
             String name = StringUtils.trim(annotation.name());
-            String set = StringUtils.trim(Property.string(name).getValue());
+            String set = StringUtils.trim(Property.ofString(name).getValue());
             String value = ("[" + String.join(",", annotation.value()) + "]").replace(" ", "");
             sb.append(String.format("@RunOnProp(name=%s,value=%s) <- %s", name, value, set));
 
@@ -147,7 +147,7 @@ public class PropChecks implements ExecutionCondition, BeforeAllCallback, Before
 
     private void setProps(List<SetProp> annotations) {
         annotations.forEach(annotation -> {
-            Property<String> property = Property.string(annotation.name());
+            Property<String> property = Property.ofString(annotation.name());
             if (property.getValue() == null) {
                 property.setValue(annotation.value());
             }
@@ -155,7 +155,7 @@ public class PropChecks implements ExecutionCondition, BeforeAllCallback, Before
     }
 
     private void clearProps(List<SetProp> annotations) {
-        annotations.forEach(annotation -> Property.string(annotation.name()).clearValue());
+        annotations.forEach(annotation -> Property.ofString(annotation.name()).clearValue());
     }
 
     private List<SetProp> getSetProps(ExtensionContext context) {
@@ -168,17 +168,17 @@ public class PropChecks implements ExecutionCondition, BeforeAllCallback, Before
             String value = multiValueProperty.getValue();
 
             if (value != null) {
-                Property.string(name).setValue(value);
+                Property.ofString(name).setValue(value);
             }
         }
     }
 
     private void resolveMultiValueProp(String name, String valuePart) {
-        Property<String> property = Property.string(name);
+        Property<String> property = Property.ofString(name);
         String valueSet = StringUtils.trim(property.getValue());
         property.setValue(valuePart);
 
-        Property<String> multiValueProperty = Property.string(name + ".original", name);
+        Property<String> multiValueProperty = Property.ofString(name + ".original", name);
         multiValueProperty.setValue(valueSet);
         MULTI_VALUE_PROPERTIES.add(multiValueProperty);
     }

@@ -41,7 +41,7 @@ public class PropertiesFile {
      * @return The value of a property as {@link String}.
      */
     public synchronized String getPropValue(String name) {
-        return getPropValue(Property.string(name));
+        return getPropValue(Property.ofString(name));
     }
 
     /**
