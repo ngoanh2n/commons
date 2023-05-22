@@ -48,7 +48,7 @@ public class Property<T> {
      * Construct a new {@link Property} of {@link String}.
      *
      * @param name The name of the JVM system property.
-     * @return This instance.
+     * @return The {@link Property}.
      */
     public static Property<String> ofString(String name) {
         return new Property<>(name, String.class);
@@ -59,7 +59,7 @@ public class Property<T> {
      *
      * @param name         The name of the JVM system property.
      * @param defaultValue The default value of the JVM system property.
-     * @return This instance.
+     * @return The {@link Property}.
      */
     public static Property<String> ofString(String name, String defaultValue) {
         return new Property<>(name, String.class, defaultValue);
@@ -69,7 +69,7 @@ public class Property<T> {
      * Construct a new {@link Property} of {@link Boolean}.
      *
      * @param name The name of the JVM system property.
-     * @return This instance.
+     * @return The {@link Property}.
      */
     public static Property<Boolean> ofBoolean(String name) {
         return new Property<>(name, Boolean.class);
@@ -80,7 +80,7 @@ public class Property<T> {
      *
      * @param name         The name of the JVM system property.
      * @param defaultValue The default value of the JVM system property.
-     * @return This instance.
+     * @return The {@link Property}.
      */
     public static Property<Boolean> ofBoolean(String name, Boolean defaultValue) {
         return new Property<>(name, Boolean.class, defaultValue);
@@ -90,7 +90,7 @@ public class Property<T> {
      * Construct a new {@link Property} of {@link Integer}.
      *
      * @param name The name of the JVM system property.
-     * @return This instance.
+     * @return The {@link Property}.
      */
     public static Property<Integer> ofInteger(String name) {
         return new Property<>(name, Integer.class);
@@ -101,7 +101,7 @@ public class Property<T> {
      *
      * @param name         The name of the JVM system property.
      * @param defaultValue The default value of the JVM system property.
-     * @return This instance.
+     * @return The {@link Property}.
      */
     public static Property<Integer> ofInteger(String name, int defaultValue) {
         return new Property<>(name, Integer.class, defaultValue);
@@ -111,7 +111,7 @@ public class Property<T> {
      * Construct a new {@link Property} of {@link Long}.
      *
      * @param name The name of the JVM system property.
-     * @return This instance.
+     * @return The {@link Property}.
      */
     public static Property<Long> ofLong(String name) {
         return new Property<>(name, Long.class);
@@ -122,7 +122,7 @@ public class Property<T> {
      *
      * @param name         The name of the JVM system property.
      * @param defaultValue The default value of the JVM system property.
-     * @return This instance.
+     * @return The {@link Property}.
      */
     public static Property<Long> ofLong(String name, long defaultValue) {
         return new Property<>(name, Long.class, defaultValue);
@@ -132,7 +132,7 @@ public class Property<T> {
      * Construct a new {@link Property} of {@link Float}.
      *
      * @param name The name of the JVM system property.
-     * @return This instance.
+     * @return The {@link Property}.
      */
     public static Property<Float> ofFloat(String name) {
         return new Property<>(name, Float.class);
@@ -143,7 +143,7 @@ public class Property<T> {
      *
      * @param name         The name of the JVM system property.
      * @param defaultValue The default value of the JVM system property.
-     * @return This instance.
+     * @return The {@link Property}.
      */
     public static Property<Float> ofFloat(String name, float defaultValue) {
         return new Property<>(name, Float.class, defaultValue);
@@ -153,7 +153,7 @@ public class Property<T> {
      * Construct a new {@link Property} of {@link Double}.
      *
      * @param name The name of the JVM system property.
-     * @return This instance.
+     * @return The {@link Property}.
      */
     public static Property<Double> ofDouble(String name) {
         return new Property<>(name, Double.class);
@@ -164,7 +164,7 @@ public class Property<T> {
      *
      * @param name         The name of the JVM system property.
      * @param defaultValue The default value of the JVM system property.
-     * @return This instance.
+     * @return The {@link Property}.
      */
     public static Property<Double> ofDouble(String name, double defaultValue) {
         return new Property<>(name, Double.class, defaultValue);
