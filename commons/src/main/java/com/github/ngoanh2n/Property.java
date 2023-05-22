@@ -92,7 +92,7 @@ public class Property<T> {
      * @param name The name of the JVM system property.
      * @return This instance.
      */
-    public static Property<Integer> integer(String name) {
+    public static Property<Integer> ofInteger(String name) {
         return new Property<>(name, Integer.class);
     }
 
@@ -103,7 +103,7 @@ public class Property<T> {
      * @param defaultValue The default value of the JVM system property.
      * @return This instance.
      */
-    public static Property<Integer> integer(String name, int defaultValue) {
+    public static Property<Integer> ofInteger(String name, int defaultValue) {
         return new Property<>(name, Integer.class, defaultValue);
     }
 
