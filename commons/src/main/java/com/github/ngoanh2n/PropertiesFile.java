@@ -5,7 +5,7 @@ import java.io.File;
 import java.util.Properties;
 
 /**
- * Reads properties file.
+ * Read properties file.
  *
  * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
  */
