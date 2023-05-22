@@ -1,5 +1,7 @@
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.ngoanh2n/commons-junit5/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.ngoanh2n/commons-junit5)
 [![javadoc](https://javadoc.io/badge2/com.github.ngoanh2n/commons-junit5/javadoc.svg)](https://javadoc.io/doc/com.github.ngoanh2n/commons-junit5)
+[![badge-jdk](https://img.shields.io/badge/jdk-11-blue.svg)](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blueviolet.svg)](https://opensource.org/licenses/MIT)
 
 # Declarations
 ## Gradle
@@ -25,7 +27,7 @@ _Signal that the annotated JUnit5 test class or test method is enabled._
 
 #### System Properties
 - `ngoanh2n.propMultiValueEnabled`: Indicate to allow setting multiple value for a JVM system property (Default to true).
-  + `true`: Extract values from the value of JVM system property.
+  + `true`: Extract values from the value of JVM system property.<br>
     E.g. `-Dmykey=[value1,value2]` → `mykey` has 2 values: `value1` and `value2`
   + `false`: Use the value of JVM system property directly.
 
@@ -39,8 +41,8 @@ import org.junit.jupiter.api.Test;
 
 public class SeleniumTest {
   // This means, test method will be enabled if satisfied following conditions:
-  // JVM system property: os equals to one of macos, linux, windows
-  // JVM system property: browser equals to chrome
+  // JVM system property: `os` equals to one of `macos`, `linux`, `windows`
+  // JVM system property: `browser` equals to `chrome`
   @Test
   @EnabledIfProperty(name = "os", value = {"macos", "windows", "linux"})
   @EnabledIfProperty(name = "browser", value = "chrome")
@@ -49,8 +51,8 @@ public class SeleniumTest {
   }
 
   // This means, test method will be enabled if satisfied following conditions:
-  // JVM system property: os equals to macos, windows
-  // JVM system property: browser equals to opera
+  // JVM system property: `os` equals to `macos`, `windows`
+  // JVM system property: `browser` equals to `opera`
   @Test
   @EnabledIfProperty(name = "os", value = {"macos", "windows"})
   @EnabledIfProperty(name = "browser", value = "opera")

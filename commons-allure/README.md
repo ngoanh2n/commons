@@ -1,5 +1,7 @@
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.ngoanh2n/commons-allure/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.ngoanh2n/commons-allure)
 [![javadoc](https://javadoc.io/badge2/com.github.ngoanh2n/commons-allure/javadoc.svg)](https://javadoc.io/doc/com.github.ngoanh2n/commons-allure)
+[![badge-jdk](https://img.shields.io/badge/jdk-11-blue.svg)](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blueviolet.svg)](https://opensource.org/licenses/MIT)
 
 # Declarations
 ## Gradle
@@ -31,7 +33,7 @@ _Write `environment.properties` to Allure results directory._
 
     // Write properties file is existing in resources folder
     String props = "selenide.properties";
-    AllureEnvironment.write(props1)
+    AllureEnvironment.write(props)
     ```
 2. Write to specified directory
     ```java
@@ -43,5 +45,5 @@ _Write `environment.properties` to Allure results directory._
     // Write properties file is existing in resources folder
     Path location = Paths.get("build/custom/directory");
     String props = "selenide.properties";
-    AllureEnvironment.write(location, props1)
+    AllureEnvironment.write(location, props)
     ```
