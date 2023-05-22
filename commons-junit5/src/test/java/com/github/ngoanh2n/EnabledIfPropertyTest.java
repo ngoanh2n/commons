@@ -7,13 +7,13 @@ import org.slf4j.LoggerFactory;
 /**
  * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
  */
-public class RunOnPropTest {
+public class EnabledIfPropertyTest {
     private static final String NAME = "prop";
     private static final String VALUE = "ngoanh2n";
     private static final Property<String> PROPERTY = Property.ofString(NAME);
 
-    static final class RunOnPropertyBTest {
-        private static final Logger logger = LoggerFactory.getLogger(RunOnPropertyBTest.class);
+    static final class EnabledIfPropertyBTest {
+        private static final Logger logger = LoggerFactory.getLogger(EnabledIfPropertyBTest.class);
 
         @BeforeAll
         static void beforeAll() {
@@ -70,8 +70,8 @@ public class RunOnPropTest {
     }
 
     @SetProperty(name = NAME, value = VALUE)
-    static final class RunOnPropertyATest {
-        private static final Logger logger = LoggerFactory.getLogger(RunOnPropertyATest.class);
+    static final class EnabledIfPropertyATest {
+        private static final Logger logger = LoggerFactory.getLogger(EnabledIfPropertyATest.class);
 
         @BeforeAll
         static void beforeAll() {
