@@ -49,7 +49,7 @@ public class RunOnPropTest {
         }
 
         @Test
-        @SetProp(name = NAME, value = VALUE)
+        @SetProperty(name = NAME, value = VALUE)
         @RunOnProp(name = NAME, value = VALUE)
         void test() {
             Assertions.assertEquals(VALUE, System.getProperty(NAME));
@@ -69,7 +69,7 @@ public class RunOnPropTest {
         }
     }
 
-    @SetProp(name = NAME, value = VALUE)
+    @SetProperty(name = NAME, value = VALUE)
     static final class RunOnPropertyATest {
         private static final Logger logger = LoggerFactory.getLogger(RunOnPropertyATest.class);
 

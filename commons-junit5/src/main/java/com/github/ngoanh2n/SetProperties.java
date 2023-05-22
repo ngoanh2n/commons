@@ -8,17 +8,17 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * Array of {@link SetProp @SetProp}.
+ * Array of {@link SetProperty @SetProperty}.
  *
  * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
  */
 @Retention(RUNTIME)
 @Target({TYPE, METHOD})
-public @interface SetProps {
+public @interface SetProperties {
     /**
-     * {@link SetProp @SetProp} array to set JVM system property.
+     * {@link SetProperty @SetProperty} array to set JVM system property.
      *
-     * @return {@link SetProp @SetProp} array.
+     * @return {@link SetProperty @SetProperty} array.
      */
-    SetProp[] value();
+    SetProperty[] value();
 }

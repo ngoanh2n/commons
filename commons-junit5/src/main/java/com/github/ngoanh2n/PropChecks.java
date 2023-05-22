@@ -10,7 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * {@link Extension} for {@link RunOnProp @RunOnProp} and {@link SetProp @SetProp}.
+ * {@link Extension} for {@link RunOnProp @RunOnProp} and {@link SetProperty @SetProperty}.
  *
  * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
  */
@@ -56,7 +56,7 @@ public class PropChecks implements ExecutionCondition, BeforeAllCallback, Before
      */
     @Override
     public void beforeAll(ExtensionContext context) {
-        List<SetProp> annotations = getSetProps(context);
+        List<SetProperty> annotations = getSetProps(context);
         setProps(annotations);
     }
 
@@ -65,7 +65,7 @@ public class PropChecks implements ExecutionCondition, BeforeAllCallback, Before
      */
     @Override
     public void beforeEach(ExtensionContext context) {
-        List<SetProp> annotations = getSetProps(context);
+        List<SetProperty> annotations = getSetProps(context);
         setProps(annotations);
     }
 
@@ -74,7 +74,7 @@ public class PropChecks implements ExecutionCondition, BeforeAllCallback, Before
      */
     @Override
     public void afterEach(ExtensionContext context) {
-        List<SetProp> annotations = getSetProps(context);
+        List<SetProperty> annotations = getSetProps(context);
         clearProps(annotations);
         resetMultiValueProp();
     }
@@ -84,7 +84,7 @@ public class PropChecks implements ExecutionCondition, BeforeAllCallback, Before
      */
     @Override
     public void afterAll(ExtensionContext context) {
-        List<SetProp> annotations = getSetProps(context);
+        List<SetProperty> annotations = getSetProps(context);
         clearProps(annotations);
         resetMultiValueProp();
     }
@@ -145,7 +145,7 @@ public class PropChecks implements ExecutionCondition, BeforeAllCallback, Before
         return AnnotationUtils.findRepeatableAnnotations(context.getElement(), RunOnProp.class);
     }
 
-    private void setProps(List<SetProp> annotations) {
+    private void setProps(List<SetProperty> annotations) {
         annotations.forEach(annotation -> {
             Property<String> property = Property.ofString(annotation.name());
             if (property.getValue() == null) {
@@ -154,12 +154,12 @@ public class PropChecks implements ExecutionCondition, BeforeAllCallback, Before
         });
     }
 
-    private void clearProps(List<SetProp> annotations) {
+    private void clearProps(List<SetProperty> annotations) {
         annotations.forEach(annotation -> Property.ofString(annotation.name()).clearValue());
     }
 
-    private List<SetProp> getSetProps(ExtensionContext context) {
-        return AnnotationUtils.findRepeatableAnnotations(context.getElement(), SetProp.class);
+    private List<SetProperty> getSetProps(ExtensionContext context) {
+        return AnnotationUtils.findRepeatableAnnotations(context.getElement(), SetProperty.class);
     }
 
     private void resetMultiValueProp() {
