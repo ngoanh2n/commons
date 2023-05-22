@@ -24,7 +24,7 @@ public class PropertyFileTest {
      * */
     @Test
     void test1() {
-        PropFile propFile = new PropFile("File1.properties");
+        PropertiesFile propertiesFile = new PropertiesFile("File1.properties");
 
         /*
          * Value in Properties file: NO-FILE
@@ -32,7 +32,7 @@ public class PropertyFileTest {
          * => Value: NULL
          * */
         Property<String> property1 = new Property<>(PROP_NAME1, String.class);
-        Assertions.assertNull(propFile.getPropValue(property1));
+        Assertions.assertNull(propertiesFile.getPropValue(property1));
 
         /*
          * Value in Properties file: NO-FILE
@@ -40,7 +40,7 @@ public class PropertyFileTest {
          * => Value: PropValue2
          * */
         Property<String> property2 = new Property<>(PROP_NAME2, String.class, PROP_VALUE2);
-        Assertions.assertEquals(PROP_VALUE2, propFile.getPropValue(property2));
+        Assertions.assertEquals(PROP_VALUE2, propertiesFile.getPropValue(property2));
     }
 
     /*
@@ -50,7 +50,7 @@ public class PropertyFileTest {
      * */
     @Test
     void test2() {
-        PropFile propFile = new PropFile("com/github/ngoanh2n/PropFileTest/File2.properties");
+        PropertiesFile propertiesFile = new PropertiesFile("com/github/ngoanh2n/PropFileTest/File2.properties");
 
         /*
          * Value in JVM System Property: NULL
@@ -59,7 +59,7 @@ public class PropertyFileTest {
          * => Value: PropValue1
          * */
         Property<String> property1 = new Property<>(PROP_NAME1, String.class);
-        Assertions.assertEquals(PROP_VALUE1, propFile.getPropValue(property1));
+        Assertions.assertEquals(PROP_VALUE1, propertiesFile.getPropValue(property1));
 
         /*
          * Value in JVM System Property: NULL
@@ -68,7 +68,7 @@ public class PropertyFileTest {
          * => Value: PropValue2
          * */
         Property<String> property2 = new Property<>(PROP_NAME2, String.class, PROP_VALUE0);
-        Assertions.assertEquals(PROP_VALUE2, propFile.getPropValue(property2));
+        Assertions.assertEquals(PROP_VALUE2, propertiesFile.getPropValue(property2));
 
         /*
          * Value in JVM System Property: NULL
@@ -77,7 +77,7 @@ public class PropertyFileTest {
          * => Value: PropValue3
          * */
         Property<String> property3 = new Property<>(PROP_NAME3, String.class, PROP_VALUE3);
-        Assertions.assertEquals(PROP_VALUE3, propFile.getPropValue(property3));
+        Assertions.assertEquals(PROP_VALUE3, propertiesFile.getPropValue(property3));
 
         /*
          * Value in JVM System Property: NULL
@@ -86,7 +86,7 @@ public class PropertyFileTest {
          * => Value: NULL
          * */
         Property<String> property4 = new Property<>(PROP_NAME4, String.class);
-        Assertions.assertNull(propFile.getPropValue(property4));
+        Assertions.assertNull(propertiesFile.getPropValue(property4));
     }
 
     /*
@@ -96,7 +96,7 @@ public class PropertyFileTest {
      * */
     @Test
     void test3() {
-        PropFile propFile = new PropFile("com/github/ngoanh2n/PropFileTest/File3.properties");
+        PropertiesFile propertiesFile = new PropertiesFile("com/github/ngoanh2n/PropFileTest/File3.properties");
 
         /*
          * Value in JVM System Property: PropValue0
@@ -106,7 +106,7 @@ public class PropertyFileTest {
          * */
         System.setProperty(PROP_NAME1, PROP_VALUE0);
         Property<String> property1 = new Property<>(PROP_NAME1, String.class);
-        Assertions.assertEquals(PROP_VALUE0, propFile.getPropValue(property1));
+        Assertions.assertEquals(PROP_VALUE0, propertiesFile.getPropValue(property1));
 
         /*
          * Value in JVM System Property: PropValue0
@@ -116,7 +116,7 @@ public class PropertyFileTest {
          * */
         System.setProperty(PROP_NAME2, PROP_VALUE0);
         Property<String> property2 = new Property<>(PROP_NAME2, String.class, PROP_VALUE2);
-        Assertions.assertEquals(PROP_VALUE0, propFile.getPropValue(property2));
+        Assertions.assertEquals(PROP_VALUE0, propertiesFile.getPropValue(property2));
 
         /*
          * Value in JVM System Property: PropValue0
@@ -126,7 +126,7 @@ public class PropertyFileTest {
          * */
         System.setProperty(PROP_NAME3, PROP_VALUE0);
         Property<String> property3 = new Property<>(PROP_NAME3, String.class, PROP_VALUE3);
-        Assertions.assertEquals(PROP_VALUE0, propFile.getPropValue(property3));
+        Assertions.assertEquals(PROP_VALUE0, propertiesFile.getPropValue(property3));
 
         /*
          * Value in JVM System Property: ENUM0
@@ -136,7 +136,7 @@ public class PropertyFileTest {
          * */
         System.setProperty(PROP_NAME4, TestEnum.ENUM0.name());
         Property<TestEnum> property4 = new Property<>(PROP_NAME4, TestEnum.class, TestEnum.ENUM2);
-        Assertions.assertEquals(TestEnum.ENUM0, propFile.getPropValue(property4));
+        Assertions.assertEquals(TestEnum.ENUM0, propertiesFile.getPropValue(property4));
     }
 
     enum TestEnum {

@@ -10,24 +10,24 @@ import java.util.Properties;
  * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
  */
 @ParametersAreNonnullByDefault
-public class PropFile {
+public class PropertiesFile {
     private Properties props;
 
     /**
-     * Constructs this with a resource name.
+     * Construct {@link PropertiesFile} this with a resource name.
      *
      * @param name Name of properties file in resources dir.
      */
-    public PropFile(String name) {
+    public PropertiesFile(String name) {
         loadPropFile(name);
     }
 
     /**
-     * Constructs this with a {@link File}.
+     * Construct {@link PropertiesFile} with a {@link File}.
      *
      * @param file Properties file in resources dir.
      */
-    public PropFile(File file) {
+    public PropertiesFile(File file) {
         loadPropFile(file);
     }
 
@@ -48,7 +48,7 @@ public class PropFile {
      * Get property object.<br>
      * Priority order: JVM System Property, Properties file, Default value.
      *
-     * @param <T>  The type of current property.
+     * @param <T>      The type of current property.
      * @param property The {@link Property} object.
      * @return The value of {@link Property}.
      */
