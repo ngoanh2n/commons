@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 /**
  * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
  */
-public class PropertyFileTest {
+public class PropertiesFileTest {
     private static final String PROP_NAME1 = "PropFile.PropName1";
     private static final String PROP_NAME2 = "PropFile.PropName2";
     private static final String PROP_NAME3 = "PropFile.PropName3";
