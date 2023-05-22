@@ -2,6 +2,5 @@
  * Author: Ho Huu Ngoan (ngoanh2n@gmail.com)
  */
 dependencies {
-    api("org.slf4j:slf4j-api:$versionSlf4j")
     testImplementation("org.slf4j:slf4j-log4j12:$versionSlf4j")
 }
