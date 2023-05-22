@@ -149,6 +149,27 @@ public class Property<T> {
         return new Property<>(name, Float.class, defaultValue);
     }
 
+    /**
+     * Construct a new {@link Property} of {@link Double}.
+     *
+     * @param name The name of the JVM system property.
+     * @return This instance.
+     */
+    public static Property<Double> ofDouble(String name) {
+        return new Property<>(name, Double.class);
+    }
+
+    /**
+     * Construct a new {@link Property} of {@link Double}.
+     *
+     * @param name         The name of the JVM system property.
+     * @param defaultValue The default value of the JVM system property.
+     * @return This instance.
+     */
+    public static Property<Double> ofDouble(String name, double defaultValue) {
+        return new Property<>(name, Double.class, defaultValue);
+    }
+
     //-------------------------------------------------------------------------------//
 
     /**
