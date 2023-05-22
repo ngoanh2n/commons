@@ -18,7 +18,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 @Target({TYPE, METHOD})
 @Repeatable(SetProperties.class)
-@ExtendWith(PropChecks.class)
+@ExtendWith(PropertyChecks.class)
 public @interface SetProperty {
     /**
      * The name of the system property.

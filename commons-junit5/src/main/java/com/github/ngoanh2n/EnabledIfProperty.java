@@ -19,7 +19,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 @Target({TYPE, METHOD})
 @Repeatable(EnabledIfProperties.class)
-@ExtendWith(PropChecks.class)
+@ExtendWith(PropertyChecks.class)
 public @interface EnabledIfProperty {
     /**
      * The name of the JVM system property to retrieve.

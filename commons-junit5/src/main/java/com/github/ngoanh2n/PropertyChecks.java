@@ -14,9 +14,10 @@ import java.util.regex.Pattern;
  *
  * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
  */
-public class PropChecks implements ExecutionCondition, BeforeAllCallback, BeforeEachCallback, AfterEachCallback, AfterAllCallback {
+public class PropertyChecks implements ExecutionCondition, BeforeAllCallback, BeforeEachCallback, AfterEachCallback, AfterAllCallback {
     /**
-     * {@code true}:  Allow setting multiple value for a JVM System Property.<br>
+     * Indicate to allow setting multiple value for a JVM System Property.
+     * Default to {@code true}.<br>
      * E.g: -Dngoanh2n=[value1,value2,value3]
      */
     public static final Property<Boolean> multiValueEnabled = Property.ofBoolean("ngoanh2n.propMultiValueEnabled", true);
@@ -26,7 +27,7 @@ public class PropChecks implements ExecutionCondition, BeforeAllCallback, Before
     /**
      * Default constructor.
      */
-    public PropChecks() { /* No implementation necessary */ }
+    public PropertyChecks() { /* No implementation necessary */ }
 
     //-------------------------------------------------------------------------------//
 
