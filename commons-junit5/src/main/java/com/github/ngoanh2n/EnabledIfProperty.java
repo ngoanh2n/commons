@@ -18,7 +18,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  */
 @Retention(RUNTIME)
 @Target({TYPE, METHOD})
-@Repeatable(RunOnProps.class)
+@Repeatable(EnabledIfProperties.class)
 @ExtendWith(PropChecks.class)
 public @interface EnabledIfProperty {
     /**

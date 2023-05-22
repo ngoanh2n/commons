@@ -14,7 +14,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  */
 @Retention(RUNTIME)
 @Target({TYPE, METHOD})
-public @interface RunOnProps {
+public @interface EnabledIfProperties {
     /**
      * {@link EnabledIfProperty @EnabledIfProperty} array to annotate test class or test method is only enabled.
      *
