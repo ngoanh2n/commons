@@ -14,14 +14,13 @@
   - [Gradle](#gradle)
   - [Maven](#maven)
 - [Usages](#usages)
-  - [Resource](#resource)
+  - [Resources](#resources)
+      - [System Properties](#system-properties)
   - [YamlData](#yamldata)
-    - [Static APIs](#static-apis)
-    - [Inheritance](#inheritance)
-      - [Without annotation](#without-annotation)
-      - [With annotation](#with-annotation)
-  - [@RunOnProp](#runonprop)
-  - [@SetProp](#setprop)
+      - [Static APIs](#static-apis)
+      - [Inheritance](#inheritance)
+        - [Without annotation](#without-annotation)
+        - [With annotation](#with-annotation)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -65,25 +64,27 @@ _Add dependency to `pom.xml`_
 │           └── selenide.properties
 ```
 
-## Resource
+## Resources
 _Get Java resource files by resource name._
-_`Resource` class has a property named `ngoanh2n.findResourceOnClasspath` (Default to true)_
-- When property is set to `true`: Get the resource on the classpath
-  + `<PROJECT>/out/production/resources`
-  + `<PROJECT>/out/test/resources`
-- When property is set to `false`: Get the resource in root location
-  + `<PROJECT>/src/production/resources`
-  + `<PROJECT>/src/test/resources`
+
+#### System Properties
+- `ngoanh2n.findResourceOnClasspath`: Indicate to find the resource file on classpath (Default to true).
+  + `true`: Get the resource on the classpath
+    + `<PROJECT>/out/production/resources`
+    + `<PROJECT>/out/test/resources`
+  + `false`: Get the resource in root location
+    + `<PROJECT>/src/production/resources`
+    + `<PROJECT>/src/test/resources`
 
 ```java
-File file = Resource.getFile("categories.json");
-Path path = Resource.getPath("categories.json");
-String content = Resource.getContent("categories.json");
-InputStream is = Resource.getInputStream("categories.json");
+File file = Resources.getFile("categories.json");
+Path path = Resources.getPath("categories.json");
+String content = Resources.getContent("categories.json");
+InputStream is = Resources.getInputStream("categories.json");
 ```
 
 ## YamlData
-### Static APIs
+#### Static APIs
 _Reads Yaml file to Map, List of Map._
 ```java
 Map<String, Object> map = YamlData.toMapFromResource("user.yml")
@@ -93,7 +94,7 @@ List<Map<String, Object>> maps = YamlData.toMapsFromResource("user.yml")
 List<Map<String, Object>> maps = YamlData.toMapsFromFile("src/test/resources/user.yml")
 ```
 
-### Inheritance
+#### Inheritance
 _Reads Yaml file to Java Bean, List of Java Bean._
 
 ```yml
@@ -133,14 +134,14 @@ public class Company extends YamlData<Company> {
 }
 ```
 
-#### Without annotation
+##### Without annotation
 ```
 User user = new User().fromResource("user.yml").toModel();
 // OR
 User user = new User().fromFile("src/test/resources/user.yml").toModel();
 ```
 
-#### With annotation
+##### With annotation
 You should attach `com.github.ngoanh2n.YamlFrom` for Java Bean.
 
 ```java
@@ -156,120 +157,4 @@ public class User extends YamlData<User> {
 ```
 User user = new User().toModel();
 // Replace declared value of @YamlFrom by calling fromResource() or fromFile() method.
-```
-
-## @RunOnProp
-_Signal that the annotated JUnit5 test class or test method is enabled._
-
-```java
-// Junit5 test
-
-import com.github.ngoanh2n.junit5.RunOnProp;
-import com.github.ngoanh2n.junit5.SetProp;
-import org.junit.jupiter.api.Test;
-
-public class SeleniumTest {
-  // This means, test method will be enabled if satisfied following conditions:
-  // JVM system property: os equals to one of macos, linux, windows
-  // JVM system property: browser equals to chrome
-  @Test
-  @RunOnProp(name = "os", value = {"macos", "windows", "linux"})
-  @RunOnProp(name = "browser", value = "chrome")
-  public void chromeTest() {
-    ...
-  }
-
-  // This means, test method will be enabled if satisfied following conditions:
-  // JVM system property: os equals to macos, windows
-  // JVM system property: browser equals to opera
-  @Test
-  @RunOnProp(name = "os", value = {"macos", "windows"})
-  @RunOnProp(name = "browser", value = "opera")
-  public void operaTest() {
-    ...
-  }
-}
-```
-
-```
-./gradlew test --tests SeleniumTest -Dos=windows -Dbrowser=[chrome,opera]
-→ Tests will be enabled: SeleniumTest.chromeTest() & SeleniumTest.operaTest()
-
-./gradlew test --tests SeleniumTest -Dos=macos -Dbrowser=opera
-→ Tests will be enabled: SeleniumTest.operaTest()
-```
-
-## @SetProp
-_Set value to JVM system property._
-
-```java
-// Test Class
-
-import com.github.ngoanh2n.junit5.SetProp;
-import org.junit.jupiter.api.*;
-
-@SetProp(name = "os", value = "windows")
-public class SeleniumTest {
-  @BeforeAll
-  public static void beforeAll() {
-    Assertions.assertEquals("windows", System.getProperty("os"));
-  }
-
-  @BeforeEach
-  public void beforeEach() {
-    Assertions.assertEquals("windows", System.getProperty("os"));
-  }
-
-  @Test
-  public void test() {
-    Assertions.assertEquals("windows", System.getProperty("os"));
-  }
-
-  @AfterEach
-  public void afterEach() {
-    Assertions.assertEquals("windows", System.getProperty("os"));
-  }
-
-  @AfterAll
-  public static void afterAll() {
-    Assertions.assertEquals("windows", System.getProperty("os"));
-  }
-}
-```
-
-```java
-// Test Method
-
-import com.github.ngoanh2n.junit5.SetProp;
-import org.junit.jupiter.api.*;
-
-public class SeleniumTest {
-  @BeforeAll
-  public static void beforeAll() {
-    Assertions.assertNotEquals("windows", System.getProperty("os"));
-    // JVM system property `os` is not set in class scope
-  }
-
-  @BeforeEach
-  public void beforeEach() {
-    Assertions.assertEquals("windows", System.getProperty("os"));
-  }
-
-  @Test
-  @SetProp(name = "os", value = "windows")
-  public void test() {
-    Assertions.assertEquals("windows", System.getProperty("os"));
-  }
-
-  @AfterEach
-  public void afterEach() {
-    Assertions.assertEquals("windows", System.getProperty("os"));
-  }
-
-  @AfterAll
-  public static void afterAll() {
-    Assertions.assertNotEquals("windows", System.getProperty("os"));
-    // JVM system property `os` is not set in class scope
-  }
-}
 ```
