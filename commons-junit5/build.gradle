@@ -2,7 +2,7 @@
  * Author: Ho Huu Ngoan (ngoanh2n@gmail.com)
  */
 dependencies {
-    api(project(":commons"))
+    implementation(project(":commons"))
     implementation("org.junit.jupiter:junit-jupiter:$versionJunitJupiter")
     implementation("org.seleniumhq.selenium:selenium-remote-driver:$versionSelenium")
 }
