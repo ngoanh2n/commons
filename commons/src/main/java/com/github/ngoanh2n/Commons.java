@@ -26,7 +26,6 @@ import java.util.stream.Collectors;
  *
  * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
  */
-@SuppressWarnings({"unchecked", "ResultOfMethodCallIgnored"})
 @CanIgnoreReturnValue
 public final class Commons {
     private static final Logger log = LoggerFactory.getLogger(Commons.class);
@@ -36,7 +35,7 @@ public final class Commons {
     //-------------------------------------------------------------------------------//
 
     /**
-     * Creates a timestamp.
+     * Create a timestamp.
      *
      * @return timestamp as string.
      */
@@ -46,7 +45,7 @@ public final class Commons {
     }
 
     /**
-     * Creates recursively directory from {@linkplain File}.
+     * Create recursively directory from {@linkplain File}.
      *
      * @param file is directory as File.
      * @return directory as a file.
@@ -56,11 +55,12 @@ public final class Commons {
     }
 
     /**
-     * Creates recursively directory from {@linkplain Path}.
+     * Create recursively directory from {@linkplain Path}.
      *
      * @param path is directory as Path.
      * @return directory as a path.
      */
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     public static Path createDir(@Nonnull Path path) {
         Iterator<Path> elements = path.iterator();
         Path parentElement = Paths.get("");
@@ -73,7 +73,7 @@ public final class Commons {
     }
 
     /**
-     * Gets relative path of file against to current user directory.
+     * Get relative path of file against to current user directory.
      *
      * @param file to get relative path.
      * @return relative path.
@@ -99,7 +99,7 @@ public final class Commons {
     }
 
     /**
-     * Writes {@linkplain Properties} to file.
+     * Write {@linkplain Properties} to file.
      *
      * @param file  to be stored.
      * @param props to be written.
@@ -120,7 +120,7 @@ public final class Commons {
     }
 
     /**
-     * Reads {@linkplain Properties} from given Java resource name.
+     * Read {@linkplain Properties} from given Java resource name.
      *
      * @param resourceName Java resource name to read.
      * @return {@linkplain Properties} object.
@@ -131,7 +131,7 @@ public final class Commons {
     }
 
     /**
-     * Reads {@linkplain Properties} from given properties file.
+     * Read {@linkplain Properties} from given properties file.
      *
      * @param file    to read.
      * @param charset The name of a supported charset.
@@ -154,7 +154,7 @@ public final class Commons {
     }
 
     /**
-     * Gets the charset of a file. <br>
+     * Get the charset of a file. <br>
      * Method to mark {@linkplain UniversalDetector} for reusing.
      *
      * @param file The file to check charset for.
@@ -166,7 +166,7 @@ public final class Commons {
     }
 
     /**
-     * Reads value of the {@link Field}. Its parents will be considered. <br>
+     * Read value of the {@link Field}. Its parents will be considered. <br>
      * <ul>
      *     <li>{@code private Type aField}
      *     <li>{@code private final Type aField}
@@ -177,6 +177,7 @@ public final class Commons {
      * @param name   The field name to obtain.
      * @return The field value.
      */
+    @SuppressWarnings("unchecked")
     public static <T> T readField(Object target, String name) {
         String msg = msgFieldAccess(target.getClass(), name, "Read");
         Field[] fields = FieldUtils.getAllFields(target.getClass());
@@ -197,7 +198,7 @@ public final class Commons {
     }
 
     /**
-     * Reads value of the {@link Field}. Its parents will be considered. <br>
+     * Read value of the {@link Field}. Its parents will be considered. <br>
      * <ul>
      *     <li>{@code private static final Type aField}
      * </ul>
@@ -207,6 +208,7 @@ public final class Commons {
      * @param name   The field name to obtain.
      * @return The field value.
      */
+    @SuppressWarnings("unchecked")
     public static <T> T readField(Class<?> target, String name) {
         String msg = msgFieldAccess(target, name, "Read");
         Field[] fields = FieldUtils.getAllFields(target);
@@ -227,7 +229,7 @@ public final class Commons {
     }
 
     /**
-     * Writes value to the field with modifiers:
+     * Write value to the field with modifiers:
      * <ul>
      *     <li>Target object has fields:<pre>
      *         {@code private Type aField}
@@ -271,7 +273,7 @@ public final class Commons {
     }
 
     /**
-     * Writes value to the field with modifiers:
+     * Write value to the field with modifiers:
      * <ul>
      *     <li>Target object has fields:<pre>
      *         {@code private static Type aField}
@@ -323,6 +325,7 @@ public final class Commons {
      * @param <T>   The type of target object.
      * @return The target object.
      */
+    @SuppressWarnings("unchecked")
     public static <T> T convertValue(Class<T> type, String value) {
         if (!type.isEnum()) {
             if (type == URL.class) {
@@ -346,7 +349,7 @@ public final class Commons {
     }
 
     /**
-     * Builds enum from enum class and enum constant name.
+     * Build enum from enum class and enum constant name.
      *
      * @param type The Class object of the enum type from which to return a constant.
      * @param name The name of enum constant to return, exactly as declared in its enum declaration.
