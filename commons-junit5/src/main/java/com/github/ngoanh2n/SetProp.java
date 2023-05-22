@@ -11,7 +11,7 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * Uses to set {@linkplain #value} for the system property indicated by the specified {@linkplain #name}.
+ * Use to set {@link #value} for the JVM system property indicated by the specified {@link #name}.
  *
  * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
  */
@@ -23,14 +23,14 @@ public @interface SetProp {
     /**
      * The name of the system property.
      *
-     * @return the JVM system property name.
+     * @return The JVM system property name.
      */
     String name();
 
     /**
      * The value of the JVM system property.
      *
-     * @return the JVM system property value.
+     * @return The JVM system property value.
      */
     String value();
 }

@@ -14,17 +14,20 @@ import java.nio.file.Paths;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
- * Utilities for finding and reading Java resources.
+ * Find and read Java resources.
  *
  * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
  */
 public final class Resources {
     /**
-     * {@code true}:  Look for the resources on the classpath:
-     * [PROJECT]/out/test/resources/ or [PROJECT]/out/production/resources/
-     * <br>
-     * {@code false}: Look for the resources in root location
-     * [PROJECT]/src/test/resources/ or [PROJECT]/main/test/resources/
+     * Indicate to find the resource file on classpath.<br>
+     * Default to {@code true}.
+     * <ul>
+     *     <li>{@code true}: Look for the resources on the classpath.<br>
+     *     [PROJECT]/out/test/resources/ or [PROJECT]/out/production/resources/</li>
+     *     <li>{@code false}: Look for the resources in root location.<br>
+     *     [PROJECT]/src/test/resources/ or [PROJECT]/main/test/resources/</li>
+     * </ul>
      */
     public static final Property<Boolean> findOnClasspath = Property.ofBoolean("ngoanh2n.findResourceOnClasspath", true);
 
@@ -37,31 +40,31 @@ public final class Resources {
     /**
      * Get the resource file.
      *
-     * @param resourceName is the name of resource. <br>
+     * @param resourceName is the name of resource.<br>
      *                     e.g. com/foo/File.properties
-     * @return {@linkplain File} of resource if the file exists; {@linkplain RuntimeError} otherwise.
+     * @return {@link File} of resource if the file exists; {@link RuntimeError} otherwise.
      */
     public static File getFile(@Nonnull String resourceName) {
         return findResource(resourceName);
     }
 
     /**
-     * Gets the path of resource.
+     * Get the path of resource.
      *
-     * @param resourceName is the name of resource. <br>
+     * @param resourceName is the name of resource.<br>
      *                     e.g. com/foo/File.properties
-     * @return {@linkplain Path} of resource if the file exists; {@linkplain RuntimeError} otherwise.
+     * @return {@link Path} of resource if the file exists; {@link RuntimeError} otherwise.
      */
     public static Path getPath(@Nonnull String resourceName) {
         return getFile(resourceName).toPath();
     }
 
     /**
-     * Gets the resource file as {@linkplain InputStream}.
+     * Get the resource file as {@link InputStream}.
      *
-     * @param resourceName is the name of resource. <br>
+     * @param resourceName is the name of resource.<br>
      *                     e.g. com/foo/File.properties
-     * @return {@linkplain InputStream} if the file exists; {@linkplain RuntimeError} otherwise.
+     * @return {@link InputStream} if the file exists; {@link RuntimeError} otherwise.
      */
     public static InputStream getInputStream(@Nonnull String resourceName) {
         try {
@@ -72,23 +75,23 @@ public final class Resources {
     }
 
     /**
-     * Gets the resource file as {@linkplain String}.
+     * Get the resource file as {@link String}.
      *
-     * @param resourceName is the name of resource. <br>
+     * @param resourceName is the name of resource.<br>
      *                     e.g. com/foo/File.properties
-     * @return {@linkplain String} if the file exists; {@linkplain RuntimeError} otherwise.
+     * @return {@link String} if the file exists; {@link RuntimeError} otherwise.
      */
     public static String getContent(@Nonnull String resourceName) {
         return getContent(resourceName, Charset.defaultCharset());
     }
 
     /**
-     * Gets the resource file as {@linkplain String}.
+     * Get the resource file as {@link String}.
      *
-     * @param resourceName is the name of resource. <br>
+     * @param resourceName is the name of resource.<br>
      *                     e.g. com/foo/File.properties
      * @param charset      the charset to use, null means platform default.
-     * @return {@linkplain String} if the file exists; {@linkplain RuntimeError} otherwise.
+     * @return {@link String} if the file exists; {@link RuntimeError} otherwise.
      */
     public static String getContent(@Nonnull String resourceName, @Nonnull Charset charset) {
         try {

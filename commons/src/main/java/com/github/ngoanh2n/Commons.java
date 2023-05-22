@@ -45,7 +45,7 @@ public final class Commons {
     }
 
     /**
-     * Create recursively directory from {@linkplain File}.
+     * Create recursively directory from {@link File}.
      *
      * @param file is directory as File.
      * @return directory as a file.
@@ -55,7 +55,7 @@ public final class Commons {
     }
 
     /**
-     * Create recursively directory from {@linkplain Path}.
+     * Create recursively directory from {@link Path}.
      *
      * @param path is directory as Path.
      * @return directory as a path.
@@ -99,7 +99,7 @@ public final class Commons {
     }
 
     /**
-     * Write {@linkplain Properties} to file.
+     * Write {@link Properties} to file.
      *
      * @param file  to be stored.
      * @param props to be written.
@@ -120,10 +120,10 @@ public final class Commons {
     }
 
     /**
-     * Read {@linkplain Properties} from given Java resource name.
+     * Read {@link Properties} from given Java resource name.
      *
      * @param resourceName Java resource name to read.
-     * @return {@linkplain Properties} object.
+     * @return {@link Properties} object.
      */
     public static Properties readProps(@Nonnull String resourceName) {
         File file = Resources.getFile(resourceName);
@@ -131,11 +131,11 @@ public final class Commons {
     }
 
     /**
-     * Read {@linkplain Properties} from given properties file.
+     * Read {@link Properties} from given properties file.
      *
      * @param file    to read.
      * @param charset The name of a supported charset.
-     * @return {@linkplain Properties} object.
+     * @return {@link Properties} object.
      */
     public static Properties readProps(@Nonnull File file, String charset) {
         Properties props = new Properties();
@@ -155,7 +155,7 @@ public final class Commons {
 
     /**
      * Get the charset of a file. <br>
-     * Method to mark {@linkplain UniversalDetector} for reusing.
+     * Method to mark {@link UniversalDetector} for reusing.
      *
      * @param file The file to check charset for.
      * @return The charset of the file, null when could not be determined.

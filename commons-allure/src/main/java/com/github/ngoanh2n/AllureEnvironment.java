@@ -20,9 +20,9 @@ public final class AllureEnvironment {
     //-------------------------------------------------------------------------------//
 
     /**
-     * Write {@linkplain Properties} to {@code environment.properties} at Allure results directory.
+     * Write {@link Properties} to {@code environment.properties} at Allure results directory.
      *
-     * @param props is list of {@linkplain Properties} to be written.
+     * @param props The list of {@link Properties}s to be written.
      */
     public static void write(Properties... props) {
         Path resultsDir = getResultsDir();
@@ -32,7 +32,7 @@ public final class AllureEnvironment {
     /**
      * Write resource properties file to {@code environment.properties} at Allure results directory.
      *
-     * @param resourceNames is list of resource properties file to be written.
+     * @param resourceNames The list of resource properties files to be written.
      */
     public static void write(String... resourceNames) {
         Path resultsDir = getResultsDir();
@@ -42,8 +42,8 @@ public final class AllureEnvironment {
     /**
      * Write resource properties file to {@code environment.properties} at Allure results directory.
      *
-     * @param resultsDir    is Allure results directory.
-     * @param resourceNames is list of resource properties file to be written.
+     * @param resultsDir    Allure results directory.
+     * @param resourceNames The list of resource properties files to be written.
      */
     public static void write(Path resultsDir, String... resourceNames) {
         Properties[] props = toPropsList(resourceNames);
@@ -51,10 +51,10 @@ public final class AllureEnvironment {
     }
 
     /**
-     * Write {@linkplain Properties} to {@code environment.properties} at Allure results directory.
+     * Write {@link Properties} to {@code environment.properties} at Allure results directory.
      *
-     * @param resultsDir is Allure results directory.
-     * @param props      is list of {@linkplain Properties} to be written.
+     * @param resultsDir Allure results directory.
+     * @param props      The list of {@link Properties}s to be written.
      */
     public static void write(Path resultsDir, Properties... props) {
         String name = "environment.properties";

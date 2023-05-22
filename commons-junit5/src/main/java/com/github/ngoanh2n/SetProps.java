@@ -8,7 +8,7 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * Array of {@linkplain SetProp}.
+ * Array of {@link SetProp @SetProp}.
  *
  * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
  */
@@ -16,9 +16,9 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target({TYPE, METHOD})
 public @interface SetProps {
     /**
-     * A {@linkplain SetProp} list to set JVM system property.
+     * {@link SetProp @SetProp} array to set JVM system property.
      *
-     * @return array of {@linkplain SetProp}.
+     * @return {@link SetProp @SetProp} array.
      */
     SetProp[] value();
 }

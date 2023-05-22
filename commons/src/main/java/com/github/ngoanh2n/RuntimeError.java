@@ -7,7 +7,7 @@ package com.github.ngoanh2n;
  */
 public class RuntimeError extends RuntimeException {
     /**
-     * Constructs a new runtime exception with the specified detail message.
+     * Construct a new runtime exception with the specified detail message.
      *
      * @param message the detail message. The detail message is saved for later retrieval by the {@link #getMessage()} method.
      */
@@ -16,7 +16,7 @@ public class RuntimeError extends RuntimeException {
     }
 
     /**
-     * Constructs a new runtime exception with the specified cause and a detail message.
+     * Construct a new runtime exception with the specified cause and a detail message.
      *
      * @param cause the cause (which is saved for later retrieval by the
      *              {@link #getCause()} method).  (A {@code null} value is
@@ -27,7 +27,7 @@ public class RuntimeError extends RuntimeException {
     }
 
     /**
-     * Constructs a new runtime exception with the specified detail message and cause.
+     * Construct a new runtime exception with the specified detail message and cause.
      *
      * @param message the detail message (which is saved for later retrieval
      *                by the {@link #getMessage()} method).
