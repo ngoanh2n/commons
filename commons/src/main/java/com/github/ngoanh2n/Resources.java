@@ -18,7 +18,7 @@ import java.util.concurrent.atomic.AtomicReference;
  *
  * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
  */
-public final class Resource {
+public final class Resources {
     /**
      * {@code true}:  Look for the resources on the classpath:
      * [PROJECT]/out/test/resources/ or [PROJECT]/out/production/resources/
@@ -28,9 +28,9 @@ public final class Resource {
      */
     public static final Property<Boolean> findOnClasspath = Property.bool("ngoanh2n.findResourceOnClasspath", true);
 
-    private static final Logger log = LoggerFactory.getLogger(Resource.class);
+    private static final Logger log = LoggerFactory.getLogger(Resources.class);
 
-    private Resource() { /* No implementation necessary */ }
+    private Resources() { /* No implementation necessary */ }
 
     //-------------------------------------------------------------------------------//
 
@@ -67,7 +67,7 @@ public final class Resource {
         try {
             return new FileInputStream(getFile(resourceName));
         } catch (FileNotFoundException e) {
-            throw new RuntimeError(String.format("Resource [%s] not found", resourceName));
+            throw new RuntimeError(String.format("Resources [%s] not found", resourceName));
         }
     }
 
@@ -155,7 +155,7 @@ public final class Resource {
     }
 
     private static void validateResourceName(String value) {
-        Preconditions.checkNotNull(value, "Resource name cannot be null");
-        Preconditions.checkArgument(value.trim().length() > 0, "Resource name cannot be empty");
+        Preconditions.checkNotNull(value, "Resources name cannot be null");
+        Preconditions.checkArgument(value.trim().length() > 0, "Resources name cannot be empty");
     }
 }

@@ -72,7 +72,7 @@ public class PropertiesFile {
 
     private void loadPropFile(String name) {
         try {
-            File file = Resource.getFile(name);
+            File file = Resources.getFile(name);
             loadPropFile(file);
         } catch (RuntimeError ignored) {
             props = new Properties();

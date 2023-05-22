@@ -126,7 +126,7 @@ public final class Commons {
      * @return {@linkplain Properties} object.
      */
     public static Properties readProps(@Nonnull String resourceName) {
-        File file = Resource.getFile(resourceName);
+        File file = Resources.getFile(resourceName);
         return readProps(file, "UTF-8");
     }
 

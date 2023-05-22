@@ -81,7 +81,7 @@ public abstract class YamlData<Model> {
      * {@linkplain RuntimeError } if the file doesn't exist or read multiple object as single object.
      */
     public static Map<String, Object> toMapFromResource(String name, Charset cs) {
-        InputStream is = Resource.getInputStream(name);
+        InputStream is = Resources.getInputStream(name);
         return toMapFromInputStream(is, cs);
     }
 
@@ -133,7 +133,7 @@ public abstract class YamlData<Model> {
      * {@linkplain RuntimeError } otherwise.
      */
     public static List<Map<String, Object>> toMapsFromResource(String name, Charset cs) {
-        InputStream is = Resource.getInputStream(name);
+        InputStream is = Resources.getInputStream(name);
         return toMapsFromInputStream(is, cs);
     }
 
@@ -194,7 +194,7 @@ public abstract class YamlData<Model> {
      * @return the current instance of {@linkplain Model}.
      */
     public Model fromResource(String name) {
-        _inputStream = Resource.getInputStream(name);
+        _inputStream = Resources.getInputStream(name);
         return (Model) this;
     }
 
@@ -299,7 +299,7 @@ public abstract class YamlData<Model> {
                 }
                 if (_inputStream == null) {
                     if (!yamlFrom.resource().isEmpty()) {
-                        _inputStream = Resource.getInputStream(yamlFrom.resource());
+                        _inputStream = Resources.getInputStream(yamlFrom.resource());
                     }
                 }
             }
