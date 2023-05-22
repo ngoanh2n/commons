@@ -19,7 +19,7 @@ public class PropChecks implements ExecutionCondition, BeforeAllCallback, Before
      * {@code true}:  Allow setting multiple value for a JVM System Property.<br>
      * E.g: -Dngoanh2n=[value1,value2,value3]
      */
-    public static final Property<Boolean> multiValueEnabled = Property.bool("ngoanh2n.propMultiValueEnabled", true);
+    public static final Property<Boolean> multiValueEnabled = Property.ofBoolean("ngoanh2n.propMultiValueEnabled", true);
 
     private static final List<Property<String>> MULTI_VALUE_PROPERTIES = new ArrayList<>();
 

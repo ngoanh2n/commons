@@ -26,7 +26,7 @@ public final class Resources {
      * {@code false}: Look for the resources in root location
      * [PROJECT]/src/test/resources/ or [PROJECT]/main/test/resources/
      */
-    public static final Property<Boolean> findOnClasspath = Property.bool("ngoanh2n.findResourceOnClasspath", true);
+    public static final Property<Boolean> findOnClasspath = Property.ofBoolean("ngoanh2n.findResourceOnClasspath", true);
 
     private static final Logger log = LoggerFactory.getLogger(Resources.class);
 

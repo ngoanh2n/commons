@@ -71,7 +71,7 @@ public class Property<T> {
      * @param name The name of the JVM system property.
      * @return This instance.
      */
-    public static Property<Boolean> bool(String name) {
+    public static Property<Boolean> ofBoolean(String name) {
         return new Property<>(name, Boolean.class);
     }
 
@@ -82,7 +82,7 @@ public class Property<T> {
      * @param defaultValue The default value of the JVM system property.
      * @return This instance.
      */
-    public static Property<Boolean> bool(String name, Boolean defaultValue) {
+    public static Property<Boolean> ofBoolean(String name, Boolean defaultValue) {
         return new Property<>(name, Boolean.class, defaultValue);
     }
 
