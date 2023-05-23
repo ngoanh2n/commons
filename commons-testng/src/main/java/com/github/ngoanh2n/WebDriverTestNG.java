@@ -17,16 +17,31 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 /**
- * Lookup {@link WebDriver} from the current TestNG tests.
+ * Lookup {@link WebDriver} from the current TestNG test.
  *
  * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
  */
 public class WebDriverTestNG implements IInvokedMethodListener {
-    protected static final Logger log = LoggerFactory.getLogger(WebDriverTestNG.class);
+    private static final Logger log = LoggerFactory.getLogger(WebDriverTestNG.class);
+    /**
+     * Mark events before an invocation.
+     */
     protected static final String BE = "BE";
+    /**
+     * Mark events inside an invocation.
+     */
     protected static final String BO = "BO";
+    /**
+     * Mark events after an invocation.
+     */
     protected static final String AF = "AF";
+    /**
+     * The test result of the current test.
+     */
     protected static ITestResult iTestResult;
+    /**
+     * The current {@link WebDriver} from the current TestNG test.
+     */
     protected WebDriver driver;
 
     /**
@@ -54,6 +69,12 @@ public class WebDriverTestNG implements IInvokedMethodListener {
 
     //-------------------------------------------------------------------------------//
 
+    /**
+     * Lookup {@link WebDriver} from the current {@link ITestResult}.
+     *
+     * @param testResult The test result of the current test.
+     * @param aspect     Mark events before (BE) and after (AF) an invocation. Besides that there is body (BO).
+     */
     protected void lookupDriver(ITestResult testResult, String aspect) {
         iTestResult = testResult;
         Object instance = testResult.getInstance();
@@ -77,6 +98,12 @@ public class WebDriverTestNG implements IInvokedMethodListener {
         log.debug("{} @{} {} -> {}", aspect, annotation, method, driver);
     }
 
+    /**
+     * Get signature annotation of the current method is invoking.
+     *
+     * @param method The current method is invoking.
+     * @return The annotation of the current method.
+     */
     protected Class<?> getSignatureAnnotation(Method method) {
         Class<?>[] signatures = new Class[]{
                 BeforeClass.class, BeforeMethod.class,

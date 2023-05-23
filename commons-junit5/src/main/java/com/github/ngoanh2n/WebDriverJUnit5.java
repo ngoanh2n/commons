@@ -16,16 +16,31 @@ import java.lang.reflect.Method;
 import java.util.Optional;
 
 /**
- * Lookup {@link WebDriver} from the current JUnit5 tests.
+ * Lookup {@link WebDriver} from the current JUnit5 test.
  *
  * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
  */
 public class WebDriverJUnit5 implements InvocationInterceptor {
-    protected static final Logger log = LoggerFactory.getLogger(WebDriverJUnit5.class);
+    private static final Logger log = LoggerFactory.getLogger(WebDriverJUnit5.class);
+    /**
+     * Mark events before an invocation.
+     */
     protected static final String BE = "BE";
+    /**
+     * Mark events inside an invocation.
+     */
     protected static final String BO = "BO";
+    /**
+     * Mark events after an invocation.
+     */
     protected static final String AF = "AF";
+    /**
+     * The context of a reflective invocation of an executable (method or constructor).
+     */
     protected static ReflectiveInvocationContext<Method> invocationContext;
+    /**
+     * The current {@link WebDriver} from the current JUnit5 test.
+     */
     protected WebDriver driver;
 
     /**
@@ -122,6 +137,12 @@ public class WebDriverJUnit5 implements InvocationInterceptor {
 
     //-------------------------------------------------------------------------------//
 
+    /**
+     * Lookup {@link WebDriver} from the current {@link ReflectiveInvocationContext}.
+     *
+     * @param context The context of a reflective invocation of an executable (method or constructor).
+     * @param aspect  Mark events before (BE) and after (AF) an invocation. Besides that there is body (BO).
+     */
     protected void lookupDriver(ReflectiveInvocationContext<Method> context, String aspect) {
         invocationContext = context;
         Optional<Object> optInstance = context.getTarget();
@@ -162,6 +183,12 @@ public class WebDriverJUnit5 implements InvocationInterceptor {
         log.debug("{} @{} {} -> {}", aspect, annotation, method, driver);
     }
 
+    /**
+     * Get signature annotation of the current method is invoking.
+     *
+     * @param method The current method is invoking.
+     * @return The annotation of the current method.
+     */
     protected Class<?> getSignatureAnnotation(Method method) {
         Class<?>[] signatures = new Class[]{
                 BeforeAll.class, BeforeEach.class,
