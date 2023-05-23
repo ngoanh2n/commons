@@ -34,7 +34,7 @@ import com.github.ngoanh2n.WebDriverTestNG;
 public class MyWebDriverLookup extends WebDriverTestNG {
     public WebDriver getWebDriver() {
         if (iTestResult != null) {
-            getDriver(iTestResult, BO);
+            lookupDriver(iTestResult, WebDriverTestNG.BO);
         }
         return driver;
     }

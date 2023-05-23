@@ -34,7 +34,7 @@ import com.github.ngoanh2n.WebDriverJUnit5;
 public class MyWebDriverLookup extends WebDriverJUnit5 {
     public WebDriver getWebDriver() {
         if (invocationContext != null) {
-            getDriver(invocationContext, BO);
+            lookupDriver(invocationContext, WebDriverJUnit5.BO);
         }
         return driver;
     }
