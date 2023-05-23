@@ -33,8 +33,8 @@ import com.github.ngoanh2n.WebDriverJUnit5;
 
 public class MyWebDriverLookup extends WebDriverJUnit5 {
     public WebDriver getWebDriver() {
-        if (this.invocationContext != null) {
-          this.getDriver(this.invocationContext, BO);
+        if (invocationContext != null) {
+            getDriver(invocationContext, BO);
         }
         return driver;
     }
