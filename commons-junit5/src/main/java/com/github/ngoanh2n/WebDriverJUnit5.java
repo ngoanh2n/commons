@@ -42,9 +42,9 @@ public class WebDriverJUnit5 implements InvocationInterceptor {
     public void interceptBeforeAllMethod(Invocation<Void> invocation,
                                          ReflectiveInvocationContext<Method> invocationContext,
                                          ExtensionContext extensionContext) throws Throwable {
-        getDriver(invocationContext, BE);
+        lookupDriver(invocationContext, BE);
         invocation.proceed();
-        getDriver(invocationContext, AF);
+        lookupDriver(invocationContext, AF);
     }
 
     /**
@@ -54,9 +54,9 @@ public class WebDriverJUnit5 implements InvocationInterceptor {
     public void interceptBeforeEachMethod(Invocation<Void> invocation,
                                           ReflectiveInvocationContext<Method> invocationContext,
                                           ExtensionContext extensionContext) throws Throwable {
-        getDriver(invocationContext, BE);
+        lookupDriver(invocationContext, BE);
         invocation.proceed();
-        getDriver(invocationContext, AF);
+        lookupDriver(invocationContext, AF);
     }
 
     /**
@@ -66,9 +66,9 @@ public class WebDriverJUnit5 implements InvocationInterceptor {
     public void interceptTestMethod(Invocation<Void> invocation,
                                     ReflectiveInvocationContext<Method> invocationContext,
                                     ExtensionContext extensionContext) throws Throwable {
-        getDriver(invocationContext, BE);
+        lookupDriver(invocationContext, BE);
         invocation.proceed();
-        getDriver(invocationContext, AF);
+        lookupDriver(invocationContext, AF);
     }
 
     /**
@@ -78,9 +78,9 @@ public class WebDriverJUnit5 implements InvocationInterceptor {
     public <T> T interceptTestFactoryMethod(Invocation<T> invocation,
                                             ReflectiveInvocationContext<Method> invocationContext,
                                             ExtensionContext extensionContext) throws Throwable {
-        getDriver(invocationContext, BE);
+        lookupDriver(invocationContext, BE);
         T result = invocation.proceed();
-        getDriver(invocationContext, AF);
+        lookupDriver(invocationContext, AF);
         return result;
     }
 
@@ -91,9 +91,9 @@ public class WebDriverJUnit5 implements InvocationInterceptor {
     public void interceptTestTemplateMethod(Invocation<Void> invocation,
                                             ReflectiveInvocationContext<Method> invocationContext,
                                             ExtensionContext extensionContext) throws Throwable {
-        getDriver(invocationContext, BE);
+        lookupDriver(invocationContext, BE);
         invocation.proceed();
-        getDriver(invocationContext, AF);
+        lookupDriver(invocationContext, AF);
     }
 
     /**
@@ -103,9 +103,9 @@ public class WebDriverJUnit5 implements InvocationInterceptor {
     public void interceptAfterEachMethod(Invocation<Void> invocation,
                                          ReflectiveInvocationContext<Method> invocationContext,
                                          ExtensionContext extensionContext) throws Throwable {
-        getDriver(invocationContext, BE);
+        lookupDriver(invocationContext, BE);
         invocation.proceed();
-        getDriver(invocationContext, AF);
+        lookupDriver(invocationContext, AF);
     }
 
     /**
@@ -115,14 +115,14 @@ public class WebDriverJUnit5 implements InvocationInterceptor {
     public void interceptAfterAllMethod(Invocation<Void> invocation,
                                         ReflectiveInvocationContext<Method> invocationContext,
                                         ExtensionContext extensionContext) throws Throwable {
-        getDriver(invocationContext, BE);
+        lookupDriver(invocationContext, BE);
         invocation.proceed();
-        getDriver(invocationContext, AF);
+        lookupDriver(invocationContext, AF);
     }
 
     //-------------------------------------------------------------------------------//
 
-    protected void getDriver(ReflectiveInvocationContext<Method> context, String aspect) {
+    protected void lookupDriver(ReflectiveInvocationContext<Method> context, String aspect) {
         invocationContext = context;
         Optional<Object> optInstance = context.getTarget();
         Object instance;
