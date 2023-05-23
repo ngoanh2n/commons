@@ -23,7 +23,7 @@ Add to `pom.xml`
 # Usages
 
 ## WebDriverTestNG
-_Lookup `WebDriver` from the current TestNG tests using `org.testng.IInvokedMethodListener`._
+_Lookup `WebDriver` from the current TestNG test using `org.testng.IInvokedMethodListener`._
 
 **Step 1:** Create a class that extends `com.github.ngoanh2n.WebDriverTestNG`
 ```java

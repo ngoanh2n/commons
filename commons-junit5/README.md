@@ -23,7 +23,7 @@ Add to `pom.xml`
 # Usages
 
 ## WebDriverJUnit5
-_Lookup `WebDriver` from the current JUnit5 tests using `org.junit.jupiter.api.extension.InvocationInterceptor`._
+_Lookup `WebDriver` from the current JUnit5 test using `org.junit.jupiter.api.extension.InvocationInterceptor`._
 
 **Step 1:** Create a class that extends `com.github.ngoanh2n.WebDriverJUnit5`
 ```java
