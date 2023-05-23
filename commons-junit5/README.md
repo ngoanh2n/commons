@@ -22,6 +22,35 @@ Add to `pom.xml`
 
 # Usages
 
+## WebDriverJUnit5
+_Lookup `WebDriver` from the current JUnit5 tests using `org.junit.jupiter.api.extension.InvocationInterceptor`._
+
+**Step 1:** Create a class that extends `com.github.ngoanh2n.WebDriverJUnit5`
+```java
+package com.company.project.impl;
+
+import com.github.ngoanh2n.WebDriverJUnit5;
+
+public class MyWebDriverLookup extends WebDriverJUnit5 {
+    public WebDriver getWebDriver() {
+        if (this.invocationContext != null) {
+          this.getDriver(this.invocationContext, BO);
+        }
+        return driver;
+    }
+}
+```
+
+**Step 2:** Create a provider configuration file
+- Location: `resources/META-INF/services/`
+- Name: `org.junit.jupiter.api.extension.Extension`
+- Content: `com.company.project.impl.MyWebDriverLookup`
+
+**Step 3:** Enable extensions auto-detection in `resources/junit-platform.properties`
+```
+junit.jupiter.extensions.autodetection.enabled=true
+```
+
 ## @EnabledIfProperty
 _Signal that the annotated JUnit5 test class or test method is enabled._
 
