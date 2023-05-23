@@ -41,7 +41,7 @@ public class WebDriverTestNG implements IInvokedMethodListener {
      */
     @Override
     public void beforeInvocation(IInvokedMethod method, ITestResult testResult, ITestContext context) {
-        getDriver(testResult, BE);
+        lookupDriver(testResult, BE);
     }
 
     /**
@@ -49,12 +49,12 @@ public class WebDriverTestNG implements IInvokedMethodListener {
      */
     @Override
     public void afterInvocation(IInvokedMethod method, ITestResult testResult, ITestContext context) {
-        getDriver(testResult, AF);
+        lookupDriver(testResult, AF);
     }
 
     //-------------------------------------------------------------------------------//
 
-    protected void getDriver(ITestResult testResult, String aspect) {
+    protected void lookupDriver(ITestResult testResult, String aspect) {
         iTestResult = testResult;
         Object instance = testResult.getInstance();
         Class<?> clazz = instance.getClass();
