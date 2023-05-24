@@ -4,7 +4,7 @@
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.ngoanh2n/commons/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.ngoanh2n/commons)
 [![javadoc](https://javadoc.io/badge2/com.github.ngoanh2n/commons/javadoc.svg)](https://javadoc.io/doc/com.github.ngoanh2n/commons)
-[![badge-jdk](https://img.shields.io/badge/jdk-11-blue.svg)](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
+[![badge-jdk](https://img.shields.io/badge/jdk-8-blue.svg)](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blueviolet.svg)](https://opensource.org/licenses/MIT)
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
@@ -136,7 +136,7 @@ public class Company extends YamlData<Company> {
 ```
 
 ##### Without annotation
-```
+```java
 User user = new User().fromResource("user.yml").toModel();
 // OR
 User user = new User().fromFile("src/test/resources/user.yml").toModel();
@@ -155,7 +155,7 @@ public class User extends YamlData<User> {
   ...
 }
 ```
-```
+```java
 User user = new User().toModel();
 // Replace declared value of @YamlFrom by calling fromResource() or fromFile() method.
 ```
