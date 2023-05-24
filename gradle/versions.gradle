@@ -10,6 +10,6 @@ ext {
     versionJackson                  =   "2.15.1"
     versionJuniversalChardet        =   "2.4.0"
     versionJunitJupiter             =   "5.9.3"
-    versionTestNG                   =   "7.7.1"
+    versionTestNG                   =   "7.8.0"
     versionSelenium                 =   "4.8.3"
 }
