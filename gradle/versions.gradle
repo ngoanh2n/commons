@@ -5,7 +5,7 @@ ext {
     versionSlf4j                    =   "2.0.7"
     versionGuava                    =   "31.1-jre"
     versionSnakeYaml                =   "2.0"
-    versionCommonIO                 =   "2.11.0"
+    versionCommonIO                 =   "2.12.0"
     versionCommonsLang3             =   "3.12.0"
     versionJackson                  =   "2.14.2"
     versionJuniversalChardet        =   "2.4.0"
