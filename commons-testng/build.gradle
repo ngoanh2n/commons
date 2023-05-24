@@ -1,6 +1,9 @@
 /**
  * Author: Ho Huu Ngoan (ngoanh2n@gmail.com)
  */
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
+
 dependencies {
     implementation(project(":commons"))
     implementation("org.testng:testng:$versionTestNG")
