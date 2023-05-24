@@ -35,12 +35,3 @@ subprojects {
         dependsOn("publishToMavenLocal")
     }
 }
-
-buildscript {
-    repositories {
-        mavenCentral()
-        maven { url "https://plugins.gradle.org/m2/" }
-    }
-    dependencies {}
-    apply from: "gradle/versions.gradle"
-}
