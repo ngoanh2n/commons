@@ -18,7 +18,7 @@ public class Property<T> {
     //-------------------------------------------------------------------------------//
 
     /**
-     * Construct {@link Property}.
+     * Construct a new {@link Property}.
      *
      * @param name The name of the JVM system property.
      * @param type The class type of the JVM system property.
@@ -31,7 +31,7 @@ public class Property<T> {
     }
 
     /**
-     * Construct {@link Property}.
+     * Construct a new {@link Property}.
      *
      * @param name         The name of the JVM system property.
      * @param type         The class type of the JVM system property.

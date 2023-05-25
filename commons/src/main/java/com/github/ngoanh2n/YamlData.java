@@ -25,7 +25,7 @@ public abstract class YamlData<Model> {
     private Class<Model> _modelClazz;
 
     /**
-     * Construct and get current Java Bean class.
+     * Construct a new {@link YamlData} and get current Java Bean class.
      */
     public YamlData() {
         _modelClazz = getModelClazz();
