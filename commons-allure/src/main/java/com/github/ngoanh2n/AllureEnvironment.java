@@ -66,7 +66,7 @@ public final class AllureEnvironment {
 
     private static Path getResultsDir() {
         PropertiesFile propertiesFile = new PropertiesFile("allure.properties");
-        String resultsDir = propertiesFile.getPropValue("allure.results.directory");
+        String resultsDir = propertiesFile.getProperty("allure.results.directory");
 
         if (resultsDir == null) {
             resultsDir = "build/allure-results";

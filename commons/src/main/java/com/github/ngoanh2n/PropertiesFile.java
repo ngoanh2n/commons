@@ -11,54 +11,54 @@ import java.util.Properties;
  */
 @ParametersAreNonnullByDefault
 public class PropertiesFile {
-    private Properties props;
+    private Properties properties;
 
     /**
-     * Construct {@link PropertiesFile} this with a resource name.
+     * Construct a new {@link PropertiesFile} by a {@link File}.
      *
-     * @param name Name of properties file in resources dir.
+     * @param file The properties file to read.
      */
-    public PropertiesFile(String name) {
-        loadPropFile(name);
+    public PropertiesFile(File file) {
+        loadPropertiesFile(file);
     }
 
     /**
-     * Construct {@link PropertiesFile} with a {@link File}.
+     * Construct a new {@link PropertiesFile} by a resource name.
      *
-     * @param file Properties file in resources dir.
+     * @param name The properties file name in resources dir.
      */
-    public PropertiesFile(File file) {
-        loadPropFile(file);
+    public PropertiesFile(String name) {
+        loadPropertiesFile(name);
     }
 
     //-------------------------------------------------------------------------------//
 
     /**
-     * Get property value.<br>
+     * Get the value of property by name.<br>
      * Priority order: JVM System Property, Properties file.
      *
-     * @param name The name of a property.
-     * @return The value of a property as {@link String}.
+     * @param name The name of property.
+     * @return The value of property as {@link String}.
      */
-    public synchronized String getPropValue(String name) {
-        return getPropValue(Property.ofString(name));
+    public synchronized String getProperty(String name) {
+        return getProperty(Property.ofString(name));
     }
 
     /**
-     * Get property object.<br>
+     * Get the value of property by other property.<br>
      * Priority order: JVM System Property, Properties file, Default value.
      *
      * @param <T>      The type of current property.
-     * @param property The {@link Property} object.
+     * @param property The {@link Property} to refer.
      * @return The value of {@link Property}.
      */
-    public synchronized <T> T getPropValue(Property<T> property) {
+    public synchronized <T> T getProperty(Property<T> property) {
         String name = property.getName();
         Class<T> type = property.getType();
         T value = new Property<>(name, type).getValue();
 
         if (value == null) {
-            String valueStr = props.getProperty(name);
+            String valueStr = properties.getProperty(name);
             if (valueStr == null) {
                 return property.getDefaultValue();
             } else {
@@ -70,21 +70,21 @@ public class PropertiesFile {
 
     //-------------------------------------------------------------------------------//
 
-    private void loadPropFile(String name) {
+    private void loadPropertiesFile(String name) {
         try {
             File file = Resources.getFile(name);
-            loadPropFile(file);
+            loadPropertiesFile(file);
         } catch (RuntimeError ignored) {
-            props = new Properties();
+            properties = new Properties();
         }
     }
 
-    private void loadPropFile(File file) {
-        if (props == null) {
+    private void loadPropertiesFile(File file) {
+        if (properties == null) {
             try {
-                props = Commons.readProps(file, "UTF-8");
+                properties = Commons.readProps(file, "UTF-8");
             } catch (RuntimeError ignored) {
-                props = new Properties();
+                properties = new Properties();
             }
         }
     }
