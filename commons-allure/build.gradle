@@ -2,5 +2,5 @@
  * Author: Ho Huu Ngoan (ngoanh2n@gmail.com)
  */
 dependencies {
-    implementation(project(":commons"))
+    api(project(":commons"))
 }

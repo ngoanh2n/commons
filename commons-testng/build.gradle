@@ -5,7 +5,7 @@ sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
 
 dependencies {
-    implementation(project(":commons"))
+    api(project(":commons"))
     implementation("org.testng:testng:$versionTestNG")
     implementation("org.seleniumhq.selenium:selenium-remote-driver:$versionSelenium")
 }
