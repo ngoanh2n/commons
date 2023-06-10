@@ -1,5 +1,5 @@
 /**
- * Author: Ho Huu Ngoan (ngoanh2n@gmail.com)
+ * Author: ngoanh2n
  */
 dependencies {
     testImplementation("org.slf4j:slf4j-log4j12:$versionSlf4j")
