@@ -14,7 +14,7 @@ public class ResourcesTest {
     @Order(1)
     void getFile() {
         Assertions.assertNotNull(Resources.getFile(valid));
-        Assertions.assertThrows(RuntimeError.class, () -> Resources.getPath(invalid));
+        Assertions.assertThrows(RuntimeError.class, () -> Resources.getFile(invalid));
     }
 
     @Test
