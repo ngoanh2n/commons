@@ -30,7 +30,6 @@ public final class Resources {
      * </ul>
      */
     public static final Property<Boolean> findOnClasspath = Property.ofBoolean("ngoanh2n.findResourceOnClasspath", true);
-
     private static final Logger log = LoggerFactory.getLogger(Resources.class);
 
     private Resources() { /* No implementation necessary */ }
@@ -45,7 +44,7 @@ public final class Resources {
      * @return {@link File} of resource if the file exists; {@link RuntimeError} otherwise.
      */
     public static File getFile(@Nonnull String resourceName) {
-        return findResource(resourceName);
+        return new Target(resourceName).getFile();
     }
 
     /**
@@ -56,6 +55,11 @@ public final class Resources {
      * @return {@link Path} of resource if the file exists; {@link RuntimeError} otherwise.
      */
     public static Path getPath(@Nonnull String resourceName) {
+        Target target = new Target(resourceName);
+        if (target.insideJar()) {
+            String path = target.getURL().toString().replace("jar:file:/", "");
+            return Paths.get(path);
+        }
         return getFile(resourceName).toPath();
     }
 
@@ -68,9 +72,13 @@ public final class Resources {
      */
     public static InputStream getInputStream(@Nonnull String resourceName) {
         try {
+            Target target = new Target(resourceName);
+            if (target.insideJar()) {
+                return target.getInputStream();
+            }
             return new FileInputStream(getFile(resourceName));
         } catch (FileNotFoundException e) {
-            throw new RuntimeError(String.format("Resources [%s] not found", resourceName));
+            throw new RuntimeError(String.format("Resource [%s] not found", resourceName));
         }
     }
 
@@ -102,63 +110,95 @@ public final class Resources {
         }
     }
 
-    //-------------------------------------------------------------------------------//
+    //===============================================================================//
 
-    private static File findResource(String name) {
-        File file;
-        validateResourceName(name);
-        String msg = String.format("Find resource %s", name);
+    private static final class Target {
+        private final String name;
+        private URL url;
 
-        if (findOnClasspath.getValue()) {
-            file = findResourceOnClassPath(name);
-        } else {
-            file = findResourceInRootLocation(name);
+        private Target(String name) {
+            this.name = name;
+            this.url = getURL();
+            this.validateResourceName();
         }
 
-        if (file != null) {
-            File resourceFile = new File(file.getPath());
-            if (resourceFile.exists()) {
-                log.debug(msg);
-                return resourceFile;
+        private boolean insideJar() {
+            if (url == null) {
+                return false;
             }
+            return url.toString().contains(".jar!");
         }
 
-        log.error(msg);
-        throw new RuntimeError(msg);
-    }
-
-    private static File findResourceOnClassPath(String name) {
-        ClassLoader clazzLoader = Thread.currentThread().getContextClassLoader();
-        URL url = clazzLoader.getResource(name);
-        return (url == null) ? null : new File(url.getFile());
-    }
-
-    private static File findResourceInRootLocation(String name) {
-        File file;
-        AtomicReference<File> refFile = new AtomicReference<>();
-        refFile.set(findResourceInRootLocation(name, "test"));
-
-        if (refFile.get() != null) {
-            file = refFile.get();
-        } else {
-            refFile.set(findResourceInRootLocation(name, "main"));
-            if (refFile.get() == null) {
-                file = null;
+        private File getFile() {
+            if (insideJar()) {
+                return new File(url.getFile());
             } else {
-                file = refFile.get();
+                File file = findResource();
+                String msg = String.format("Find resource %s", name);
+
+                if (file != null) {
+                    if (file.exists()) {
+                        log.debug(msg);
+                        return file;
+                    }
+                }
+                log.error(msg);
+                throw new RuntimeError(msg);
             }
         }
-        return file;
-    }
 
-    private static File findResourceInRootLocation(String name, String src) {
-        Path resourcesPath = Paths.get("src", src, "resources");
-        Path resourcePath = Paths.get("", name.split("/"));
-        return resourcesPath.resolve(resourcePath).toFile();
-    }
+        private URL getURL() {
+            if (url == null) {
+                ClassLoader clazzLoader = Thread.currentThread().getContextClassLoader();
+                url = clazzLoader.getResource(name);
+            }
+            return url;
+        }
 
-    private static void validateResourceName(String value) {
-        Preconditions.checkNotNull(value, "Resources name cannot be null");
-        Preconditions.checkArgument(value.trim().length() > 0, "Resources name cannot be empty");
+        private InputStream getInputStream() {
+            ClassLoader clazzLoader = Thread.currentThread().getContextClassLoader();
+            return clazzLoader.getResourceAsStream(name);
+        }
+
+        private File findResource() {
+            if (findOnClasspath.getValue()) {
+                return findResourceOnClassPath(name);
+            } else {
+                return findResourceInRootLocation(name);
+            }
+        }
+
+        private File findResourceOnClassPath(String name) {
+            ClassLoader clazzLoader = Thread.currentThread().getContextClassLoader();
+            URL url = clazzLoader.getResource(name);
+            return (url == null) ? null : new File(url.getFile());
+        }
+
+        private File findResourceInRootLocation(String name) {
+            AtomicReference<File> arFile = new AtomicReference<>();
+            arFile.set(findResourceInRootLocation(name, "test"));
+
+            if (arFile.get() != null) {
+                return arFile.get();
+            } else {
+                arFile.set(findResourceInRootLocation(name, "main"));
+                if (arFile.get() == null) {
+                    return null;
+                } else {
+                    return arFile.get();
+                }
+            }
+        }
+
+        private File findResourceInRootLocation(String name, String src) {
+            Path resourcesPath = Paths.get("src", src, "resources");
+            Path resourcePath = Paths.get("", name.split("/"));
+            return resourcesPath.resolve(resourcePath).toFile();
+        }
+
+        private void validateResourceName() {
+            Preconditions.checkNotNull(name, "Resource name cannot be null");
+            Preconditions.checkArgument(name.trim().length() > 0, "Resource name cannot be empty");
+        }
     }
 }
