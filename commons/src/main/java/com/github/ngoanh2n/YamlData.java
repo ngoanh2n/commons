@@ -17,7 +17,7 @@ import java.util.*;
  * Read Yaml file to Map, list of Map, Model, list of Models.<br>
  * Class of Model must be `public` and has `setter` methods.
  *
- * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
+ * @author ngoanh2n
  */
 @SuppressWarnings("unchecked")
 public abstract class YamlData<Model> {

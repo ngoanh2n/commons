@@ -13,7 +13,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 /**
  * Use to set {@link #value} for the JVM system property indicated by the specified {@link #name}.
  *
- * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
+ * @author ngoanh2n
  */
 @Retention(RUNTIME)
 @Target({TYPE, METHOD})

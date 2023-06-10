@@ -7,7 +7,7 @@ import java.util.Properties;
 /**
  * Read properties file.
  *
- * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
+ * @author ngoanh2n
  */
 @ParametersAreNonnullByDefault
 public class PropertiesFile {

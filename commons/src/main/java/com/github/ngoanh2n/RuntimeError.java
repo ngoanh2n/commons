@@ -3,7 +3,7 @@ package com.github.ngoanh2n;
 /**
  * Base runtime exception for com.github.ngoanh2n
  *
- * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
+ * @author ngoanh2n
  */
 public class RuntimeError extends RuntimeException {
     /**

@@ -6,7 +6,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 /**
  * Represent a JVM system property.
  *
- * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
+ * @author ngoanh2n
  */
 @ParametersAreNonnullByDefault
 public class Property<T> {

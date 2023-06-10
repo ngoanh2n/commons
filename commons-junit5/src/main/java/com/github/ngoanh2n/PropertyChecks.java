@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 /**
  * {@link Extension} for {@link EnabledIfProperty @EnabledIfProperty} and {@link SetProperty @SetProperty}.
  *
- * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
+ * @author ngoanh2n
  */
 public class PropertyChecks implements ExecutionCondition, BeforeAllCallback, BeforeEachCallback, AfterEachCallback, AfterAllCallback {
     /**

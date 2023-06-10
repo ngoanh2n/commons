@@ -10,7 +10,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 /**
  * Array of {@link SetProperty @SetProperty}.
  *
- * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
+ * @author ngoanh2n
  */
 @Retention(RUNTIME)
 @Target({TYPE, METHOD})

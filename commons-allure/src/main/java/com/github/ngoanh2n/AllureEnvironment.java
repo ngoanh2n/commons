@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 /**
  * Write {@code environment.properties} to Allure results directory.
  *
- * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
+ * @author ngoanh2n
  */
 public final class AllureEnvironment {
     private AllureEnvironment() { /* No implementation necessary */ }

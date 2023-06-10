@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 /**
  * Provide a file or resource for Model that extends {@link YamlData} class.
  *
- * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
+ * @author ngoanh2n
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)

@@ -14,7 +14,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * Use to signal that the annotated test class or test method is only <em>enabled</em>
  * if the value of the specified {@link #name} equals to any value in {@link #value} array.
  *
- * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
+ * @author ngoanh2n
  */
 @Retention(RUNTIME)
 @Target({TYPE, METHOD})

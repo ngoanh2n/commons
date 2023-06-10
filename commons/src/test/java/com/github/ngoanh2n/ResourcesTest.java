@@ -3,7 +3,7 @@ package com.github.ngoanh2n;
 import org.junit.jupiter.api.*;
 
 /**
- * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
+ * @author ngoanh2n
  */
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ResourcesTest {

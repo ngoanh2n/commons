@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 /**
  * Common helpers.
  *
- * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
+ * @author ngoanh2n
  */
 @CanIgnoreReturnValue
 public final class Commons {

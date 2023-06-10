@@ -18,7 +18,7 @@ import java.util.Optional;
 /**
  * Lookup {@link WebDriver} from the current JUnit5 test.
  *
- * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
+ * @author ngoanh2n
  */
 public class WebDriverJUnit5 implements InvocationInterceptor {
     private static final Logger log = LoggerFactory.getLogger(WebDriverJUnit5.class);

@@ -19,7 +19,7 @@ import java.lang.reflect.Method;
 /**
  * Lookup {@link WebDriver} from the current TestNG test.
  *
- * @author Ho Huu Ngoan (ngoanh2n@gmail.com)
+ * @author ngoanh2n
  */
 public class WebDriverTestNG implements IInvokedMethodListener {
     private static final Logger log = LoggerFactory.getLogger(WebDriverTestNG.class);
