@@ -4,3 +4,5 @@
 dependencies {
     api(project(":commons"))
 }
+
+apply from: rootProject.file("gradle/test.gradle")

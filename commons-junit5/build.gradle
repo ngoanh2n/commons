@@ -6,3 +6,5 @@ dependencies {
     implementation("org.junit.jupiter:junit-jupiter:$versionJunitJupiter")
     implementation("org.seleniumhq.selenium:selenium-remote-driver:$versionSelenium")
 }
+
+apply from: rootProject.file("gradle/test.gradle")
