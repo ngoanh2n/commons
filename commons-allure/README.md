@@ -7,7 +7,7 @@
 ## Gradle
 Add to `build.gradle`
 ```gradle
-implementation("com.github.ngoanh2n:commons-allure:1.1.2")
+implementation("com.github.ngoanh2n:commons-allure:1.1.3")
 ```
 
 ## Maven
@@ -16,7 +16,7 @@ Add to `pom.xml`
 <dependency>
     <groupId>com.github.ngoanh2n</groupId>
     <artifactId>commons-allure</artifactId>
-    <version>1.1.2</version>
+    <version>1.1.3</version>
 </dependency>
 ```
 

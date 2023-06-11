@@ -7,7 +7,7 @@
 ## Gradle
 Add to `build.gradle`
 ```gradle
-implementation("com.github.ngoanh2n:commons-junit5:1.1.2")
+implementation("com.github.ngoanh2n:commons-junit5:1.1.3")
 ```
 
 ## Maven
@@ -16,7 +16,7 @@ Add to `pom.xml`
 <dependency>
     <groupId>com.github.ngoanh2n</groupId>
     <artifactId>commons-junit5</artifactId>
-    <version>1.1.2</version>
+    <version>1.1.3</version>
 </dependency>
 ```
 
@@ -55,7 +55,7 @@ junit.jupiter.extensions.autodetection.enabled=true
 _Signal that the annotated JUnit5 test class or test method is enabled._
 
 #### System Properties
-- `ngoanh2n.propMultiValueEnabled`: Indicate to allow setting multiple value for a JVM system property (Default to true).
+- `ngoanh2n.junit5.multiValueEnabled`: Indicate to allow setting multiple value for a JVM system property (Default to true).
   + `true`: Extract values from the value of JVM system property.<br>
     E.g. `-Dmykey=[value1,value2]` → `mykey` has 2 values: `value1` and `value2`
   + `false`: Use the value of JVM system property directly.
@@ -112,27 +112,27 @@ import org.junit.jupiter.api.*;
 public class SeleniumTest {
   @BeforeAll
   public static void beforeAll() {
-    Assertions.assertEquals("windows", System.getProperty("os"));
+    // System.getProperty("os") -> windows
   }
 
   @BeforeEach
   public void beforeEach() {
-    Assertions.assertEquals("windows", System.getProperty("os"));
+    // System.getProperty("os") -> windows
   }
 
   @Test
   public void test() {
-    Assertions.assertEquals("windows", System.getProperty("os"));
+    // System.getProperty("os") -> windows
   }
 
   @AfterEach
   public void afterEach() {
-    Assertions.assertEquals("windows", System.getProperty("os"));
+    // System.getProperty("os") -> windows
   }
 
   @AfterAll
   public static void afterAll() {
-    Assertions.assertEquals("windows", System.getProperty("os"));
+    // System.getProperty("os") -> windows
   }
 }
 ```
@@ -146,29 +146,29 @@ import org.junit.jupiter.api.*;
 public class SeleniumTest {
   @BeforeAll
   public static void beforeAll() {
-    Assertions.assertNotEquals("windows", System.getProperty("os"));
+    // System.getProperty("os") -> null
     // JVM system property `os` is not set in class scope
   }
 
   @BeforeEach
   public void beforeEach() {
-    Assertions.assertEquals("windows", System.getProperty("os"));
+    // System.getProperty("os") -> windows
   }
 
   @Test
   @SetProperty(name = "os", value = "windows")
   public void test() {
-    Assertions.assertEquals("windows", System.getProperty("os"));
+    // System.getProperty("os") -> windows
   }
 
   @AfterEach
   public void afterEach() {
-    Assertions.assertEquals("windows", System.getProperty("os"));
+    // System.getProperty("os") -> windows
   }
 
   @AfterAll
   public static void afterAll() {
-    Assertions.assertNotEquals("windows", System.getProperty("os"));
+    // System.getProperty("os") -> null
     // JVM system property `os` is not set in class scope
   }
 }
