@@ -2,6 +2,7 @@ package com.github.ngoanh2n;
 
 import org.junit.jupiter.api.extension.ExtendWith;
 
+import java.lang.annotation.Inherited;
 import java.lang.annotation.Repeatable;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
@@ -16,6 +17,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  *
  * @author ngoanh2n
  */
+@Inherited
 @Retention(RUNTIME)
 @Target({TYPE, METHOD})
 @Repeatable(EnabledIfProperties.class)

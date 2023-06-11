@@ -1,5 +1,6 @@
 package com.github.ngoanh2n;
 
+import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
@@ -12,6 +13,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  *
  * @author ngoanh2n
  */
+@Inherited
 @Retention(RUNTIME)
 @Target({TYPE, METHOD})
 public @interface SetProperties {

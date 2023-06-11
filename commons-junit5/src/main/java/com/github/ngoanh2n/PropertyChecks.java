@@ -2,7 +2,7 @@ package com.github.ngoanh2n;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.extension.*;
-import org.junit.platform.commons.util.AnnotationUtils;
+import org.junit.platform.commons.support.AnnotationSupport;
 
 import java.lang.reflect.Method;
 import java.util.*;
@@ -20,9 +20,9 @@ public class PropertyChecks implements ExecutionCondition, BeforeAllCallback, Be
      * Default to {@code true}.<br>
      * E.g: -Dngoanh2n=[value1,value2,value3]
      */
-    public static final Property<Boolean> multiValueEnabled = Property.ofBoolean("ngoanh2n.propMultiValueEnabled", true);
+    public static final Property<Boolean> multiValueEnabled = Property.ofBoolean("ngoanh2n.junit5.multiValueEnabled", true);
 
-    private static final List<Property<String>> MULTI_VALUE_PROPERTIES = new ArrayList<>();
+    private static final List<Property<String>> multiValuePropertyList = new ArrayList<>();
 
     /**
      * Default constructor.
@@ -36,28 +36,33 @@ public class PropertyChecks implements ExecutionCondition, BeforeAllCallback, Be
      */
     @Override
     public ConditionEvaluationResult evaluateExecutionCondition(ExtensionContext context) {
-        resetMultiValueProp();
-        setProperties(getSetProperties(context));
-        List<EnabledIfProperty> properties = getEnabledIfProperties(context);
+        resetMultiValuePropertyList();
+        setProperties(listOfSetPropertyAnnotations(context));
+        List<EnabledIfProperty> eipAnnotations = listOfEnabledIfPropertyAnnotations(context);
 
-        if (properties.size() > 0) {
-            for (EnabledIfProperty property : properties) {
-                if (!propertyEnabled(property)) {
-                    String reason = propertiesToString(properties, context);
+        if (eipAnnotations.size() > 0) {
+            for (EnabledIfProperty eipAnnotation : eipAnnotations) {
+                if (!enabledIfProperty(eipAnnotation)) {
+                    String reason = enabledIfPropertyAnnotationsToString(eipAnnotations, context);
+                    clearProperties(listOfSetPropertyAnnotations(context));
+                    resetMultiValuePropertyList();
                     return ConditionEvaluationResult.disabled(reason);
                 }
             }
-            return ConditionEvaluationResult.enabled(propertiesToString(properties, context));
+            String reason = enabledIfPropertyAnnotationsToString(eipAnnotations, context);
+            return ConditionEvaluationResult.enabled(reason);
         }
         return ConditionEvaluationResult.enabled("Not related to @EnabledIfProperty");
     }
+
+    //-------------------------------------------------------------------------------//
 
     /**
      * {@inheritDoc}
      */
     @Override
     public void beforeAll(ExtensionContext context) {
-        List<SetProperty> annotations = getSetProperties(context);
+        List<SetProperty> annotations = listOfSetPropertyAnnotations(context);
         setProperties(annotations);
     }
 
@@ -66,7 +71,7 @@ public class PropertyChecks implements ExecutionCondition, BeforeAllCallback, Be
      */
     @Override
     public void beforeEach(ExtensionContext context) {
-        List<SetProperty> annotations = getSetProperties(context);
+        List<SetProperty> annotations = listOfSetPropertyAnnotations(context);
         setProperties(annotations);
     }
 
@@ -75,9 +80,9 @@ public class PropertyChecks implements ExecutionCondition, BeforeAllCallback, Be
      */
     @Override
     public void afterEach(ExtensionContext context) {
-        List<SetProperty> annotations = getSetProperties(context);
+        List<SetProperty> annotations = listOfSetPropertyAnnotations(context);
         clearProperties(annotations);
-        resetMultiValueProp();
+        resetMultiValuePropertyList();
     }
 
     /**
@@ -85,20 +90,20 @@ public class PropertyChecks implements ExecutionCondition, BeforeAllCallback, Be
      */
     @Override
     public void afterAll(ExtensionContext context) {
-        List<SetProperty> annotations = getSetProperties(context);
+        List<SetProperty> annotations = listOfSetPropertyAnnotations(context);
         clearProperties(annotations);
-        resetMultiValueProp();
+        resetMultiValuePropertyList();
     }
 
     //-------------------------------------------------------------------------------//
 
-    private boolean propertyEnabled(EnabledIfProperty annotation) {
+    private boolean enabledIfProperty(EnabledIfProperty annotation) {
         String name = annotation.name();
         String[] value = annotation.value();
         Property<String> property = Property.ofString(name);
         String valueSet = StringUtils.trim(property.getValue());
 
-        if (name == null || value == null || valueSet == null) {
+        if (value == null || valueSet == null) {
             return false;
         }
 
@@ -121,7 +126,7 @@ public class PropertyChecks implements ExecutionCondition, BeforeAllCallback, Be
         return Arrays.asList(value).contains(valueSet);
     }
 
-    private String propertiesToString(List<EnabledIfProperty> annotations, ExtensionContext context) {
+    private String enabledIfPropertyAnnotationsToString(List<EnabledIfProperty> annotations, ExtensionContext context) {
         StringBuilder sb = new StringBuilder();
         Iterator<EnabledIfProperty> it = annotations.iterator();
 
@@ -142,8 +147,12 @@ public class PropertyChecks implements ExecutionCondition, BeforeAllCallback, Be
         return sb.toString();
     }
 
-    private List<EnabledIfProperty> getEnabledIfProperties(ExtensionContext context) {
-        return AnnotationUtils.findRepeatableAnnotations(context.getElement(), EnabledIfProperty.class);
+    private List<EnabledIfProperty> listOfEnabledIfPropertyAnnotations(ExtensionContext context) {
+        return AnnotationSupport.findRepeatableAnnotations(context.getElement(), EnabledIfProperty.class);
+    }
+
+    private List<SetProperty> listOfSetPropertyAnnotations(ExtensionContext context) {
+        return AnnotationSupport.findRepeatableAnnotations(context.getElement(), SetProperty.class);
     }
 
     private void setProperties(List<SetProperty> annotations) {
@@ -159,21 +168,6 @@ public class PropertyChecks implements ExecutionCondition, BeforeAllCallback, Be
         annotations.forEach(annotation -> Property.ofString(annotation.name()).clearValue());
     }
 
-    private List<SetProperty> getSetProperties(ExtensionContext context) {
-        return AnnotationUtils.findRepeatableAnnotations(context.getElement(), SetProperty.class);
-    }
-
-    private void resetMultiValueProp() {
-        for (Property<String> multiValueProperty : MULTI_VALUE_PROPERTIES) {
-            String name = multiValueProperty.getDefaultValue();
-            String value = multiValueProperty.getValue();
-
-            if (value != null) {
-                Property.ofString(name).setValue(value);
-            }
-        }
-    }
-
     private void resolveMultiValueProp(String name, String valuePart) {
         Property<String> property = Property.ofString(name);
         String valueSet = StringUtils.trim(property.getValue());
@@ -181,6 +175,17 @@ public class PropertyChecks implements ExecutionCondition, BeforeAllCallback, Be
 
         Property<String> multiValueProperty = Property.ofString(name + ".original", name);
         multiValueProperty.setValue(valueSet);
-        MULTI_VALUE_PROPERTIES.add(multiValueProperty);
+        multiValuePropertyList.add(multiValueProperty);
+    }
+
+    private void resetMultiValuePropertyList() {
+        for (Property<String> multiValueProperty : multiValuePropertyList) {
+            String name = multiValueProperty.getDefaultValue();
+            String value = multiValueProperty.getValue();
+
+            if (value != null) {
+                Property.ofString(name).setValue(value);
+            }
+        }
     }
 }
