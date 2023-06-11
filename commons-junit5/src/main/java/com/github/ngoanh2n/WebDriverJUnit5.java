@@ -21,7 +21,6 @@ import java.util.Optional;
  * @author ngoanh2n
  */
 public class WebDriverJUnit5 implements InvocationInterceptor {
-    private static final Logger log = LoggerFactory.getLogger(WebDriverJUnit5.class);
     /**
      * Mark events before an invocation.
      */
@@ -34,6 +33,7 @@ public class WebDriverJUnit5 implements InvocationInterceptor {
      * Mark events after an invocation.
      */
     protected static final String AF = "AF";
+    private static final Logger log = LoggerFactory.getLogger(WebDriverJUnit5.class);
     /**
      * The context of a reflective invocation of an executable (method or constructor).
      */
