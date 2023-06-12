@@ -5,86 +5,93 @@ import org.junit.jupiter.api.*;
 /**
  * @author ngoanh2n
  */
+@TestClassOrder(ClassOrderer.OrderAnnotation.class)
 public class EnabledIfPropertyTest {
-    private static final String NAME = "property";
-    private static final String VALUE = "ngoanh2n";
-    private static final Property<String> PROPERTY = Property.ofString(NAME);
+    private static final String PROPERTY_NAME = "ngoanh2n";
+    private static final String PROPERTY_VALUE = "EnabledIfPropertyTest";
+    private static final Property<String> PROPERTY = Property.ofString(PROPERTY_NAME);
 
-    static final class EnabledIfPropertyBTest {
+    @Nested
+    @Order(1)
+    @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+    final class SetPropertyOnTestMethod {
         @BeforeAll
-        static void beforeAll() {
-            Assertions.assertNull(System.getProperty(NAME));
+        void beforeAll() {
+            Assertions.assertNull(System.getProperty(PROPERTY_NAME));
             Assertions.assertNull(PROPERTY.getValue());
-            Assertions.assertNull(Property.ofString(NAME).getValue());
+            Assertions.assertNull(Property.ofString(PROPERTY_NAME).getValue());
         }
 
         @BeforeEach
         void beforeEach() {
-            Assertions.assertEquals(VALUE, System.getProperty(NAME));
-            Assertions.assertEquals(VALUE, PROPERTY.getValue());
-            Assertions.assertEquals(VALUE, Property.ofString(NAME).getValue());
+            Assertions.assertEquals(PROPERTY_VALUE, System.getProperty(PROPERTY_NAME));
+            Assertions.assertEquals(PROPERTY_VALUE, PROPERTY.getValue());
+            Assertions.assertEquals(PROPERTY_VALUE, Property.ofString(PROPERTY_NAME).getValue());
         }
 
         @Test
-        @SetProperty(name = NAME, value = VALUE)
-        @EnabledIfProperty(name = NAME, value = VALUE)
+        @SetProperty(name = PROPERTY_NAME, value = PROPERTY_VALUE)
+        @EnabledIfProperty(name = PROPERTY_NAME, value = PROPERTY_VALUE)
         void test() {
-            Assertions.assertEquals(VALUE, System.getProperty(NAME));
-            Assertions.assertEquals(VALUE, PROPERTY.getValue());
-            Assertions.assertEquals(VALUE, Property.ofString(NAME).getValue());
+            Assertions.assertEquals(PROPERTY_VALUE, System.getProperty(PROPERTY_NAME));
+            Assertions.assertEquals(PROPERTY_VALUE, PROPERTY.getValue());
+            Assertions.assertEquals(PROPERTY_VALUE, Property.ofString(PROPERTY_NAME).getValue());
         }
 
         @AfterEach
         void afterEach() {
-            Assertions.assertEquals(VALUE, System.getProperty(NAME));
-            Assertions.assertEquals(VALUE, PROPERTY.getValue());
-            Assertions.assertEquals(VALUE, Property.ofString(NAME).getValue());
+            Assertions.assertEquals(PROPERTY_VALUE, System.getProperty(PROPERTY_NAME));
+            Assertions.assertEquals(PROPERTY_VALUE, PROPERTY.getValue());
+            Assertions.assertEquals(PROPERTY_VALUE, Property.ofString(PROPERTY_NAME).getValue());
         }
 
         @AfterAll
-        static void afterAll() {
-            Assertions.assertNull(System.getProperty(NAME));
+        void afterAll() {
+            Assertions.assertNull(System.getProperty(PROPERTY_NAME));
             Assertions.assertNull(PROPERTY.getValue());
-            Assertions.assertNull(Property.ofString(NAME).getValue());
+            Assertions.assertNull(Property.ofString(PROPERTY_NAME).getValue());
         }
     }
 
-    @SetProperty(name = NAME, value = VALUE)
-    static final class EnabledIfPropertyATest {
+    @Nested
+    @Order(2)
+    @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+    @SetProperty(name = PROPERTY_NAME, value = PROPERTY_VALUE)
+    final class SetPropertyOnTestClass {
         @BeforeAll
-        static void beforeAll() {
-            Assertions.assertEquals(VALUE, System.getProperty(NAME));
-            Assertions.assertEquals(VALUE, PROPERTY.getValue());
-            Assertions.assertEquals(VALUE, Property.ofString(NAME).getValue());
+        void beforeAll() {
+            Assertions.assertEquals(PROPERTY_VALUE, System.getProperty(PROPERTY_NAME));
+            Assertions.assertEquals(PROPERTY_VALUE, PROPERTY.getValue());
+            Assertions.assertEquals(PROPERTY_VALUE, Property.ofString(PROPERTY_NAME).getValue());
         }
 
         @BeforeEach
         void beforeEach() {
-            Assertions.assertEquals(VALUE, System.getProperty(NAME));
-            Assertions.assertEquals(VALUE, PROPERTY.getValue());
-            Assertions.assertEquals(VALUE, Property.ofString(NAME).getValue());
+            Assertions.assertEquals(PROPERTY_VALUE, System.getProperty(PROPERTY_NAME));
+            Assertions.assertEquals(PROPERTY_VALUE, PROPERTY.getValue());
+            Assertions.assertEquals(PROPERTY_VALUE, Property.ofString(PROPERTY_NAME).getValue());
         }
 
         @Test
-        @EnabledIfProperty(name = NAME, value = VALUE)
+        @EnabledIfProperty(name = PROPERTY_NAME, value = PROPERTY_VALUE)
         void test() {
-            Assertions.assertEquals(VALUE, System.getProperty(NAME));
-            Assertions.assertEquals(VALUE, PROPERTY.getValue());
-            Assertions.assertEquals(VALUE, Property.ofString(NAME).getValue());
+            Assertions.assertEquals(PROPERTY_VALUE, System.getProperty(PROPERTY_NAME));
+            Assertions.assertEquals(PROPERTY_VALUE, PROPERTY.getValue());
+            Assertions.assertEquals(PROPERTY_VALUE, Property.ofString(PROPERTY_NAME).getValue());
         }
 
         @AfterEach
         void afterEach() {
-            Assertions.assertEquals(VALUE, System.getProperty(NAME));
-            Assertions.assertEquals(VALUE, PROPERTY.getValue());
-            Assertions.assertEquals(VALUE, Property.ofString(NAME).getValue());
+            Assertions.assertEquals(PROPERTY_VALUE, System.getProperty(PROPERTY_NAME));
+            Assertions.assertEquals(PROPERTY_VALUE, PROPERTY.getValue());
+            Assertions.assertEquals(PROPERTY_VALUE, Property.ofString(PROPERTY_NAME).getValue());
         }
 
         @AfterAll
-        static void afterAll() {
-            Assertions.assertEquals(VALUE, System.getProperty(NAME));
-            Assertions.assertEquals(VALUE, PROPERTY.getValue());
-            Assertions.assertEquals(VALUE, Property.ofString(NAME).getValue());
+        void afterAll() {
+            Assertions.assertEquals(PROPERTY_VALUE, System.getProperty(PROPERTY_NAME));
+            Assertions.assertEquals(PROPERTY_VALUE, PROPERTY.getValue());
+            Assertions.assertEquals(PROPERTY_VALUE, Property.ofString(PROPERTY_NAME).getValue());
         }
     }
 }
