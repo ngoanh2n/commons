@@ -24,7 +24,7 @@
 ## Gradle
 Add dependency to `build.gradle`.
 ```gradle
-implementation("com.github.ngoanh2n:commons:1.1.3")
+implementation("com.github.ngoanh2n:commons:1.2.0")
 ```
 
 ## Maven
@@ -33,7 +33,7 @@ Add dependency to `pom.xml`.
 <dependency>
   <groupId>com.github.ngoanh2n</groupId>
   <artifactId>commons</artifactId>
-  <version>1.1.3</version>
+  <version>1.2.0</version>
 </dependency>
 ```
 
