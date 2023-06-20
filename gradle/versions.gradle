@@ -3,7 +3,7 @@
  */
 ext {
     versionSlf4j                    =   "2.0.7"
-    versionGuava                    =   "31.1-jre"
+    versionGuava                    =   "32.0.1-jre"
     versionJackson                  =   "2.15.1"
     versionCommonIO                 =   "2.12.0"
     versionSnakeYaml                =   "2.0"
