@@ -22,15 +22,22 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * Common helpers.
+ * Common helpers.<br><br>
+ *
+ * <em>Repository:</em>
+ * <ul>
+ *     <li><em>GitHub: <a href="https://github.com/ngoanh2n/commons">ngoanh2n/commons</a></em></li>
+ *     <li><em>Maven: <a href="https://mvnrepository.com/artifact/com.github.ngoanh2n/commons">com.github.ngoanh2n:commons</a></em></li>
+ * </ul>
  *
  * @author ngoanh2n
+ * @since 2019
  */
 @CanIgnoreReturnValue
 public final class Commons {
     private static final Logger log = LoggerFactory.getLogger(Commons.class);
 
-    private Commons() { /* No implementation necessary */ }
+    private Commons() { /**/ }
 
     //-------------------------------------------------------------------------------//
 

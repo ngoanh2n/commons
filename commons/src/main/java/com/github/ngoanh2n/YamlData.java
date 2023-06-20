@@ -14,10 +14,166 @@ import java.nio.charset.Charset;
 import java.util.*;
 
 /**
- * Read Yaml file to Map, list of Map, Model, list of Models.<br>
- * Class of Model must be `public` and has `setter` methods.
+ * Read Yaml file.<br><br>
+ *
+ * <b>Static</b><br>
+ * Read Yaml file to {@code Map}, {@code List of Maps}.
+ *
+ * <ol>
+ *     <li>Read to Map
+ *          <ul>
+ *              <li>{@code Map<String, Object> map = YamlData.toMapFromResource("file.json")}</li>
+ *              <li>{@code Map<String, Object> map = YamlData.toMapFromFile("src/test/resources/file.json")}</li>
+ *          </ul>
+ *     </li>
+ *     <li>Read to List of Maps
+ *          <ul>
+ *              <li>{@code List<Map<String, Object>> maps = YamlData.toMapsFromResource("file.json")}</li>
+ *              <li>{@code List<Map<String, Object>> maps = YamlData.toMapsFromFile("src/test/resources/file.json")}</li>
+ *          </ul>
+ *     </li>
+ * </ol>
+ *
+ * <b>Inheritance</b><br>
+ * Read Yaml file to {@code Model}, {@code List of Models}.<br>
+ * Model class must be {@code public} and has {@code setter} methods.
+ *
+ * <ol>
+ *     <li>Read to Model
+ *          <dl>
+ *              <dd>
+ *                  Yaml: user.yml
+ *                  <pre>{@code
+ *                      username: usr1
+ *                      notes:
+ *                          - note1
+ *                          - note2
+ *                      companies:
+ *                          - name: Com1
+ *                            address: Addr1
+ *                          - name: Com2
+ *                            address: Addr2
+ *                  }</pre>
+ *                  Model: User.java
+ *                  <pre>{@code
+ *                      public class User extends YamlData<User> {
+ *                          private String username;
+ *                          private List<String> notes;
+ *                          private List<Company> companies;
+ *
+ *                          ...GETTERS & SETTERS...
+ *                      }
+ *                  }</pre>
+ *                  Model: Company.java
+ *                  <pre>{@code
+ *                      public class Company extends YamlData<Company> {
+ *                          private String name;
+ *                          private String address;
+ *
+ *                          ...GETTERS & SETTERS...
+ *                      }
+ *                  }</pre>
+ *              </dd>
+ *          </dl>
+ *
+ *          <ul>
+ *              <li>Without annotation
+ *                  <ul>
+ *                      <li>{@code User user = new User().fromResource("user.yml").toModel()}</li>
+ *                      <li>{@code User user = new User().fromFile("src/test/resources/user.yml").toModel()}</li>
+ *                  </ul>
+ *              </li>
+ *
+ *              <li>With annotation<br>
+ *                  Attach {@code com.github.ngoanh2n.YamlFrom} annotation for {@code Model}.
+ *                  <ul>
+ *                      <li>{@link YamlFrom#resource()}
+ *                           <pre>{@code
+ *                               &#064;YamlFrom(resource = "user.yml")
+ *                               public class User extends YamlData<User> {
+ *                                 ...
+ *                               }
+ *                           }</pre>
+ *                      </li>
+ *                      <li>{@link YamlFrom#file()}
+ *                           <pre>{@code
+ *                               &#064;YamlFrom(file = "src/test/resources/user.yml")
+ *                               public class User extends YamlData<User> {
+ *                                 ...
+ *                               }
+ *                           }</pre>
+ *                      </li>
+ *                  </ul>
+ *                  Overwrite value of {@code com.github.ngoanh2n.YamlFrom} annotation
+ *                  by calling {@link #fromResource(String)} or {@link #fromFile(String)} method.
+ *              </li>
+ *          </ul>
+ *     </li>
+ *     <li>Read to List of Models
+ *          <dl>
+ *              <dd>
+ *                  Yaml: accounts.yml
+ *                  <pre>{@code
+ *                      - username: usr1
+ *                        password: pwd1
+ *                      - username: usr2
+ *                        password: pwd2
+ *                  }</pre>
+ *                  Model: User.java
+ *                  <pre>{@code
+ *                      public class User extends YamlData<User> {
+ *                          private String username;
+ *                          private String password;
+ *
+ *                          ...GETTERS & SETTERS...
+ *                      }
+ *                  }</pre>
+ *              </dd>
+ *          </dl>
+ *
+ *          <ul>
+ *              <li>Without annotation
+ *                  <ul>
+ *                      <li>{@code List<User> users = new User().fromResource("users.yml").toModels()}</li>
+ *                      <li>{@code List<User> users = new User().fromFile("src/test/resources/users.yml").toModels()}</li>
+ *                  </ul>
+ *              </li>
+ *
+ *              <li>With annotation<br>
+ *                  Attach {@code com.github.ngoanh2n.YamlFrom} annotation for {@code Model}.
+ *                  <ul>
+ *                      <li>{@link YamlFrom#resource()}
+ *                           <pre>{@code
+ *                               &#064;YamlFrom(resource = "users.yml")
+ *                               public class User extends YamlData<User> {
+ *                                 ...
+ *                               }
+ *                           }</pre>
+ *                      </li>
+ *                      <li>{@link YamlFrom#file()}
+ *                           <pre>{@code
+ *                               &#064;YamlFrom(file = "src/test/resources/users.yml")
+ *                               public class User extends YamlData<User> {
+ *                                 ...
+ *                               }
+ *                           }</pre>
+ *                      </li>
+ *                  </ul>
+ *                  Overwrite value of {@code com.github.ngoanh2n.YamlFrom} annotation
+ *                  by calling {@link #fromResource(String)} or {@link #fromFile(String)} method.
+ *              </li>
+ *          </ul>
+ *     </li>
+ * </ol>
+ *
+ * <em>Repository:</em>
+ * <ul>
+ *     <li><em>GitHub: <a href="https://github.com/ngoanh2n/commons">ngoanh2n/commons</a></em></li>
+ *     <li><em>Maven: <a href="https://mvnrepository.com/artifact/com.github.ngoanh2n/commons">com.github.ngoanh2n:commons</a></em></li>
+ * </ul>
  *
  * @author ngoanh2n
+ * @since 2019
  */
 @SuppressWarnings("unchecked")
 public abstract class YamlData<Model> {

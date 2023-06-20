@@ -10,24 +10,25 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * {@link Extension} for {@link EnabledIfProperty @EnabledIfProperty} and {@link SetProperty @SetProperty}.
+ * {@link Extension} for {@link EnabledIfProperty @EnabledIfProperty} and {@link SetProperty @SetProperty}.<br><br>
+ *
+ * <em>Repository:</em>
+ * <ul>
+ *     <li><em>GitHub: <a href="https://github.com/ngoanh2n/commons">ngoanh2n/commons</a></em></li>
+ *     <li><em>Maven: <a href="https://mvnrepository.com/artifact/com.github.ngoanh2n/commons-junit5">com.github.ngoanh2n:commons-junit5</a></em></li>
+ * </ul>
  *
  * @author ngoanh2n
+ * @since 2019
  */
 public class PropertyChecks implements ExecutionCondition, BeforeAllCallback, BeforeEachCallback, AfterEachCallback, AfterAllCallback {
-    /**
-     * Indicate to allow setting multiple value for a JVM System Property.
-     * Default to {@code true}.<br>
-     * E.g: -Dngoanh2n=[value1,value2,value3]
-     */
-    public static final Property<Boolean> multiValueEnabled = Property.ofBoolean("ngoanh2n.junit5.multiValueEnabled", true);
-
+    private static final Property<Boolean> multiValueEnabled = Property.ofBoolean("ngoanh2n.junit5.multiValueEnabled", true);
     private static final List<Property<String>> multiValuePropertyList = new ArrayList<>();
 
     /**
      * Default constructor.
      */
-    public PropertyChecks() { /* No implementation necessary */ }
+    public PropertyChecks() { /**/ }
 
     //-------------------------------------------------------------------------------//
 

@@ -1,9 +1,16 @@
 package com.github.ngoanh2n;
 
 /**
- * Base runtime exception for com.github.ngoanh2n
+ * Base runtime exception for {@code com.github.ngoanh2n}.<br><br>
+ *
+ * <em>Repository:</em>
+ * <ul>
+ *     <li><em>GitHub: <a href="https://github.com/ngoanh2n/commons">ngoanh2n/commons</a></em></li>
+ *     <li><em>Maven: <a href="https://mvnrepository.com/artifact/com.github.ngoanh2n/commons">com.github.ngoanh2n:commons</a></em></li>
+ * </ul>
  *
  * @author ngoanh2n
+ * @since 2019
  */
 public class RuntimeError extends RuntimeException {
     /**

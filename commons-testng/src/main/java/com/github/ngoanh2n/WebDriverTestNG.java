@@ -17,12 +17,44 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 /**
- * Lookup {@link WebDriver} from the current TestNG test.
+ * Lookup {@link WebDriver} from the current TestNG test using {@link IInvokedMethodListener}.
+ * <ul>
+ *     <li>Step 1: Create a class that extends {@link WebDriverTestNG}
+ *          <pre>{@code
+ *              package com.company.project.impl;
+ *
+ *              import com.github.ngoanh2n.WebDriverTestNG;
+ *
+ *              public class MyWebDriverLookup extends WebDriverTestNG {
+ *                  public WebDriver getWebDriver() {
+ *                      if (iTestResult != null) {
+ *                          lookupDriver(iTestResult, WebDriverTestNG.BO);
+ *                      }
+ *                      return driver;
+ *                  }
+ *              }
+ *          }</pre>
+ *     </li>
+ *     <li>Step 2: Create a provider configuration file
+ *          <ul>
+ *              <li>Location: {@code resources/META-INF/services/}</li>
+ *              <li>Name: {@code org.junit.jupiter.api.extension.Extension}</li>
+ *              <li>Content: {@code com.company.project.impl.MyWebDriverLookup}</li>
+ *          </ul>
+ *     </li>
+ * </ul>
+ *
+ * <em>Repository:</em>
+ * <ul>
+ *     <li><em>GitHub: <a href="https://github.com/ngoanh2n/commons">ngoanh2n/commons</a></em></li>
+ *     <li><em>Maven: <a href="https://mvnrepository.com/artifact/com.github.ngoanh2n/commons-testng">com.github.ngoanh2n:commons-testng</a></em></li>
+ * </ul>
  *
  * @author ngoanh2n
+ * @since 2019
  */
 public class WebDriverTestNG implements IInvokedMethodListener {
-    private static final Logger log = LoggerFactory.getLogger(WebDriverTestNG.class);
+    protected static final Logger log = LoggerFactory.getLogger(WebDriverTestNG.class);
     /**
      * Mark events before an invocation.
      */
@@ -47,7 +79,7 @@ public class WebDriverTestNG implements IInvokedMethodListener {
     /**
      * Default constructor.
      */
-    public WebDriverTestNG() { /* No implementation necessary */ }
+    public WebDriverTestNG() { /**/ }
 
     //-------------------------------------------------------------------------------//
 

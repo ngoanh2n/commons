@@ -15,24 +15,48 @@ import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Find and read Java resources.
+ * <ul>
+ *     <li>{@code File file = Resources.getFile("file.json")}</li>
+ *     <li>{@code Path path = Resources.getPath("file.json")}</li>
+ *     <li>{@code String content = Resources.getContent("file.yml")}</li>
+ *     <li>{@code InputStream is = Resources.getInputStream("file.png")}</li>
+ * </ul>
+ *
+ * <b>System Property</b>
+ * <ul>
+ *     <li>{@code ngoanh2n.findResourceOnClasspath}<br>
+ *          Indicate to find the resource file on classpath. Default to {@code true}.
+ *          <ul>
+ *              <li>true: Look for the resources on the classpath
+ *                  <pre>{@code
+ *                      {project}/out/test/resources/
+ *                      {project}/out/production/resources/
+ *                  }</pre>
+ *              </li>
+ *              <li>false: Look for the resources in root location
+ *                  <pre>{@code
+ *                      {project}/src/test/resources/
+ *                      {project}/src/main/resources/
+ *                  }</pre>
+ *              </li>
+ *          </ul>
+ *     </li>
+ * </ul>
+ *
+ * <em>Repository:</em>
+ * <ul>
+ *     <li><em>GitHub: <a href="https://github.com/ngoanh2n/commons">ngoanh2n/commons</a></em></li>
+ *     <li><em>Maven: <a href="https://mvnrepository.com/artifact/com.github.ngoanh2n/commons">com.github.ngoanh2n:commons</a></em></li>
+ * </ul>
  *
  * @author ngoanh2n
+ * @since 2019
  */
 public final class Resources {
-    /**
-     * Indicate to find the resource file on classpath.<br>
-     * Default to {@code true}.
-     * <ul>
-     *     <li>{@code true}: Look for the resources on the classpath.<br>
-     *     [PROJECT]/out/test/resources/ or [PROJECT]/out/production/resources/</li>
-     *     <li>{@code false}: Look for the resources in root location.<br>
-     *     [PROJECT]/src/test/resources/ or [PROJECT]/main/test/resources/</li>
-     * </ul>
-     */
-    public static final Property<Boolean> findOnClasspath = Property.ofBoolean("ngoanh2n.findResourceOnClasspath", true);
     private static final Logger log = LoggerFactory.getLogger(Resources.class);
+    private static final Property<Boolean> findOnClasspath = Property.ofBoolean("ngoanh2n.findResourceOnClasspath", true);
 
-    private Resources() { /* No implementation necessary */ }
+    private Resources() { /**/ }
 
     //-------------------------------------------------------------------------------//
 

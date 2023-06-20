@@ -10,12 +10,19 @@ import java.util.Properties;
 import java.util.stream.Stream;
 
 /**
- * Write {@code environment.properties} to Allure results directory.
+ * Write {@code environment.properties} to Allure results directory.<br><br>
+ *
+ * <em>Repository:</em>
+ * <ul>
+ *     <li><em>GitHub: <a href="https://github.com/ngoanh2n/commons">ngoanh2n/commons</a></em></li>
+ *     <li><em>Maven: <a href="https://mvnrepository.com/artifact/com.github.ngoanh2n/commons-allure">com.github.ngoanh2n:commons-allure</a></em></li>
+ * </ul>
  *
  * @author ngoanh2n
+ * @since 2019
  */
 public final class AllureEnvironment {
-    private AllureEnvironment() { /* No implementation necessary */ }
+    private AllureEnvironment() { /**/ }
 
     //-------------------------------------------------------------------------------//
 

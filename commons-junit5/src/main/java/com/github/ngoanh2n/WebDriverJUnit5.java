@@ -16,9 +16,44 @@ import java.lang.reflect.Method;
 import java.util.Optional;
 
 /**
- * Lookup {@link WebDriver} from the current JUnit5 test.
+ * Lookup {@link WebDriver} from the current JUnit5 test using {@link InvocationInterceptor}.
+ * <ul>
+ *     <li>Step 1: Create a class that extends {@link WebDriverJUnit5}
+ *          <pre>{@code
+ *              package com.company.project.impl;
+ *
+ *              import com.github.ngoanh2n.WebDriverJUnit5;
+ *
+ *              public class MyWebDriverLookup extends WebDriverJUnit5 {
+ *                  public WebDriver getWebDriver() {
+ *                      if (invocationContext != null) {
+ *                          lookupDriver(invocationContext, WebDriverJUnit5.BO);
+ *                      }
+ *                      return driver;
+ *                  }
+ *              }
+ *          }</pre>
+ *     </li>
+ *     <li>Step 2: Create a provider configuration file
+ *          <ul>
+ *              <li>Location: {@code resources/META-INF/services/}</li>
+ *              <li>Name: {@code org.junit.jupiter.api.extension.Extension}</li>
+ *              <li>Content: {@code com.company.project.impl.MyWebDriverLookup}</li>
+ *          </ul>
+ *     </li>
+ *     <li>Step 3: Enable extensions auto-detection in {@code resources/junit-platform.properties}
+ *          <pre>{@code junit.jupiter.extensions.autodetection.enabled=true}</pre>
+ *     </li>
+ * </ul>
+ *
+ * <em>Repository:</em>
+ * <ul>
+ *     <li><em>GitHub: <a href="https://github.com/ngoanh2n/commons">ngoanh2n/commons</a></em></li>
+ *     <li><em>Maven: <a href="https://mvnrepository.com/artifact/com.github.ngoanh2n/commons-junit5">com.github.ngoanh2n:commons-junit5</a></em></li>
+ * </ul>
  *
  * @author ngoanh2n
+ * @since 2019
  */
 public class WebDriverJUnit5 implements InvocationInterceptor {
     /**
@@ -46,7 +81,7 @@ public class WebDriverJUnit5 implements InvocationInterceptor {
     /**
      * Default constructor.
      */
-    public WebDriverJUnit5() { /* No implementation necessary */ }
+    public WebDriverJUnit5() { /**/ }
 
     //-------------------------------------------------------------------------------//
 

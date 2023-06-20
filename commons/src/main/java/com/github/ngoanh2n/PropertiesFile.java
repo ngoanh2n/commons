@@ -5,9 +5,16 @@ import java.io.File;
 import java.util.Properties;
 
 /**
- * Read properties file.
+ * Read properties file.<br><br>
+ *
+ * <em>Repository:</em>
+ * <ul>
+ *     <li><em>GitHub: <a href="https://github.com/ngoanh2n/commons">ngoanh2n/commons</a></em></li>
+ *     <li><em>Maven: <a href="https://mvnrepository.com/artifact/com.github.ngoanh2n/commons">com.github.ngoanh2n:commons</a></em></li>
+ * </ul>
  *
  * @author ngoanh2n
+ * @since 2019
  */
 @ParametersAreNonnullByDefault
 public class PropertiesFile {
