@@ -9,7 +9,7 @@ ext {
     versionSnakeYaml                =   "2.0"
     versionCommonsLang3             =   "3.12.0"
     versionJuniversalChardet        =   "2.4.0"
-    versionSelenium                 =   "4.9.1"
+    versionSelenium                 =   "4.10.0"
     versionJunitJupiter             =   "5.9.3"
     versionTestNG                   =   "7.8.0"
 }
