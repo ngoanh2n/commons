@@ -7,33 +7,28 @@
 [![badge-jdk](https://img.shields.io/badge/jdk-8-blue.svg)](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blueviolet.svg)](https://opensource.org/licenses/MIT)
 
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+**Table of Contents**
+<!-- TOC -->
+* [Declaration](#declaration)
+  * [Gradle](#gradle)
+  * [Maven](#maven)
+* [Usage](#usage)
+  * [Resources](#resources)
+    * [System Property](#system-property)
+  * [YamlData](#yamldata)
+    * [Static](#static)
+    * [Inheritance](#inheritance)
+<!-- TOC -->
 
-- [Declarations](#declarations)
-  - [Gradle](#gradle)
-  - [Maven](#maven)
-- [Usages](#usages)
-  - [Resources](#resources)
-      - [System Properties](#system-properties)
-  - [YamlData](#yamldata)
-      - [Static APIs](#static-apis)
-      - [Inheritance](#inheritance)
-        - [Without annotation](#without-annotation)
-        - [With annotation](#with-annotation)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
-# Declarations
+# Declaration
 ## Gradle
-_Add dependency to `build.gradle`_
+Add dependency to `build.gradle`.
 ```gradle
 implementation("com.github.ngoanh2n:commons:1.1.3")
 ```
 
 ## Maven
-_Add dependency to `pom.xml`_
+Add dependency to `pom.xml`.
 ```xml
 <dependency>
   <groupId>com.github.ngoanh2n</groupId>
@@ -42,7 +37,7 @@ _Add dependency to `pom.xml`_
 </dependency>
 ```
 
-# Usages
+# Usage
 ```
 ├── build
 ├── out
@@ -51,111 +46,136 @@ _Add dependency to `pom.xml`_
 │   |       └── log4j.properties
 │   └── test
 │       └── resources
+│           ├── file.json
 │           ├── user.yml
-│           ├── categories.json
-│           └── selenide.properties
+│           └── users.yml
 ├── src
 │   ├── main
 │   |   └── resources
 │   |       └── log4j.properties
 │   └── test
 │       └── resources
+│           ├── file.json
 │           ├── user.yml
-│           ├── categories.json
-│           └── selenide.properties
+│           └── users.yml
 ```
 
 ## Resources
-_Get Java resource files by resource name._
+Find and read Java resources.
+- `File file = Resources.getFile("file.json")`
+- `Path path = Resources.getPath("file.json")`
+- `String content = Resources.getContent("file.json")`
+- `InputStream is = Resources.getInputStream("file.json")`
 
-#### System Properties
-- `ngoanh2n.findResourceOnClasspath`: Indicate to find the resource file on classpath (Default to true).
+### System Property
+- `ngoanh2n.findResourceOnClasspath`<br>
+  _Indicate to find the resource file on classpath (Default to true)._
   + `true`: Get the resource on the classpath
-    + `<PROJECT>/out/production/resources`
-    + `<PROJECT>/out/test/resources`
+    + `{project}/out/test/resources/`
+    + `{project}/out/production/resources/`
   + `false`: Get the resource in root location
-    + `<PROJECT>/src/production/resources`
-    + `<PROJECT>/src/test/resources`
-
-```java
-File file = Resources.getFile("categories.json");
-Path path = Resources.getPath("categories.json");
-String content = Resources.getContent("categories.json");
-InputStream is = Resources.getInputStream("categories.json");
-```
+    + `{project}/src/test/resources/`
+    + `{project}/src/main/resources/`
 
 ## YamlData
-#### Static APIs
-_Reads Yaml file to Map, List of Map._
-```java
-Map<String, Object> map = YamlData.toMapFromResource("user.yml")
-Map<String, Object> map = YamlData.toMapFromFile("src/test/resources/user.yml")
+### Static
+Reads Yaml file to `Map`, `List of Map`.
+1. Read to `Map`
+   - `Map<String, Object> map = YamlData.toMapFromResource("user.yml")`
+   - `Map<String, Object> map = YamlData.toMapFromFile("src/test/resources/user.yml")`
+2. Read to `List of Maps`
+   - `List<Map<String, Object>> maps = YamlData.toMapsFromResource("user.yml")`
+   - `List<Map<String, Object>> maps = YamlData.toMapsFromFile("src/test/resources/user.yml")`
 
-List<Map<String, Object>> maps = YamlData.toMapsFromResource("user.yml")
-List<Map<String, Object>> maps = YamlData.toMapsFromFile("src/test/resources/user.yml")
-```
-
-#### Inheritance
-_Reads Yaml file to Java Bean, List of Java Bean._
-
-```yml
-# Yaml File
-
-username: ngoanh2n
-notes:
-  - note1
-  - note2
-companies:
-  - name: Com1
-    address: Addr1
-  - name: Com2
-    address: Addr3
-```
-
-```java
-// Java Bean
-
-public class User extends YamlData<User> {
-  private String username;
-  private List<String> notes;
-  private List<Company> companies;
-
-  ...GETTERS & SETTERS...
-}
-```
-
-```java
-// Java Bean
-
-public class Company extends YamlData<Company> {
-  private String name;
-  private String address;
-
-  ...GETTERS & SETTERS...
-}
-```
-
-##### Without annotation
-```java
-User user = new User().fromResource("user.yml").toModel();
-// OR
-User user = new User().fromFile("src/test/resources/user.yml").toModel();
-```
-
-##### With annotation
-You should attach `com.github.ngoanh2n.YamlFrom` for Java Bean.
-
-```java
-// Java Bean
-
-@YamlFrom(resource = "user.yml")
-// OR
-@YamlFrom(file = "src/test/resources/user.yml")
-public class User extends YamlData<User> {
-  ...
-}
-```
-```java
-User user = new User().toModel();
-// Replace declared value of @YamlFrom by calling fromResource() or fromFile() method.
-```
+### Inheritance
+Read Yaml file to `Model`, `List of Models`.<br>
+Model class must be `public` and has `setter` methods.
+1. Read to `Model`
+    ```yml
+    # Yaml: user.yml
+    username: usr1
+    notes:
+      - note1
+      - note2
+    companies:
+      - name: Com1
+        address: Addr1
+      - name: Com2
+        address: Addr3
+    ```
+    ```java
+    // Model: User.java
+    public class User extends YamlData<User> {
+      private String username;
+      private List<String> notes;
+      private List<Company> companies;
+    
+      ...GETTERS & SETTERS...
+    }
+    ```
+    ```java
+    // Model: Company.java
+    public class Company extends YamlData<Company> {
+      private String name;
+      private String address;
+    
+      ...GETTERS & SETTERS...
+    }
+    ```
+    - Without annotation
+      - `User user = new User().fromResource("user.yml").toModel()`
+      - `User user = new User().fromFile("src/test/resources/user.yml").toModel()`
+    - With annotation<br>
+      _Attach `com.github.ngoanh2n.YamlFrom` annotation for `Model`._
+      - `YamlFrom.resource()`
+        ```java
+        @YamlFrom(resource = "user.yml")
+        public class User extends YamlData<User> {
+            ...  
+        }
+        ```
+      - `YamlFrom.file()`
+        ```java
+        @YamlFrom(file = "src/test/resources/user.yml")
+        public class User extends YamlData<User> {
+            ...  
+        }
+        ```
+      _Overwrite value of `com.github.ngoanh2n.YamlFrom` annotation by calling `fromResource(String)` or `fromFile(String)` method._
+2. Read to `List of Models`
+    ```yml
+    # Yaml File: users.yml
+    - username: usr1
+      password: pwd1
+    - username: usr2
+      password: pwd2
+    ```
+    ```java
+    // Model: User.java
+    public class User extends YamlData<User> {
+      private String username;
+      private String password;
+    
+      ...GETTERS & SETTERS...
+    }
+    ```
+    - Without annotation
+        - `List<User> users = new User().fromResource("users.yml").toModels()`
+        - `List<User> users = new User().fromFile("src/test/resources/users.yml").toModels()`
+    - With annotation<br>
+      _Attach `com.github.ngoanh2n.YamlFrom` annotation for `Model`._
+        - `YamlFrom.resource()`
+          ```java
+          @YamlFrom(resource = "users.yml")
+          public class User extends YamlData<User> {
+              ...  
+          }
+          ```
+        - `YamlFrom.file()`
+          ```java
+          @YamlFrom(file = "src/test/resources/users.yml")
+          public class User extends YamlData<User> {
+              ...  
+          }
+          ```
+      _Overwrite value of `com.github.ngoanh2n.YamlFrom` annotation by calling `fromResource(String)` or `fromFile(String)` method._

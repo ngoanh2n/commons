@@ -3,7 +3,16 @@
 [![badge-jdk](https://img.shields.io/badge/jdk-8-blue.svg)](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blueviolet.svg)](https://opensource.org/licenses/MIT)
 
-# Declarations
+**Table of Contents**
+<!-- TOC -->
+* [Declaration](#declaration)
+  * [Gradle](#gradle)
+  * [Maven](#maven)
+* [Usage](#usage)
+  * [AllureEnvironment](#allureenvironment)
+<!-- TOC -->
+
+# Declaration
 ## Gradle
 Add to `build.gradle`
 ```gradle
@@ -20,10 +29,9 @@ Add to `pom.xml`
 </dependency>
 ```
 
-# Usages
-
+# Usage
 ## AllureEnvironment
-_Write `environment.properties` to Allure results directory._
+Write `environment.properties` to Allure results directory.
 
 1. Write to the default directory: `build/allure-results/`
     ```java

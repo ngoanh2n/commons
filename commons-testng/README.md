@@ -3,7 +3,16 @@
 [![badge-jdk](https://img.shields.io/badge/jdk-11-blue.svg)](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blueviolet.svg)](https://opensource.org/licenses/MIT)
 
-# Declarations
+**Table of Contents**
+<!-- TOC -->
+* [Declaration](#declaration)
+  * [Gradle](#gradle)
+  * [Maven](#maven)
+* [Usage](#usage)
+  * [WebDriverTestNG](#webdrivertestng)
+<!-- TOC -->
+
+# Declaration
 ## Gradle
 Add to `build.gradle`
 ```gradle
@@ -20,10 +29,9 @@ Add to `pom.xml`
 </dependency>
 ```
 
-# Usages
-
+# Usage
 ## WebDriverTestNG
-_Lookup `WebDriver` from the current TestNG test using `org.testng.IInvokedMethodListener`._
+Lookup `WebDriver` from the current TestNG test using `org.testng.IInvokedMethodListener`.
 
 **Step 1:** Create a class that extends `com.github.ngoanh2n.WebDriverTestNG`
 ```java
