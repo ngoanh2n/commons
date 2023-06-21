@@ -6,49 +6,59 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import java.lang.annotation.*;
 
 /**
- * Use to set {@link #value SetProperty.value} for the JVM system property indicated by the specified {@link #name SetProperty.name}.<br><br>
+ * Set JVM system property for the annotated test class or test method.<br><br>
  *
- * <b>Test Class</b><br>
- * JVM system property is set in test class scope.<br>
- * Value of JVM system property will be found all signature annotations:
- * {@link BeforeAll @BeforeAll}, {@link BeforeEach @BeforeEach}, {@link Test @Test}, {@link AfterEach @AfterEach}, {@link AfterAll @AfterAll}.
+ * <b>Test Class</b>
+ * <ul>
+ *     <li>JVM system property has value (not null) within test class scope</li>
+ *     <li>Value of JVM system property will be found all signature annotations:
+ *          {@link BeforeAll @BeforeAll}, {@link BeforeEach @BeforeEach},
+ *          {@link Test @Test}, {@link AfterEach @AfterEach}, {@link AfterAll @AfterAll}
+ *     </li>
+ *     <li>Value of JVM system property will be deleted after {@link AfterAll @AfterAll} execution is finished</li>
+ * </ul>
  * <pre>{@code
  *      import com.github.ngoanh2n.SetProperty;
  *      import org.junit.jupiter.api.*;
  *
- *      &#064;SetProperty(name = "os", value = "windows")
+ *      &#064;SetProperty(name = "browser", value = "safari")
  *      public class SeleniumTest {
  *        &#064;BeforeAll
  *        public static void beforeAll() {
- *          // System.getProperty("os") -> windows
+ *          // System.getProperty("browser") -> safari
  *        }
  *
  *        &#064;BeforeEach
  *        public void beforeEach() {
- *          // System.getProperty("os") -> windows
+ *          // System.getProperty("browser") -> safari
  *        }
  *
  *        &#064;Test
  *        public void test() {
- *          // System.getProperty("os") -> windows
+ *          // System.getProperty("browser") -> safari
  *        }
  *
  *        &#064;AfterEach
  *        public void afterEach() {
- *          // System.getProperty("os") -> windows
+ *          // System.getProperty("browser") -> safari
  *        }
  *
  *        &#064;AfterAll
  *        public static void afterAll() {
- *          // System.getProperty("os") -> windows
+ *          // System.getProperty("browser") -> safari
  *        }
  *      }
  * }</pre><br>
  *
- * <b>Test Method</b><br>
- * JVM system property is set in test method scope.<br>
- * Value of JVM system property will be found in signature annotations:
- * {@link BeforeEach @BeforeEach}, {@link Test @Test}, {@link AfterEach @AfterEach}.
+ * <b>Test Method</b>
+ * <ul>
+ *     <li>JVM system property has value (not null) within test method scope</li>
+ *     <li>
+ *         Value of JVM system property will be found signature annotations:
+ *         {@link BeforeEach @BeforeEach}, {@link Test @Test}, {@link AfterEach @AfterEach}
+ *     </li>
+ *     <li>Value of JVM system property will be deleted after {@link AfterEach @AfterEach} execution is finished</li>
+ * </ul>
  * <pre>{@code
  *      import com.github.ngoanh2n.SetProperty;
  *      import org.junit.jupiter.api.*;
@@ -56,28 +66,28 @@ import java.lang.annotation.*;
  *      public class SeleniumTest {
  *        &#064;BeforeAll
  *        public static void beforeAll() {
- *          // System.getProperty("os") -> null
+ *          // System.getProperty("browser") -> null
  *        }
  *
  *        &#064;BeforeEach
  *        public void beforeEach() {
- *          // System.getProperty("os") -> windows
+ *          // System.getProperty("browser") -> safari
  *        }
  *
  *        &#064;Test
- *        &#064;SetProperty(name = "os", value = "windows")
+ *        &#064;SetProperty(name = "browser", value = "safari")
  *        public void test() {
- *          // System.getProperty("os") -> windows
+ *          // System.getProperty("browser") -> safari
  *        }
  *
  *        &#064;AfterEach
  *        public void afterEach() {
- *          // System.getProperty("os") -> windows
+ *          // System.getProperty("browser") -> safari
  *        }
  *
  *        &#064;AfterAll
  *        public static void afterAll() {
- *          // System.getProperty("os") -> null
+ *          // System.getProperty("browser") -> null
  *        }
  *      }
  * }</pre><br>
