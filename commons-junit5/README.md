@@ -65,33 +65,23 @@ junit.jupiter.extensions.autodetection.enabled=true
 ```
 
 ## @EnabledIfProperty
-Signal that the annotated JUnit5 test class or test method is `enabled` 
-if the value of the specified `EnabledIfProperty.name` equals to any value in `EnabledIfProperty.value` array.
-
+Signal that the annotated test class or test method is enabled.
+- If there are multiple `@EnabledIfProperty`, then it will become `AND` condition to enable that test
+- If `@EnabledIfProperty` has multiple values, that `@EnabledIfProperty` will be satisfied when value of JVM system property matched one of `@EnabledIfProperty` value
 ```java
 import com.github.ngoanh2n.EnabledIfProperty;
 import org.junit.jupiter.api.Test;
 
 public class SeleniumTest {
-  // This test method will be enabled if satisfied following conditions:
-  // JVM system property: `os` equals to one of `macos`, `windows`
-  // JVM system property: `browser` equals to `opera`
   @Test
   @EnabledIfProperty(name = "os", value = {"macos", "windows"})
   @EnabledIfProperty(name = "browser", value = "opera")
-  public void operaTest() {
-    ...
-  }
+  public void operaTest() {}
   
-  // This test method will be enabled if satisfied following conditions:
-  // JVM system property: `os` equals to one of `macos`, `linux`, `windows`
-  // JVM system property: `browser` equals to `chrome`
   @Test
   @EnabledIfProperty(name = "os", value = {"macos", "windows", "linux"})
   @EnabledIfProperty(name = "browser", value = "chrome")
-  public void chromeTest() {
-    ...
-  }
+  public void chromeTest() {}
 }
 ```
 > ./gradlew test --tests SeleniumTest -Dos=macos -Dbrowser=opera<br>
@@ -108,46 +98,48 @@ Tests will be enabled: `SeleniumTest.operaTest()` and `SeleniumTest.chromeTest()
   + `false`: Use the value of JVM system property directly.
 
 ## @SetProperty
-Use to set `SetProperty.value` for the JVM system property indicated by the specified `SetProperty.name`.
+Set JVM system property for the annotated test class or test method.
 
 ### Test Class
-JVM system property is set in test class scope.<br>
-Value of JVM system property will be found all signature annotations:`@BeforeAll`, `@BeforeEach`, `@Test`, `@AfterEach`, `@AfterAll`.
+- JVM system property has value (not null) within test class scope
+- Value of JVM system property will be found all signature annotations: `@BeforeAll`, `@BeforeEach`, `@Test`, `@AfterEach`, `@AfterAll`
+- Value of JVM system property will be deleted after `@AfterAll` execution is finished
 ```java
 import com.github.ngoanh2n.SetProperty;
 import org.junit.jupiter.api.*;
 
-@SetProperty(name = "os", value = "windows")
+@SetProperty(name = "browser", value = "safari")
 public class SeleniumTest {
   @BeforeAll
   public static void beforeAll() {
-    // System.getProperty("os") -> windows
+    // System.getProperty("browser") -> safari
   }
 
   @BeforeEach
   public void beforeEach() {
-    // System.getProperty("os") -> windows
+    // System.getProperty("browser") -> safari
   }
 
   @Test
   public void test() {
-    // System.getProperty("os") -> windows
+    // System.getProperty("browser") -> safari
   }
 
   @AfterEach
   public void afterEach() {
-    // System.getProperty("os") -> windows
+    // System.getProperty("browser") -> safari
   }
 
   @AfterAll
   public static void afterAll() {
-    // System.getProperty("os") -> windows
+    // System.getProperty("browser") -> safari
   }
 }
 ```
 ### Test Method
-JVM system property is set in test method scope.<br>
-Value of JVM system property will be found in signature annotations: `@BeforeEach`, `@Test`, `@AfterEach`.
+- JVM system property has value (not null) within test method scope
+- Value of JVM system property will be found signature annotations: `@BeforeEach`, `@Test`, `@AfterEach`
+- Value of JVM system property will be deleted after `@AfterEach` execution is finished
 ```java
 import com.github.ngoanh2n.SetProperty;
 import org.junit.jupiter.api.*;
@@ -155,30 +147,28 @@ import org.junit.jupiter.api.*;
 public class SeleniumTest {
   @BeforeAll
   public static void beforeAll() {
-    // System.getProperty("os") -> null
-    // JVM system property `os` is not set in class scope
+    // System.getProperty("browser") -> null
   }
 
   @BeforeEach
   public void beforeEach() {
-    // System.getProperty("os") -> windows
+    // System.getProperty("browser") -> safari
   }
 
   @Test
-  @SetProperty(name = "os", value = "windows")
+  @SetProperty(name = "browser", value = "safari")
   public void test() {
-    // System.getProperty("os") -> windows
+    // System.getProperty("browser") -> safari
   }
 
   @AfterEach
   public void afterEach() {
-    // System.getProperty("os") -> windows
+    // System.getProperty("browser") -> safari
   }
 
   @AfterAll
   public static void afterAll() {
-    // System.getProperty("os") -> null
-    // JVM system property `os` is not set in class scope
+    // System.getProperty("browser") -> null
   }
 }
 ```
