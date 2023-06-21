@@ -5,8 +5,18 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import java.lang.annotation.*;
 
 /**
- * Signal that the annotated JUnit5 test class or test method is only {@code enabled}
- * if the value of the specified {@link #name EnabledIfProperty.name} equals to any value in {@link #value EnabledIfProperty.value} array.<br><br>
+ * Signal that the annotated test class or test method is enabled.<br>
+ * <ul>
+ *     <li>
+ *         If there are multiple {@link EnabledIfProperty @EnabledIfProperty},
+ *         then it will become {@code AND} condition to enable that test
+ *     </li>
+ *     <li>
+ *         If {@link EnabledIfProperty @EnabledIfProperty} has multiple values,
+ *         that {@link EnabledIfProperty @EnabledIfProperty} will be satisfied
+ *         when value of JVM system property matched one of {@link EnabledIfProperty @EnabledIfProperty} value
+ *     </li>
+ * </ul>
  *
  * <b>Test Method</b>
  * <pre>{@code
@@ -14,25 +24,15 @@ import java.lang.annotation.*;
  *      import org.junit.jupiter.api.Test;
  *
  *      public class SeleniumTest {
- *        // This test method will be enabled if satisfied following conditions:
- *        // JVM system property: `os` equals to one of `macos`, `windows`
- *        // JVM system property: `browser` equals to `opera`
  *        &#064;Test
  *        &#064;EnabledIfProperty(name = "os", value = {"macos", "windows"})
  *        &#064;EnabledIfProperty(name = "browser", value = "opera")
- *        public void operaTest() {
- *          ...
- *        }
+ *        public void operaTest() {}
  *
- *        // This test method will be enabled if satisfied following conditions:
- *        // JVM system property: `os` equals to one of `macos`, `linux`, `windows`
- *        // JVM system property: `browser` equals to `chrome`
  *        &#064;Test
  *        &#064;EnabledIfProperty(name = "os", value = {"macos", "windows", "linux"})
  *        &#064;EnabledIfProperty(name = "browser", value = "chrome")
- *        public void chromeTest() {
- *          ...
- *        }
+ *        public void chromeTest() {}
  *      }
  * }</pre>
  *
