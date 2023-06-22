@@ -75,6 +75,15 @@ public class PropertiesFile {
         return value;
     }
 
+    /**
+     * Get all properties in this file.
+     *
+     * @return All properties have been read.
+     */
+    public synchronized Properties getProperties() {
+        return properties;
+    }
+
     //-------------------------------------------------------------------------------//
 
     private void loadPropertiesFile(String name) {
