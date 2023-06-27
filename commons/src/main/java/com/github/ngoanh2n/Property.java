@@ -2,6 +2,7 @@ package com.github.ngoanh2n;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.Objects;
 
 /**
  * Represent a JVM system property.<br><br>
@@ -205,6 +206,9 @@ public class Property<T> {
     public T getValue() {
         String valueStr = System.getProperty(name);
         if (valueStr == null && value != null) {
+            return null;
+        }
+        if (Objects.equals(valueStr, "null") && value == null) {
             return null;
         }
         if (valueStr != null) {
