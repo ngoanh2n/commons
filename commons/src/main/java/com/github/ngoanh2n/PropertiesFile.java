@@ -65,11 +65,14 @@ public class PropertiesFile {
         T value = new Property<>(name, type).getValue();
 
         if (value == null) {
-            String valueStr = properties.getProperty(name);
-            if (valueStr == null) {
+            if (property.isReassigned()) {
+                return null;
+            }
+            String valueInFile = properties.getProperty(name);
+            if (valueInFile == null) {
                 return property.getDefaultValue();
             } else {
-                return Commons.convertValue(type, valueStr);
+                return Commons.convertValue(type, valueInFile);
             }
         }
         return value;
