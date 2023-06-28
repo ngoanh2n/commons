@@ -20,8 +20,10 @@ import java.util.Objects;
 public class Property<T> {
     private final String name;
     private final Class<T> type;
-    private final T defaultValue;
+    private final T initialValue;
     private T value;
+    private final T defaultValue;
+    private boolean reassigned;
 
     //-------------------------------------------------------------------------------//
 
@@ -35,7 +37,9 @@ public class Property<T> {
         this.name = name;
         this.type = type;
         this.value = getValue();
+        this.initialValue = value;
         this.defaultValue = value;
+        this.reassigned = false;
     }
 
     /**
@@ -49,7 +53,9 @@ public class Property<T> {
         this.name = name;
         this.type = type;
         this.value = getValue();
+        this.initialValue = value;
         this.defaultValue = defaultValue;
+        this.reassigned = false;
     }
 
     /**
@@ -204,18 +210,24 @@ public class Property<T> {
      * @return the JVM system property value.
      */
     public T getValue() {
-        String valueStr = System.getProperty(name);
-        if (valueStr == null && value != null) {
-            return null;
-        }
-        if (Objects.equals(valueStr, "null") && value == null) {
-            return null;
-        }
-        if (valueStr != null) {
-            if (value == null && defaultValue != null) {
-                return defaultValue;
+        String valueInSystem = System.getProperty(name);
+        if (valueInSystem == null) {
+            if (value != null) {
+                return null;
             }
-            return Commons.convertValue(type, valueStr);
+        }
+        if (Objects.equals(valueInSystem, "null")) {
+            if (value == null) {
+                return null;
+            }
+        }
+        if (valueInSystem != null) {
+            if (value == null) {
+                if (defaultValue != null){
+                    return defaultValue;
+                }
+            }
+            return Commons.convertValue(type, valueInSystem);
         }
         return defaultValue;
     }
@@ -225,8 +237,9 @@ public class Property<T> {
      *
      * @param newValue The value of the JVM system property.
      */
-    public void setValue(T newValue) {
+    public void setValue(@Nullable T newValue) {
         value = newValue;
+        reassigned = true;
         System.setProperty(name, String.valueOf(newValue));
     }
 
@@ -245,5 +258,20 @@ public class Property<T> {
      */
     public T getDefaultValue() {
         return defaultValue;
+    }
+
+    /**
+     * Whether property value was reassigned via {@link #setValue(Object) Property.setValue(newValue)}.
+     *
+     * @return Indicate property value was reassigned.
+     */
+    protected boolean isReassigned() {
+        T value = getValue();
+        if (value != null && initialValue != null) {
+            if (value != initialValue) {
+                return true;
+            }
+        }
+        return reassigned;
     }
 }
