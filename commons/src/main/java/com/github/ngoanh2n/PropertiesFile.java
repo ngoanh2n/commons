@@ -120,7 +120,7 @@ public class PropertiesFile {
         } catch (RuntimeError ignored) {
             properties = new Properties();
         }
-        assignPropertiesToSystem();
+        assignPropertiesToSystem(properties);
         return properties;
     }
 
@@ -131,11 +131,11 @@ public class PropertiesFile {
         } catch (RuntimeError ignored) {
             properties = new Properties();
         }
-        assignPropertiesToSystem();
+        assignPropertiesToSystem(properties);
         return properties;
     }
 
-    private void assignPropertiesToSystem() {
+    private void assignPropertiesToSystem(Properties properties) {
         if (assignToSystem) {
             properties.forEach((name, value) -> {
                 Property<String> property = Property.ofString((String) name);
