@@ -170,6 +170,24 @@ public class PropertiesFileTest {
         }
     }
 
+    @Nested
+    @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+    class WithFileToSystem {
+        PropertiesFile propertiesFile = new PropertiesFile("com/github/ngoanh2n/PropFileTest/File2.properties", true);
+
+        @Test
+        @DisplayName("To System")
+        void test() {
+            Assertions.assertEquals(4, propertiesFile.getProperties().size());
+            Assertions.assertEquals(PROP_VALUE4, System.getProperty(PROP_NAME4));
+        }
+
+        @AfterAll
+        void cleanup() {
+            System.clearProperty(PROP_NAME4);
+        }
+    }
+
     enum TestEnum {
         ENUM1, ENUM2;
     }
