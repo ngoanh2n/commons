@@ -18,7 +18,28 @@ import java.util.Properties;
  */
 @ParametersAreNonnullByDefault
 public class PropertiesFile {
-    private Properties properties;
+    private final boolean assignToSystem;
+    private final Properties properties;
+
+    /**
+     * Construct a new {@link PropertiesFile} by a resource name.
+     *
+     * @param resourceName The properties file name in resources dir to read.
+     */
+    public PropertiesFile(String resourceName) {
+        this(resourceName, false);
+    }
+
+    /**
+     * Construct a new {@link PropertiesFile} by a resource name.
+     *
+     * @param resourceName   The properties file name in resources dir to read.
+     * @param assignToSystem Indicate to set all properties in file to system.
+     */
+    public PropertiesFile(String resourceName, boolean assignToSystem) {
+        this.assignToSystem = assignToSystem;
+        this.properties = loadPropertiesFromResourceName(resourceName);
+    }
 
     /**
      * Construct a new {@link PropertiesFile} by a {@link File}.
@@ -26,16 +47,18 @@ public class PropertiesFile {
      * @param file The properties file to read.
      */
     public PropertiesFile(File file) {
-        loadPropertiesFile(file);
+        this(file, false);
     }
 
     /**
-     * Construct a new {@link PropertiesFile} by a resource name.
+     * Construct a new {@link PropertiesFile} by a {@link File}.
      *
-     * @param name The properties file name in resources dir.
+     * @param file           The properties file to read.
+     * @param assignToSystem Indicate to set all properties in file to system.
      */
-    public PropertiesFile(String name) {
-        loadPropertiesFile(name);
+    public PropertiesFile(File file, boolean assignToSystem) {
+        this.assignToSystem = assignToSystem;
+        this.properties = loadPropertiesFromFile(file);
     }
 
     //-------------------------------------------------------------------------------//
@@ -89,22 +112,37 @@ public class PropertiesFile {
 
     //-------------------------------------------------------------------------------//
 
-    private void loadPropertiesFile(String name) {
+    private Properties loadPropertiesFromResourceName(String name) {
+        Properties properties;
         try {
             File file = Resources.getFile(name);
-            loadPropertiesFile(file);
+            properties = loadPropertiesFromFile(file);
         } catch (RuntimeError ignored) {
             properties = new Properties();
         }
+        assignPropertiesToSystem();
+        return properties;
     }
 
-    private void loadPropertiesFile(File file) {
-        if (properties == null) {
-            try {
-                properties = Commons.readProps(file, "UTF-8");
-            } catch (RuntimeError ignored) {
-                properties = new Properties();
-            }
+    private Properties loadPropertiesFromFile(File file) {
+        Properties properties;
+        try {
+            properties = Commons.readProps(file, "UTF-8");
+        } catch (RuntimeError ignored) {
+            properties = new Properties();
+        }
+        assignPropertiesToSystem();
+        return properties;
+    }
+
+    private void assignPropertiesToSystem() {
+        if (assignToSystem) {
+            properties.forEach((name, value) -> {
+                Property<String> property = Property.ofString((String) name);
+                if (property.getValue() == null) {
+                    property.setValue((String) value);
+                }
+            });
         }
     }
 }
