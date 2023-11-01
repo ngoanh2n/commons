@@ -1,3 +1,4 @@
+//file:noinspection GroovyAssignabilityCheck
 /**
  * Author: ngoanh2n
  */
@@ -22,6 +23,13 @@ test {
     testLogging {
         showStandardStreams = true
         events "passed", "skipped", "failed"
+    }
+
+    if (JavaVersion.current().ordinal() > 7) {
+        jvmArgs = [
+                "--add-opens=java.base/java.lang=ALL-UNNAMED",
+                "--add-opens=java.base/java.lang.reflect=ALL-UNNAMED"
+        ]
     }
 
     systemProperty("file.encoding", "UTF-8")
