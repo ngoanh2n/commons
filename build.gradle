@@ -14,6 +14,7 @@ allprojects {
 buildscript {
     apply {
         from(file("gradle/global.gradle"))
+        from(file("gradle/helpers.gradle"))
     }
 }
 

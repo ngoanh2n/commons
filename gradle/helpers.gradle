@@ -1,0 +1,10 @@
+//file:noinspection GroovyAssignabilityCheck
+/**
+ * Author: ngoanh2n
+ */
+ext {
+    cms = [
+            dir   : { -> return rootDir.toPath() },
+            gradle: { -> return cms.dir().resolve("gradle") },
+    ]
+}
