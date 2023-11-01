@@ -7,4 +7,10 @@ ext {
             dir   : { -> return rootDir.toPath() },
             gradle: { -> return cms.dir().resolve("gradle") },
     ]
+    gradle = [
+            config: { -> return cms.gradle().resolve("config") },
+    ]
+    config = [
+            test: { -> return gradle.config().resolve("test.gradle") },
+    ]
 }
