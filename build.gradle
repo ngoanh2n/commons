@@ -12,6 +12,9 @@ allprojects {
     apply from: rootProject.file("gradle/global.gradle")
 }
 
+buildscript {
+}
+
 subprojects {
     apply plugin: "idea"
     apply plugin: "java"
