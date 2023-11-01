@@ -54,6 +54,9 @@ import java.lang.reflect.Method;
  * @since 2019
  */
 public class WebDriverTestNG implements IInvokedMethodListener {
+    /**
+     * Logger.
+     */
     protected static final Logger log = LoggerFactory.getLogger(WebDriverTestNG.class);
     /**
      * Mark events before an invocation.
