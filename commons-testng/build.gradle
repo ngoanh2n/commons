@@ -1,9 +1,6 @@
 /**
  * Author: ngoanh2n
  */
-sourceCompatibility = JavaVersion.VERSION_11
-targetCompatibility = JavaVersion.VERSION_11
-
 dependencies {
     api(project(":commons"))
     implementation("org.testng:testng:$versionTestNG")
