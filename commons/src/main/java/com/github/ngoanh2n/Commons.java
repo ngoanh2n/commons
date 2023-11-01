@@ -267,7 +267,7 @@ public final class Commons {
                         field.set(target, value);
                     }
                 } else {
-                    Field modifiers = FieldUtils.getField(Field.class, "modifiers", true);
+                    Field modifiers = getModifiers();
                     modifiers.setAccessible(true);
                     modifiers.setInt(field, field.getModifiers() & ~Modifier.FINAL);
                     field.set(null, value);
@@ -304,15 +304,14 @@ public final class Commons {
             field.setAccessible(true);
             try {
                 if (!Modifier.isStatic(field.getModifiers())) {
-                    boolean override = readField(field, "override");
-                    if (!override) {
+                    if (!field.trySetAccessible()) {
                         Object fValue = field.get(target);
                         if (fValue.hashCode() != value.hashCode()) {
                             field.set(target, value);
                         }
                     }
                 } else {
-                    Field modifiers = FieldUtils.getField(Field.class, "modifiers", true);
+                    Field modifiers = getModifiers();
                     modifiers.setAccessible(true);
                     modifiers.setInt(field, field.getModifiers() & ~Modifier.FINAL);
                     field.set(null, value);
@@ -382,5 +381,26 @@ public final class Commons {
 
     private static String msgFieldAccess(Class<?> target, String name, String action) {
         return String.format("%s field %s.%s", action, target.getName(), name);
+    }
+
+    private static Field getModifiers() {
+        Field modifiers = FieldUtils.getField(Field.class, "modifiers", true);
+        if (modifiers == null) {
+            try {
+                Method method = Class.class.getDeclaredMethod("getDeclaredFields0", boolean.class);
+                method.setAccessible(true);
+                Field[] fields = (Field[]) method.invoke(Field.class, false);
+
+                for (Field field : fields) {
+                    if (field.getName().equals("modifiers")) {
+                        return field;
+                    }
+                }
+                throw new RuntimeError("Could not find field 'modifiers'");
+            } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
+                throw new RuntimeError("Error while finding field 'modifiers'", e);
+            }
+        }
+        return modifiers;
     }
 }
