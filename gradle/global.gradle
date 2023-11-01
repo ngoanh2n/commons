@@ -8,7 +8,7 @@ ext {
             jackson          : { -> return "2.15.3" },
             commonIO         : { -> return "2.15.0" },
             snakeYaml        : { -> return "2.2" },
-            commonLang3      : { -> return "3.12.0" },
+            commonLang3      : { -> return "3.13.0" },
             juniversalChardet: { -> return "2.4.0" },
             selenium         : { -> return "4.10.0" },
             jupiter          : { -> return "5.9.3" },
