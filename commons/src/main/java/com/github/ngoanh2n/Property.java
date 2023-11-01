@@ -21,8 +21,8 @@ public class Property<T> {
     private final String name;
     private final Class<T> type;
     private final T initialValue;
-    private T value;
     private final T defaultValue;
+    private T value;
     private boolean reassigned;
 
     //-------------------------------------------------------------------------------//
@@ -223,7 +223,7 @@ public class Property<T> {
         }
         if (valueInSystem != null) {
             if (value == null) {
-                if (defaultValue != null){
+                if (defaultValue != null) {
                     return defaultValue;
                 }
             }

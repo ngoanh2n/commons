@@ -18,6 +18,10 @@ public class PropertiesFileTest {
     private static final String PROP_VALUE3 = "PropertyValue3";
     private static final String PROP_VALUE4 = "PropertyValue4";
 
+    enum TestEnum {
+        ENUM1, ENUM2;
+    }
+
     @Nested
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
     class WithoutFile {
@@ -186,10 +190,6 @@ public class PropertiesFileTest {
         void cleanup() {
             System.clearProperty(PROP_NAME4);
         }
-    }
-
-    enum TestEnum {
-        ENUM1, ENUM2;
     }
 }
 
