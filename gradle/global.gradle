@@ -1,0 +1,17 @@
+/**
+ * Author: ngoanh2n
+ */
+ext {
+    versions = [
+            slf4j            : { -> return "2.0.7" },
+            guava            : { -> return "32.1.1-jre" },
+            jackson          : { -> return "2.15.2" },
+            commonIO         : { -> return "2.13.0" },
+            snakeYaml        : { -> return "2.0" },
+            commonLang3      : { -> return "3.12.0" },
+            juniversalChardet: { -> return "2.4.0" },
+            selenium         : { -> return "4.10.0" },
+            jupiter          : { -> return "5.9.3" },
+            testng           : { -> return "7.8.0" },
+    ]
+}
