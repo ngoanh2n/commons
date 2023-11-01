@@ -3,8 +3,8 @@
  */
 dependencies {
     api(project(":commons"))
-    implementation("org.testng:testng:$versionTestNG")
-    implementation("org.seleniumhq.selenium:selenium-remote-driver:$versionSelenium")
+    implementation("org.testng:testng:$versions.testng")
+    implementation("org.seleniumhq.selenium:selenium-remote-driver:$versions.selenium")
 }
 
 test {
