@@ -12,6 +12,6 @@ ext {
             juniversalChardet: { -> return "2.4.0" },
             selenium         : { -> return "4.16.1" },
             jupiter          : { -> return "5.10.1" },
-            testng           : { -> return "7.8.0" },
+            testng           : { -> return "7.9.0" },
     ]
 }
