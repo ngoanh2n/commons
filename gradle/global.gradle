@@ -3,7 +3,7 @@
  */
 ext {
     versions = [
-            slf4j            : { -> return "2.0.9" },
+            slf4j            : { -> return "2.0.10" },
             guava            : { -> return "32.1.3-jre" },
             jackson          : { -> return "2.15.3" },
             commonIO         : { -> return "2.15.0" },
