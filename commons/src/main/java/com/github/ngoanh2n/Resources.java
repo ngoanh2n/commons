@@ -162,7 +162,6 @@ public final class Resources {
 
                 if (file != null) {
                     if (file.exists()) {
-                        log.debug(msg);
                         return file;
                     }
                 }
@@ -222,7 +221,7 @@ public final class Resources {
 
         private void validateResourceName() {
             Preconditions.checkNotNull(name, "Resource name cannot be null");
-            Preconditions.checkArgument(name.trim().length() > 0, "Resource name cannot be empty");
+            Preconditions.checkArgument(!name.trim().isEmpty(), "Resource name cannot be empty");
         }
     }
 }
