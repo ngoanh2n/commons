@@ -10,7 +10,7 @@ ext {
             snakeYaml        : { -> return "2.2" },
             commonLang3      : { -> return "3.14.0" },
             juniversalChardet: { -> return "2.4.0" },
-            selenium         : { -> return "4.14.1" },
+            selenium         : { -> return "4.16.1" },
             jupiter          : { -> return "5.10.0" },
             testng           : { -> return "7.8.0" },
     ]
