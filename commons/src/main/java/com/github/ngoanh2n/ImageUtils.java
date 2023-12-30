@@ -11,10 +11,9 @@ import java.io.IOException;
 /**
  * Utils for image process.<br><br>
  *
- * <em>Repository:</em>
  * <ul>
- *     <li><em>GitHub: <a href="https://github.com/ngoanh2n/webdrivershooter">ngoanh2n/webdrivershooter</a></em></li>
- *     <li><em>Maven: <a href="https://mvnrepository.com/artifact/com.github.ngoanh2n/webdrivershooter">com.github.ngoanh2n:webdrivershooter</a></em></li>
+ *     <li><em>GitHub: <a href="https://github.com/ngoanh2n/commons">ngoanh2n/commons</a></em></li>
+ *     <li><em>Maven: <a href="https://mvnrepository.com/artifact/com.github.ngoanh2n/commons">com.github.ngoanh2n:commons</a></em></li>
  * </ul>
  *
  * @author ngoanh2n
@@ -27,7 +26,7 @@ public class ImageUtils {
      * @param size The dimension for new {@link BufferedImage}.
      * @return The {@link BufferedImage}.
      */
-    public static BufferedImage create(com.github.ngoanh2n.wds.Dimension size) {
+    public static BufferedImage create(Dimension size) {
         int w = size.getWidth();
         int h = size.getHeight();
         int t = BufferedImage.TYPE_INT_ARGB;
@@ -43,7 +42,7 @@ public class ImageUtils {
     public static BufferedImage create(BufferedImage image) {
         int w = image.getWidth();
         int h = image.getHeight();
-        com.github.ngoanh2n.wds.Dimension size = new com.github.ngoanh2n.wds.Dimension(w, h);
+        Dimension size = new Dimension(w, h);
         return ImageUtils.create(image, size);
     }
 
@@ -54,9 +53,9 @@ public class ImageUtils {
      * @param size  The dimension for new {@link BufferedImage}.
      * @return The {@link BufferedImage}.
      */
-    public static BufferedImage create(BufferedImage image, com.github.ngoanh2n.wds.Dimension size) {
+    public static BufferedImage create(BufferedImage image, Dimension size) {
         BufferedImage nImage = ImageUtils.create(size);
-        ImageUtils.drawArea(nImage, image, new com.github.ngoanh2n.wds.Point(0, 0));
+        ImageUtils.drawArea(nImage, image, new Point(0, 0));
         return nImage;
     }
 
@@ -82,13 +81,13 @@ public class ImageUtils {
      * @param rect  The bounding rectangle against source image.
      * @return The new {@link BufferedImage} after cropped.
      */
-    public static BufferedImage crop(BufferedImage image, com.github.ngoanh2n.wds.Rectangle rect) {
+    public static BufferedImage crop(BufferedImage image, Rectangle rect) {
         int x = rect.getX();
         int y = rect.getY();
         int w = rect.getWidth();
         int h = rect.getHeight();
 
-        com.github.ngoanh2n.wds.Dimension cSize = new com.github.ngoanh2n.wds.Dimension(w, h);
+        Dimension cSize = new Dimension(w, h);
         BufferedImage cImage = ImageUtils.create(cSize);
         Graphics graphics = cImage.getGraphics();
         graphics.drawImage(image, 0, 0, w, h, x, y, w + x, h + y, null);
@@ -103,7 +102,7 @@ public class ImageUtils {
      * @param area     The sub image to draw over source image.
      * @param location The specific location as starting point.
      */
-    public static void drawArea(BufferedImage image, BufferedImage area, com.github.ngoanh2n.wds.Point location) {
+    public static void drawArea(BufferedImage image, BufferedImage area, Point location) {
         int x = location.getX();
         int y = location.getY();
         Graphics graphics = image.getGraphics();

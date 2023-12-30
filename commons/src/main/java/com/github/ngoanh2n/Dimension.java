@@ -1,4 +1,4 @@
-package com.github.ngoanh2n.wds;
+package com.github.ngoanh2n;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 
@@ -9,8 +9,8 @@ import javax.annotation.ParametersAreNonnullByDefault;
  *
  * <em>Repository:</em>
  * <ul>
- *     <li><em>GitHub: <a href="https://github.com/ngoanh2n/webdrivershooter">ngoanh2n/webdrivershooter</a></em></li>
- *     <li><em>Maven: <a href="https://mvnrepository.com/artifact/com.github.ngoanh2n/webdrivershooter">com.github.ngoanh2n:webdrivershooter</a></em></li>
+ *     <li><em>GitHub: <a href="https://github.com/ngoanh2n/commons">ngoanh2n/commons</a></em></li>
+ *     <li><em>Maven: <a href="https://mvnrepository.com/artifact/com.github.ngoanh2n/commons">com.github.ngoanh2n:commons</a></em></li>
  * </ul>
  *
  * @author ngoanh2n

@@ -1,4 +1,4 @@
-package com.github.ngoanh2n.wds;
+package com.github.ngoanh2n;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 
@@ -9,8 +9,8 @@ import javax.annotation.ParametersAreNonnullByDefault;
  *
  * <em>Repository:</em>
  * <ul>
- *     <li><em>GitHub: <a href="https://github.com/ngoanh2n/webdrivershooter">ngoanh2n/webdrivershooter</a></em></li>
- *     <li><em>Maven: <a href="https://mvnrepository.com/artifact/com.github.ngoanh2n/webdrivershooter">com.github.ngoanh2n:webdrivershooter</a></em></li>
+ *     <li><em>GitHub: <a href="https://github.com/ngoanh2n/commons">ngoanh2n/commons</a></em></li>
+ *     <li><em>Maven: <a href="https://mvnrepository.com/artifact/com.github.ngoanh2n/commons">com.github.ngoanh2n:commons</a></em></li>
  * </ul>
  *
  * @author ngoanh2n
@@ -19,16 +19,16 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @CanIgnoreReturnValue
 @ParametersAreNonnullByDefault
 public class Rectangle {
-    private com.github.ngoanh2n.wds.Point point;
-    private com.github.ngoanh2n.wds.Dimension dimension;
+    private Point point;
+    private Dimension dimension;
 
     /**
      * Construct a new {@link Rectangle} by location {@code 0:0} and size {@code d}.
      *
      * @param dimension The size of the newly constructed {@code Rectangle}.
      */
-    public Rectangle(com.github.ngoanh2n.wds.Dimension dimension) {
-        this(new com.github.ngoanh2n.wds.Point(), dimension);
+    public Rectangle(Dimension dimension) {
+        this(new Point(), dimension);
     }
 
     /**
@@ -37,7 +37,7 @@ public class Rectangle {
      * @param point     The position of the newly constructed {@code Rectangle}.
      * @param dimension The size of the newly constructed {@code Rectangle}.
      */
-    public Rectangle(com.github.ngoanh2n.wds.Point point, com.github.ngoanh2n.wds.Dimension dimension) {
+    public Rectangle(Point point, Dimension dimension) {
         this(point.getX(), point.getY(), dimension.getWidth(), dimension.getHeight());
     }
 
@@ -50,8 +50,8 @@ public class Rectangle {
      * @param h The height of the newly constructed {@code Dimension}.
      */
     public Rectangle(int x, int y, int w, int h) {
-        this.point = new com.github.ngoanh2n.wds.Point(x, y);
-        this.dimension = new com.github.ngoanh2n.wds.Dimension(w, h);
+        this.point = new Point(x, y);
+        this.dimension = new Dimension(w, h);
     }
 
     //-------------------------------------------------------------------------------//
@@ -97,7 +97,7 @@ public class Rectangle {
      *
      * @return The location of this {@code Rectangle}.
      */
-    public com.github.ngoanh2n.wds.Point getLocation() {
+    public Point getLocation() {
         return point;
     }
 
@@ -106,7 +106,7 @@ public class Rectangle {
      *
      * @param value The new value for this {@code Rectangle}.
      */
-    public void setLocation(com.github.ngoanh2n.wds.Point value) {
+    public void setLocation(Point value) {
         this.point = value;
     }
 
@@ -115,7 +115,7 @@ public class Rectangle {
      *
      * @return The size of this {@code Rectangle}.
      */
-    public com.github.ngoanh2n.wds.Dimension getSize() {
+    public Dimension getSize() {
         return dimension;
     }
 
@@ -124,7 +124,7 @@ public class Rectangle {
      *
      * @param value The new size for this {@code Rectangle}.
      */
-    public void setSize(com.github.ngoanh2n.wds.Dimension value) {
+    public void setSize(Dimension value) {
         this.dimension = value;
     }
 
