@@ -24,6 +24,9 @@ public class Dimension {
 
     /**
      * Construct a new {@link Dimension} by {@code w}, {@code h}.
+     *
+     * @param w The width of this {@code Dimension}.
+     * @param h The height of this {@code Dimension}.
      */
     public Dimension(int w, int h) {
         this.w = w;
@@ -32,6 +35,8 @@ public class Dimension {
 
     /**
      * Construct a new {@link Dimension} by other {@link Dimension}.
+     *
+     * @param other The source {@code Dimension}.
      */
     public Dimension(Dimension other) {
         this(other.w, other.h);
@@ -52,9 +57,11 @@ public class Dimension {
      * Set width for this {@code Dimension}.
      *
      * @param w The new width for this {@code Dimension}.
+     * @return This {@code Dimension}.
      */
-    public void setWidth(int w) {
+    public Dimension setWidth(int w) {
         this.w = w;
+        return this;
     }
 
     /**
@@ -70,45 +77,55 @@ public class Dimension {
      * Set height for this {@code Dimension}.
      *
      * @param h The new height for this {@code Dimension}.
+     * @return This {@code Dimension}.
      */
-    public void setHeight(int h) {
+    public Dimension setHeight(int h) {
         this.h = h;
+        return this;
     }
 
     /**
      * Increase width for this {@code Dimension} by {@code value}.
      *
      * @param value The value to be added to width of this {@code Dimension}.
+     * @return This {@code Dimension}.
      */
-    public void incW(int value) {
+    public Dimension incW(int value) {
         w += value;
+        return this;
     }
 
     /**
      * Decrease width for this {@code Dimension} by {@code value}.
      *
      * @param value The value to be subtracted to width of this {@code Dimension}.
+     * @return This {@code Dimension}.
      */
-    public void decW(int value) {
+    public Dimension decW(int value) {
         w -= value;
+        return this;
     }
 
     /**
      * Increase height for this {@code Dimension} by {@code value}.
      *
      * @param value The value to be added to height of this {@code Dimension}.
+     * @return This {@code Dimension}.
      */
-    public void incH(int value) {
+    public Dimension incH(int value) {
         h += value;
+        return this;
     }
 
     /**
      * Decrease height for this {@code Dimension} by {@code value}.
      *
      * @param value The value to be subtracted to height of this {@code Dimension}.
+     * @return This {@code Dimension}.
      */
-    public void decH(int value) {
+    public Dimension decH(int value) {
         h -= value;
+        return this;
     }
 
     /**

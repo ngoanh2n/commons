@@ -105,9 +105,11 @@ public class Rectangle {
      * Set value for this {@code Rectangle}.
      *
      * @param value The new value for this {@code Rectangle}.
+     * @return This {@code Rectangle}.
      */
-    public void setLocation(Point value) {
+    public Rectangle setLocation(Point value) {
         this.point = value;
+        return this;
     }
 
     /**
@@ -123,9 +125,11 @@ public class Rectangle {
      * Set size for this {@code Rectangle}.
      *
      * @param value The new size for this {@code Rectangle}.
+     * @return This {@code Rectangle}.
      */
-    public void setSize(Dimension value) {
+    public Rectangle setSize(Dimension value) {
         this.dimension = value;
+        return this;
     }
 
     /**

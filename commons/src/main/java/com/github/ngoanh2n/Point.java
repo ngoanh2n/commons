@@ -43,6 +43,8 @@ public class Point {
 
     /**
      * Construct a new {@link Point} by other {@link Point}.
+     *
+     * @param other The source {@code Point}.
      */
     public Point(Point other) {
         this(other.x, other.y);
@@ -63,6 +65,7 @@ public class Point {
      * Set X coordinate for this {@code Point}.
      *
      * @param x The new X coordinate for this {@code Point}.
+     * @return This {@code Point}.
      */
     public Point setX(int x) {
         this.x = x;
@@ -82,6 +85,7 @@ public class Point {
      * Set Y coordinate for this {@code Point}.
      *
      * @param y The new X coordinate for this {@code Point}.
+     * @return This {@code Point}.
      */
     public Point setY(int y) {
         this.y = y;
@@ -92,6 +96,7 @@ public class Point {
      * Increase X coordinate for this {@code Point} by {@code value}.
      *
      * @param value The value to be added to X coordinate of this {@code Point}.
+     * @return This {@code Point}.
      */
     public Point incX(int value) {
         x += value;
@@ -102,6 +107,7 @@ public class Point {
      * Decrease X coordinate for this {@code Point} by {@code value}.
      *
      * @param value The value to be subtracted to X coordinate of this {@code Point}.
+     * @return This {@code Point}.
      */
     public Point decX(int value) {
         x -= value;
@@ -112,6 +118,7 @@ public class Point {
      * Increase Y coordinate for this {@code Point} by {@code value}.
      *
      * @param value The value to be added to Y coordinate of this {@code Point}.
+     * @return This {@code Point}.
      */
     public Point incY(int value) {
         y += value;
@@ -122,6 +129,7 @@ public class Point {
      * Decrease Y coordinate for this {@code Point} by {@code value}.
      *
      * @param value The value to be subtracted to Y coordinate of this {@code Point}.
+     * @return This {@code Point}.
      */
     public Point decY(int value) {
         y -= value;
