@@ -6,7 +6,7 @@ ext {
             slf4j            : { -> return "2.0.10" },
             guava            : { -> return "33.0.0-jre" },
             jackson          : { -> return "2.16.1" },
-            commonIO         : { -> return "2.15.0" },
+            commonIO         : { -> return "2.15.1" },
             snakeYaml        : { -> return "2.2" },
             commonLang3      : { -> return "3.13.0" },
             juniversalChardet: { -> return "2.4.0" },
