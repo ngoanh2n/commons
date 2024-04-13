@@ -113,11 +113,13 @@ public final class Commons {
      * @return output file.
      */
     public static File writeProps(Properties props, File file) {
-        createDir(file.toPath());
+        createDir(file.toPath().getParent());
         String msg = String.format("Write Properties to %s", getRelative(file));
 
         try (OutputStream os = Files.newOutputStream(file.toPath())) {
-            props.store(os, null);
+            SortedProperties propsSorted = new SortedProperties();
+            propsSorted.putAll(props);
+            propsSorted.store(os, null);
         } catch (IOException e) {
             log.error(msg);
             throw new RuntimeError(msg, e);
@@ -256,7 +258,7 @@ public final class Commons {
         String msg = msgFieldAccess(target.getClass(), name, "Write");
         List<Field> fieldList = Arrays.stream(FieldUtils.getAllFields(target.getClass()))
                 .filter(field -> field.getName().equals(name))
-                .collect(Collectors.toList());
+                .toList();
 
         for (Field field : fieldList) {
             field.setAccessible(true);
