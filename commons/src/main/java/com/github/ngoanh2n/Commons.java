@@ -124,7 +124,6 @@ public final class Commons {
             log.error(msg);
             throw new RuntimeError(msg, e);
         }
-        log.debug(msg);
         return file;
     }
 
@@ -158,7 +157,6 @@ public final class Commons {
             log.error(msg);
             throw new RuntimeError(msg, e);
         }
-        log.debug(msg);
         return props;
     }
 
@@ -300,7 +298,7 @@ public final class Commons {
         String msg = msgFieldAccess(target, name, "Write");
         List<Field> fields = Arrays.stream(FieldUtils.getAllFields(target))
                 .filter(field -> field.getName().equals(name))
-                .collect(Collectors.toList());
+                .toList();
 
         for (Field field : fields) {
             field.setAccessible(true);
