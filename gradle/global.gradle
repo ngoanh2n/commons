@@ -4,7 +4,7 @@
 ext {
     versions = [
             slf4j            : { -> return "2.0.12" },
-            guava            : { -> return "33.0.0-jre" },
+            guava            : { -> return "33.1.0-jre" },
             jackson          : { -> return "2.16.1" },
             commonIO         : { -> return "2.15.1" },
             snakeYaml        : { -> return "2.2" },
