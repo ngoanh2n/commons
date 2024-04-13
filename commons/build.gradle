@@ -5,7 +5,7 @@ dependencies {
     api("org.slf4j:slf4j-api:$versions.slf4j")
     api("com.google.guava:guava:$versions.guava")
     api("org.yaml:snakeyaml:$versions.snakeYaml")
-    api("commons-io:commons-io:$versions.commonIO")
+    api("commons-io:commons-io:$versions.commonsIO")
     api("org.apache.commons:commons-lang3:$versions.commonLang3")
     api("com.fasterxml.jackson.core:jackson-databind:$versions.jackson")
     api("com.github.albfernandez:juniversalchardet:$versions.juniversalChardet")
