@@ -13,6 +13,6 @@ ext {
 
             selenium         : { -> return "4.19.1" },
             jupiter          : { -> return "5.10.2" },
-            testng           : { -> return "7.9.0" },
+            testng           : { -> return "7.10.1" },
     ]
 }
