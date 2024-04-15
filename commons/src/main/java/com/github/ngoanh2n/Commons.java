@@ -19,7 +19,6 @@ import java.nio.file.Paths;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Common helpers.<br><br>
@@ -69,12 +68,28 @@ public final class Commons {
      */
     @SuppressWarnings("ResultOfMethodCallIgnored")
     public static Path createDir(@Nonnull Path path) {
-        Iterator<Path> elements = path.iterator();
-        Path parentElement = Paths.get("");
+        Path parent;
+        Iterator<Path> childrenIt;
 
-        while (elements.hasNext()) {
-            parentElement = parentElement.resolve(elements.next());
-            parentElement.toFile().mkdirs();
+        if (!path.isAbsolute()) {
+            parent = Paths.get("");
+            childrenIt = path.iterator();
+        } else {
+            parent = path;
+            LinkedList<Path> children = new LinkedList<>();
+
+            while (!parent.toFile().exists()) {
+                Path child = parent.getParent().relativize(parent);
+                children.addFirst(child);
+                parent = parent.getParent();
+            }
+            childrenIt = children.iterator();
+        }
+
+        while (childrenIt.hasNext()) {
+            Path child = childrenIt.next();
+            parent = parent.resolve(child);
+            parent.toFile().mkdirs();
         }
         return path;
     }
