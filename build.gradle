@@ -3,7 +3,7 @@
  */
 buildscript {
     apply {
-        from(file("gradle/global.gradle"))
+//        from(file("gradle/global.gradle"))
         from(file("gradle/helpers.gradle"))
     }
 }
@@ -11,7 +11,7 @@ buildscript {
 ext {
     // Development Versions
     slf4jVersion        = "2.0.12"
-    guavaVersion        = "33.1.0-jre"
+    guavaVersion        = "33.0.0-jre"
     jacksonVersion      = "2.17.0"
     commonsIOVerion     = "2.16.0"
     snakeYamlVersion    = "2.1"
@@ -20,8 +20,8 @@ ext {
 
     // Testing Versions
     seleniumVersion     = "4.19.1"
-    jupiterVersion      = "5.10.2"
-    testngVersion       = "7.10.1"
+    jupiterVersion      = "5.10.0"
+    testngVersion       = "7.10.0"
 }
 
 allprojects {
