@@ -2,7 +2,7 @@
  * Author: ngoanh2n
  */
 dependencies {
-    api("org.slf4j:slf4j-api:$versions.slf4j")
+    api("org.slf4j:slf4j-api:2.0.12")
     api("com.google.guava:guava:$versions.guava")
     api("org.yaml:snakeyaml:$versions.snakeYaml")
     api("commons-io:commons-io:$versions.commonsIO")
