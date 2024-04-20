@@ -2,6 +2,7 @@
  * Author: ngoanh2n
  */
 ext {
+    slf4jVersion = "2.0.12"
     versions = [
             slf4j            : { -> return "2.0.12" },
             guava            : { -> return "33.1.0-jre" },
