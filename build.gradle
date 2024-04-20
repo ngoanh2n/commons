@@ -6,6 +6,8 @@ buildscript {
         from(file("gradle/global.gradle"))
         from(file("gradle/helpers.gradle"))
     }
+
+    apply from: 'gradle/global.gradle'
 }
 
 allprojects {
