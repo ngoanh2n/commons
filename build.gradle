@@ -14,7 +14,7 @@ ext {
     guavaVersion        = "33.1.0-jre"
     jacksonVersion      = "2.17.0"
     commonsIOVerion     = "2.16.0"
-    snakeYamlVersion    = "2.1"
+    snakeYamlVersion    = "2.2"
     commonsLang3Verion  = "3.14.0"
     chardetVerion       = "2.4.0"
 
