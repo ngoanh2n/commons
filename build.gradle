@@ -20,7 +20,7 @@ ext {
 
     // Testing Versions
     seleniumVersion     = "4.19.1"
-    jupiterVersion      = "5.10.0"
+    jupiterVersion      = "5.10.2"
     testngVersion       = "7.10.0"
 }
 
