@@ -1,6 +1,22 @@
 /**
  * Author: ngoanh2n
  */
+ext {
+    // Development Versions
+    slf4jVersion        = "2.0.12"
+    guavaVersion        = "33.1.0-jre"
+    jacksonVersion      = "2.17.0"
+    commonsIOVerion     = "2.16.0"
+    snakeYamlVersion    = "2.2"
+    commonsLang3Verion  = "3.14.0"
+    chardetVerion       = "2.4.0"
+
+    // Testing Versions
+    seleniumVersion     = "4.19.1"
+    jupiterVersion      = "5.10.2"
+    testngVersion       = "7.10.1"
+}
+
 dependencies {
     api("org.slf4j:slf4j-api:$slf4jVersion")
     api("com.google.guava:guava:$guavaVersion")
