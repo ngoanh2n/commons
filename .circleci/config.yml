@@ -58,7 +58,7 @@ workflows:
           name: <<matrix.os>>
           filters:
             branches:
-              only: master
+              only: demo
           matrix:
             parameters:
               os:
