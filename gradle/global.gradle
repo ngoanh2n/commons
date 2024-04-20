@@ -2,18 +2,32 @@
  * Author: ngoanh2n
  */
 ext {
-    slf4jVersion = "2.0.12"
-    versions = [
-            slf4j            : { -> return "2.0.12" },
-            guava            : { -> return "33.1.0-jre" },
-            jackson          : { -> return "2.17.0" },
-            commonsIO        : { -> return "2.16.1" },
-            snakeYaml        : { -> return "2.2" },
-            commonsLang3     : { -> return "3.14.0" },
-            juniversalChardet: { -> return "2.4.0" },
+    // Development Versions
+    slf4jVersion        = "2.0.12"
+    guavaVersion        = "33.1.0-jre"
+    jacksonVersion      = "2.17.0"
+    commonsIOVerion     = "2.16.0"
+    snakeYamlVersion    = "2.2"
+    commonsLang3Verion  = "3.14.0"
+    chardetVerion       = "2.4.0"
 
-            selenium         : { -> return "4.19.1" },
-            jupiter          : { -> return "5.10.2" },
-            testng           : { -> return "7.10.1" },
-    ]
+    // Testing Versions
+    seleniumVersion     = "4.19.1"
+    jupiterVersion      = "5.10.2"
+    testngVersion       = "7.10.1"
 }
+//ext {
+//    // Development Versions
+//    slf4jVersion        = "2.0.12"
+//    guavaVersion        = "33.1.0-jre"
+//    jacksonVersion      = "2.17.0"
+//    commonsIOVerion     = "2.16.1"
+//    snakeYamlVersion    = "2.2"
+//    commonsLang3Verion  = "3.14.0"
+//    chardetVerion       = "2.4.0"
+//
+//    // Testing Versions
+//    seleniumVersion     = "4.19.1"
+//    jupiterVersion      = "5.10.2"
+//    testngVersion       = "7.10.1"
+//}

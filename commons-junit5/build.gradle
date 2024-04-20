@@ -3,8 +3,8 @@
  */
 dependencies {
     api(project(":commons"))
-    implementation("org.junit.jupiter:junit-jupiter:$versions.jupiter")
-    implementation("org.seleniumhq.selenium:selenium-remote-driver:$versions.selenium")
+    implementation("org.junit.jupiter:junit-jupiter:$jupiterVersion")
+    implementation("org.seleniumhq.selenium:selenium-remote-driver:$seleniumVersion")
 }
 
 apply { from(config.test) }
