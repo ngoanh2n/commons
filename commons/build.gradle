@@ -2,17 +2,17 @@
  * Author: ngoanh2n
  */
 dependencies {
-    api("org.slf4j:slf4j-api:$versions.slf4j")
-    api("com.google.guava:guava:$versions.guava")
-    api("org.yaml:snakeyaml:$versions.snakeYaml")
-    api("commons-io:commons-io:$versions.commonsIO")
-    api("org.apache.commons:commons-lang3:$versions.commonsLang3")
-    api("com.fasterxml.jackson.core:jackson-databind:$versions.jackson")
-    api("com.github.albfernandez:juniversalchardet:$versions.juniversalChardet")
+    api(libs.slf4j.api)
+    api(libs.guava)
+    api(libs.snakeyaml)
+    api(libs.commons.io)
+    api(libs.commons.lang3)
+    api(libs.jackson.databind)
+    api(libs.juniversalchardet)
 
-    testImplementation("org.junit.jupiter:junit-jupiter-api:$versions.jupiter")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$versions.jupiter")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    testImplementation(libs.junit.jupiter.api)
+    testRuntimeOnly(libs.junit.jupiter.engine)
+    testRuntimeOnly(libs.junit.platform.launcher)
 }
 
 apply { from(config.test) }

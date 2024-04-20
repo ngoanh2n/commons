@@ -2,5 +2,5 @@
  * Author: ngoanh2n
  */
 dependencies {
-    testImplementation("org.slf4j:slf4j-log4j12:$versions.slf4j")
+    testImplementation(libs.slf4j.log4j12)
 }

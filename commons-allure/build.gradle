@@ -4,9 +4,9 @@
 dependencies {
     api(project(":commons"))
 
-    testImplementation("org.junit.jupiter:junit-jupiter-api:$versions.jupiter")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$versions.jupiter")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    testImplementation(libs.junit.jupiter.api)
+    testRuntimeOnly(libs.junit.jupiter.engine)
+    testRuntimeOnly(libs.junit.platform.launcher)
 }
 
 apply { from(config.test) }
