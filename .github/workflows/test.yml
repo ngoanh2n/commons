@@ -3,7 +3,7 @@
 ### https://docs.github.com/en/actions
 ### https://github.com/marketplace?type=actions
 ###
-name: Run Tests
+name: Build and Run the tests
 on:
   push:
     branches:
@@ -12,6 +12,26 @@ on:
     types: [opened, review_requested]
 
 jobs:
+  build:
+    defaults:
+      run:
+        shell: bash
+    name: Build
+    runs-on: windows-latest
+
+    steps:
+      - name: "[Prepare] Checkout"
+        uses: actions/checkout@v4
+
+      - name: "[Prepare] Setup JDK"
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: "[Build] Execute"
+        run: ./gradlew clean build
+
   test:
     defaults:
       run:
@@ -48,7 +68,7 @@ jobs:
   automerge:
     name: Auto Merge PR from Dependabot
     if: ${{ github.actor == 'dependabot[bot]' }}
-    needs: [test]
+    needs: [build]
     timeout-minutes: 10
     runs-on: ubuntu-latest
     permissions:
