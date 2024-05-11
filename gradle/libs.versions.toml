@@ -12,7 +12,7 @@ juniversalchardet = "2.4.0"
 junit-jupiter     = "5.10.2"
 junit-platform    = "1.10.2"
 selenium          = "4.19.1"
-testng            = "7.10.1"
+testng            = "7.10.2"
 
 [libraries]
 slf4j-api               = { group = "org.slf4j",                  name = "slf4j-api",               version.ref = "slf4j"             }
