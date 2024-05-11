@@ -3,7 +3,7 @@
 ### https://docs.github.com/en/actions
 ### https://github.com/marketplace?type=actions
 ###
-name: Build and Run the tests
+name: Build and Test
 on:
   push:
     branches:
