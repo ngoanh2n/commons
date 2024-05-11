@@ -4,8 +4,8 @@
 dependencies {
     api(project(":commons"))
 
-    implementation(libs.testng)
     implementation(libs.selenium.remote.driver)
+    implementation(libs.testng)
 }
 
 test {

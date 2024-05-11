@@ -9,10 +9,10 @@ commons-io        = "2.16.1"
 commons-lang3     = "3.14.0"
 jackson-databind  = "2.17.1"
 juniversalchardet = "2.4.0"
-junit-jupiter     = "5.10.2"
-junit-platform    = "1.10.2"
 selenium          = "4.20.0"
 testng            = "7.10.2"
+junit-jupiter     = "5.10.2"
+junit-platform    = "1.10.2"
 
 [libraries]
 slf4j-api               = { group = "org.slf4j",                  name = "slf4j-api",               version.ref = "slf4j"             }
@@ -23,9 +23,9 @@ commons-io              = { group = "commons-io",                 name = "common
 commons-lang3           = { group = "org.apache.commons",         name = "commons-lang3",           version.ref = "commons-lang3"     }
 jackson-databind        = { group = "com.fasterxml.jackson.core", name = "jackson-databind",        version.ref = "jackson-databind"  }
 juniversalchardet       = { group = "com.github.albfernandez",    name = "juniversalchardet",       version.ref = "juniversalchardet" }
+selenium-remote-driver  = { group = "org.seleniumhq.selenium",    name = "selenium-remote-driver",  version.ref = "selenium"          }
+testng                  = { group = "org.testng",                 name = "testng",                  version.ref = "testng"            }
 junit-jupiter           = { group = "org.junit.jupiter",          name = "junit-jupiter",           version.ref = "junit-jupiter"     }
 junit-jupiter-api       = { group = "org.junit.jupiter",          name = "junit-jupiter-api",       version.ref = "junit-jupiter"     }
 junit-jupiter-engine    = { group = "org.junit.jupiter",          name = "junit-jupiter-engine",    version.ref = "junit-jupiter"     }
 junit-platform-launcher = { group = "org.junit.platform",         name = "junit-platform-launcher", version.ref = "junit-platform"    }
-testng                  = { group = "org.testng",                 name = "testng",                  version.ref = "testng"            }
-selenium-remote-driver  = { group = "org.seleniumhq.selenium",    name = "selenium-remote-driver",  version.ref = "selenium"          }
