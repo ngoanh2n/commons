@@ -38,7 +38,7 @@ jobs:
         shell: bash
     strategy:
       matrix:
-        os: [macos-latest, linux-latest, windows-latest]
+        os: [macos-latest, windows-latest]
         java_version: [17, 21]
     name: ${{ matrix.os }}_java${{ matrix.java_version }}
     runs-on: ${{ matrix.os }}
