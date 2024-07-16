@@ -21,7 +21,7 @@
 ## Gradle
 Add to `build.gradle`.
 ```gradle
-implementation("com.github.ngoanh2n:commons-junit5:1.5.1")
+implementation("com.github.ngoanh2n:commons-junit5:1.6.0")
 ```
 
 ## Maven
@@ -30,7 +30,7 @@ Add to `pom.xml`.
 <dependency>
     <groupId>com.github.ngoanh2n</groupId>
     <artifactId>commons-junit5</artifactId>
-    <version>1.5.1</version>
+    <version>1.6.0</version>
 </dependency>
 ```
 
