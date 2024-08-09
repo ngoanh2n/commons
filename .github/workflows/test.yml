@@ -3,32 +3,13 @@
 ### https://docs.github.com/en/actions
 ### https://github.com/marketplace?type=actions
 ###
-name: Build and Test
+name: Test
 on:
   push:
-    branches:
-      - master
+    branches: [develop]
   pull_request:
     types: [opened, review_requested]
-
 jobs:
-  build:
-    defaults:
-      run:
-        shell: bash
-    name: Build
-    runs-on: ubuntu-latest
-    steps:
-      - name: "[Prepare] Checkout"
-        uses: actions/checkout@v4
-      - name: "[Prepare] Setup JDK"
-        uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: 17
-      - name: "[Build] Execute"
-        run: ./gradlew clean build
-
   test:
     defaults:
       run:
@@ -36,7 +17,7 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
-        java_version: [17, 21]
+        java_version: [17]
     name: ${{ matrix.os }}_java${{ matrix.java_version }}
     runs-on: ${{ matrix.os }}
     env:
@@ -57,20 +38,3 @@ jobs:
         with:
           check_name: JUnit ${{ env.MATRIX_JOB_NAME }}
           report_paths: build/reports/test/TEST-*.xml
-
-  automerge:
-    name: Auto Merge PR from Dependabot
-    if: ${{ github.actor == 'dependabot[bot]' }}
-    needs: [build]
-    timeout-minutes: 10
-    runs-on: ubuntu-latest
-    permissions:
-      pull-requests: write
-      contents: write
-    steps:
-      - name: Merge PR from Dependabot
-        uses: fastify/github-action-merge-dependabot@v3.10.1
-        with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
-          target: minor
-          merge-method: rebase
