@@ -6,9 +6,7 @@
 name: Test
 on:
   push:
-    branches: [develop]
-  pull_request:
-    types: [opened, review_requested]
+    branches: [release]
 jobs:
   test:
     defaults:
@@ -16,12 +14,15 @@ jobs:
         shell: bash
     strategy:
       matrix:
-        os: [macos-latest, windows-latest]
-        java_version: [17]
-    name: ${{ matrix.os }}_java${{ matrix.java_version }}
+        os:
+          - windows-latest
+          - ubuntu-latest
+          - macos-latest
+        jdk: [17, 11, 8]
+    name: ${{ matrix.os }}_java${{ matrix.jdk }}
     runs-on: ${{ matrix.os }}
     env:
-      MATRIX_JOB_NAME: ${{ matrix.os }}_java${{ matrix.java_version }}
+      MATRIX_JOB_NAME: ${{ matrix.os }}_java${{ matrix.jdk }}
     steps:
       - name: "[Prepare] Checkout"
         uses: actions/checkout@v4
@@ -29,7 +30,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: ${{ matrix.java_version }}
+          java-version: ${{ matrix.jdk }}
       - name: "[Test] Execute"
         run: ./gradlew clean test
       - if: success() || failure()
