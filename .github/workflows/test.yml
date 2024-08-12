@@ -6,7 +6,7 @@
 name: Test
 on:
   push:
-    branches: [release]
+    branches: [ release ]
 jobs:
   test:
     defaults:

@@ -6,12 +6,14 @@
 name: Build
 on:
   pull_request:
-    types: [opened, review_requested]
+    types: [ opened, review_requested ]
 jobs:
   test:
     defaults:
       run:
         shell: bash
+    permissions:
+      checks: write
     name: ubuntu-latest_java17
     runs-on: ubuntu-latest
     steps:
