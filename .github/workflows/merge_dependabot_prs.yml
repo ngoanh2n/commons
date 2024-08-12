@@ -13,8 +13,8 @@ jobs:
   merge_pr:
     if: ${{ github.actor == 'dependabot[bot]' }}
     name: Merge dependabot PR
-    timeout-minutes: 10
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     permissions:
       pull-requests: write
       contents: write

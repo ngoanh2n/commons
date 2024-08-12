@@ -9,13 +9,13 @@ on:
     types: [ opened, review_requested ]
 jobs:
   test:
+    name: ubuntu-jdk17
+    runs-on: ubuntu-latest
     defaults:
       run:
         shell: bash
     permissions:
       checks: write
-    name: ubuntu-latest_java17
-    runs-on: ubuntu-latest
     steps:
       - name: "[Prepare] Checkout"
         uses: actions/checkout@v4
@@ -30,5 +30,5 @@ jobs:
         name: "[Report] JUnit report"
         uses: mikepenz/action-junit-report@v4
         with:
-          check_name: JUnit ubuntu-latest_java17
+          check_name: report-ubuntu-jdk17
           report_paths: build/reports/test/TEST-*.xml
