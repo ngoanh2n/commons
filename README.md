@@ -1,11 +1,8 @@
-[![GitHub forks](https://img.shields.io/github/forks/ngoanh2n/commons.svg?style=social&label=Fork&maxAge=2592000)](https://github.com/ngoanh2n/commons/network/members/)
-[![GitHub stars](https://img.shields.io/github/stars/ngoanh2n/commons.svg?style=social&label=Star&maxAge=2592000)](https://github.com/ngoanh2n/commons/stargazers/)
-[![GitHub watchers](https://img.shields.io/github/watchers/ngoanh2n/commons.svg?style=social&label=Watch&maxAge=2592000)](https://github.com/ngoanh2n/commons/watchers/)
-
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.ngoanh2n/commons/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.ngoanh2n/commons)
-[![javadoc](https://javadoc.io/badge2/com.github.ngoanh2n/commons/javadoc.svg)](https://javadoc.io/doc/com.github.ngoanh2n/commons)
-[![badge-jdk](https://img.shields.io/badge/jdk-17-blue.svg)](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blueviolet.svg)](https://opensource.org/licenses/MIT)
+[![GitHub Actions](https://img.shields.io/github/actions/workflow/status/ngoanh2n/commons/build.yml?logo=github&label=GitHub%20Actions)](https://github.com/ngoanh2n/commons/actions/workflows/build.yml)
+[![CircleCI](https://img.shields.io/circleci/build/github/ngoanh2n/commons?logo=circleci&label=CircleCI&color=%23343434)](https://dl.circleci.com/status-badge/redirect/gh/ngoanh2n/commons/tree/master)
+[![Maven](https://img.shields.io/maven-central/v/com.github.ngoanh2n/commons?label=Maven&color=%23276BC0)](https://mvnrepository.com/artifact/com.github.ngoanh2n/commons/1.6.0)
+[![Java](https://img.shields.io/badge/Java-17-orange)](https://adoptium.net)
+[![License](https://img.shields.io/badge/License-MIT-blueviolet.svg)](https://opensource.org/licenses/MIT)
 
 **Table of Contents**
 <!-- TOC -->
@@ -24,7 +21,7 @@
 ## Gradle
 Add dependency to `build.gradle`.
 ```gradle
-implementation("com.github.ngoanh2n:commons:1.6.0")
+implementation("com.github.ngoanh2n:commons:1.7.0")
 ```
 
 ## Maven
@@ -33,7 +30,7 @@ Add dependency to `pom.xml`.
 <dependency>
   <groupId>com.github.ngoanh2n</groupId>
   <artifactId>commons</artifactId>
-  <version>1.6.0</version>
+  <version>1.7.0</version>
 </dependency>
 ```
 
