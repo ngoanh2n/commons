@@ -1,5 +1,6 @@
 [![GitHub Actions](https://img.shields.io/github/actions/workflow/status/ngoanh2n/commons/build.yml?logo=github&label=GitHub%20Actions)](https://github.com/ngoanh2n/commons/actions/workflows/build.yml)
-[![CircleCI](https://img.shields.io/circleci/build/github/ngoanh2n/commons?logo=circleci&label=CircleCI&color=%23343434)](https://dl.circleci.com/status-badge/redirect/gh/ngoanh2n/commons/tree/master)
+[![CircleCI](https://img.shields.io/circleci/build/github/ngoanh2n/commons?token=CCIPRJ_V9AVYTzVyEF9A9GMsVD9oF_2ce0fb3410ce42dfee9d8d854bae69d56f206df6&logo=circleci&label=CircleCI)
+](https://dl.circleci.com/status-badge/redirect/gh/ngoanh2n/commons/tree/master)
 [![Maven](https://img.shields.io/maven-central/v/com.github.ngoanh2n/commons?label=Maven&color=%23276BC0)](https://mvnrepository.com/artifact/com.github.ngoanh2n/commons/1.6.0)
 [![Java](https://img.shields.io/badge/Java-17-orange)](https://adoptium.net)
 [![License](https://img.shields.io/badge/License-MIT-blueviolet.svg)](https://opensource.org/licenses/MIT)
