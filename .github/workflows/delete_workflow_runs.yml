@@ -6,7 +6,7 @@
 name: Workflow Runs Deletion
 on:
   schedule:
-    - cron: 0 2 * * 1
+    - cron: 0 23 * * 1
   workflow_dispatch:
 jobs:
   del_runs:
