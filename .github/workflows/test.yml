@@ -9,7 +9,7 @@ on:
     branches: [ release ]
 jobs:
   test:
-    name: ${{ matrix.os }}-jdk${{ matrix.jdk }}
+    name: ${{ matrix.os }}
     runs-on: ${{ matrix.os }}-latest
     defaults:
       run:
@@ -20,7 +20,7 @@ jobs:
         os: [ ubuntu, macos, windows ]
         jdk: [ 17 ]
     env:
-      JUNIT_REPORT_NAME: report-${{ matrix.os }}-jdk${{ matrix.jdk }}
+      JUNIT_REPORT_NAME: report-${{ matrix.os }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4

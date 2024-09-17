@@ -6,7 +6,7 @@
 name: Workflow Runs Deletion
 on:
   schedule:
-    - cron: "0 2 * * 1"
+    - cron: 0 2 * * 1
 jobs:
   del_runs:
     runs-on: ubuntu-latest
