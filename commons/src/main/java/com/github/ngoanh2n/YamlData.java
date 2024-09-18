@@ -176,7 +176,7 @@ import java.util.*;
  * @since 2019
  */
 @SuppressWarnings("unchecked")
-public abstract class YamlData<Model> {
+public abstract class YamlData<Model extends YamlData<Model>> {
     private InputStream _inputStream;
     private Class<Model> _modelClazz;
 
@@ -415,6 +415,34 @@ public abstract class YamlData<Model> {
         return models;
     }
 
+    /**
+     * @see #toModel()
+     */
+    public <M> M caskModel() {
+        return (M) toModel();
+    }
+
+    /**
+     * @see #toModel(Charset)
+     */
+    public <M> M caskModel(Charset cs) {
+        return (M) toModel(cs);
+    }
+
+    /**
+     * @see #toModels()
+     */
+    public <M> List<M> caskModels() {
+        return (List<M>) toModels();
+    }
+
+    /**
+     * @see #toModels(Charset)
+     */
+    public <M> List<M> caskModels(Charset cs) {
+        return (List<M>) toModels(cs);
+    }
+
     //-------------------------------------------------------------------------------//
 
     private Class<Model> getModelClazz() {
@@ -422,21 +450,22 @@ public abstract class YamlData<Model> {
             if (getClass().getName().equals(YamlData.class.getName())) {
                 throw new RuntimeError("Could not read YamlData without model");
             } else {
-                // Current model is generic
+                String modelName;
                 Type superType = getClass().getGenericSuperclass();
-                Type paramType = ((ParameterizedType) superType).getActualTypeArguments()[0];
 
                 try {
-                    if (paramType.toString().split(" ").length > 1) {
-                        // Specific model
-                        String modelName = paramType.toString().split(" ")[1];
-                        _modelClazz = (Class<Model>) Class.forName(modelName);
+                    if (!(superType instanceof ParameterizedType paramType)) {
+                        modelName = getClass().getName();
                     } else {
-                        // Generic model
-                        TypeVariable<?> varType = ((TypeVariable<?>) paramType);
-                        String modelName = varType.getGenericDeclaration().toString().split(" ")[1];
-                        _modelClazz = (Class<Model>) Class.forName(modelName);
+                        Type type = paramType.getActualTypeArguments()[0];
+                        if (type.toString().split(" ").length > 1) {
+                            modelName = type.toString().split(" ")[1];
+                        } else {
+                            TypeVariable<?> varType = ((TypeVariable<?>) type);
+                            modelName = varType.getGenericDeclaration().toString().split(" ")[1];
+                        }
                     }
+                    _modelClazz = (Class<Model>) Class.forName(modelName);
                 } catch (ClassNotFoundException e) {
                     throw new RuntimeError("Could not find model class", e);
                 }
