@@ -10,7 +10,7 @@ import java.io.File;
  */
 public class AllureEnvironmentTest {
     @Test
-    public void test() {
+    public void resources() {
         AllureEnvironment.write("allure.properties", "log4j.properties");
 
         File file = new File("build/allure-results/environment.properties");
