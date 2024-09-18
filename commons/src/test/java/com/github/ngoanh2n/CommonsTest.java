@@ -41,6 +41,8 @@ public class CommonsTest {
         Assertions.assertEquals(ASSIGNED_VALUE, value3);
     }
 
+    //-------------------------------------------------------------------------------//
+
     static class ParentClass {
         private final static String field3 = DEFAULT_VALUE;
         private final String field1 = DEFAULT_VALUE;
